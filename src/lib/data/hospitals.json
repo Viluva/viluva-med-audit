@@ -1,0 +1,1973 @@
+[
+    {
+        "sno_": 1,
+        "city_name": "Hyderabad",
+        "hospital_name": "AAYUSH NRI LEPL HEALTHCARE PVT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "Vijayawada",
+        "facilities": ""
+    },
+    {
+        "sno_": 2,
+        "city_name": "Hyderabad",
+        "hospital_name": "ADITYA HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 3,
+        "city_name": "Hyderabad",
+        "hospital_name": "AMARAVATHI DENTAL HOSPITAL",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 4,
+        "city_name": "Hyderabad",
+        "hospital_name": "AMERICAN ONCOLOGY INSTITUTE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 5,
+        "city_name": "Hyderabad",
+        "hospital_name": "American Oncology Institute A unit of Cancer Treatment Services Hyderabad Pvt. Ltd",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 6,
+        "city_name": "Hyderabad",
+        "hospital_name": "AMOR HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 7,
+        "city_name": "Hyderabad",
+        "hospital_name": "Anand Eye Institute Pvt Ltd",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 8,
+        "city_name": "Hyderabad",
+        "hospital_name": "ANASUYA INSTITUTE OF MEDICAL SCIENCES",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "NELLORE",
+        "facilities": ""
+    },
+    {
+        "sno_": 9,
+        "city_name": "Hyderabad",
+        "hospital_name": "ANIL NEURO & TRAUMA CENTRE PVT LTD",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 10,
+        "city_name": "Hyderabad",
+        "hospital_name": "APOLLO DRDO HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 11,
+        "city_name": "Hyderabad",
+        "hospital_name": "APOLLO HOSPITALS EDUCTATIONAL AND RESEARCH FOUNDATION",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 12,
+        "city_name": "Hyderabad",
+        "hospital_name": "APOLLO HOSPITALS HYDERGUDA",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 13,
+        "city_name": "Hyderabad",
+        "hospital_name": "APOLLO HOSPITALS SECUNDERABAD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 14,
+        "city_name": "Hyderabad",
+        "hospital_name": "APOLLO SPECTRA HOSPITAL A UNIT OF NANO HOSPITALS PRIVATE LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 15,
+        "city_name": "Hyderabad",
+        "hospital_name": "APPLE DENTAL",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 3",
+        "address": "RAJHAMUNDRY",
+        "facilities": ""
+    },
+    {
+        "sno_": 16,
+        "city_name": "Hyderabad",
+        "hospital_name": "APPLE DENTAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "NELLORE",
+        "facilities": ""
+    },
+    {
+        "sno_": 17,
+        "city_name": "Hyderabad",
+        "hospital_name": "APPLE DENTAL CARE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 18,
+        "city_name": "Hyderabad",
+        "hospital_name": "APPLE INTERNATIONAL DENTAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 19,
+        "city_name": "Hyderabad",
+        "hospital_name": "APPLE INTERNATIONAL DENTAL HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 20,
+        "city_name": "Hyderabad",
+        "hospital_name": "ARAVIND EYE HOSPITAL PRIVATE LIMITED",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 1",
+        "address": "Hyderabad",
+        "facilities": ""
+    },
+    {
+        "sno_": 21,
+        "city_name": "Hyderabad",
+        "hospital_name": "ARUN KIDNEY CENTRE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 22,
+        "city_name": "Hyderabad",
+        "hospital_name": "ASIAN VASCULAR HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 23,
+        "city_name": "Hyderabad",
+        "hospital_name": "Aster Prime Hospital A Unit of Sri Sainatha Multispeciality Hospitals Pvt Ltd",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 24,
+        "city_name": "Hyderabad",
+        "hospital_name": "ASVINS HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 25,
+        "city_name": "Hyderabad",
+        "hospital_name": "AVS WELLNESS HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 26,
+        "city_name": "Hyderabad",
+        "hospital_name": "AYAAN EYE HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 27,
+        "city_name": "Hyderabad",
+        "hospital_name": "BASAVATARAKAM INDO AMERICAN CANCER HOSPITAL & RESEARCH INSTITUTE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 28,
+        "city_name": "Hyderabad",
+        "hospital_name": "BEST VISION EYE HOSPITAL A UNIT OF SRI NAYANA EYE HOSPITAL PVT LTD",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 29,
+        "city_name": "Hyderabad",
+        "hospital_name": "BMR HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 30,
+        "city_name": "Hyderabad",
+        "hospital_name": "Brinda Neuro Centre",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 31,
+        "city_name": "Hyderabad",
+        "hospital_name": "CARE HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 32,
+        "city_name": "Hyderabad",
+        "hospital_name": "CARE HOSPITALS BANJARA HILL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 33,
+        "city_name": "Hyderabad",
+        "hospital_name": "CARE HOSPITALS HITECH CITY",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 34,
+        "city_name": "Hyderabad",
+        "hospital_name": "CARE HOSPITALS MALAKPET A UNIT OF QUALITY CARE INDIA LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 35,
+        "city_name": "Hyderabad",
+        "hospital_name": "CARE Hosptials Nampally",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 36,
+        "city_name": "Hyderabad",
+        "hospital_name": "C C SHROFF MEMORIAL HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 37,
+        "city_name": "Hyderabad",
+        "hospital_name": "CENTRE FOR SIGHT HYDERABAD A UNIT OF NEW DELHI CENTRE FOR SIGHT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 38,
+        "city_name": "Hyderabad",
+        "hospital_name": "CENTRE FOR SIGHT KUKATPALLY A UNIT OF NEW DELHI CENTRE FOR SIGHT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 39,
+        "city_name": "Hyderabad",
+        "hospital_name": "Centre for Sight Vijayawada A Unit of New Delhi Centre for Sight Ltd",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 40,
+        "city_name": "Hyderabad",
+        "hospital_name": "Chaitanya Cardiac Centre",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 41,
+        "city_name": "Hyderabad",
+        "hospital_name": "CHAITANYA EYE HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 42,
+        "city_name": "Hyderabad",
+        "hospital_name": "Citizens Specialty Hospital",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 43,
+        "city_name": "Hyderabad",
+        "hospital_name": "Continental Hospitals Private Limited",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 44,
+        "city_name": "Hyderabad",
+        "hospital_name": "DOLPHIN DIAGNOSTIC SERVICES",
+        "accreditation": "NON NABL",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 45,
+        "city_name": "Hyderabad",
+        "hospital_name": "DRAGARWALS EYE HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 46,
+        "city_name": "Hyderabad",
+        "hospital_name": "DR AGARWALS EYE HOSPITAL- GUNTUR",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 47,
+        "city_name": "Hyderabad",
+        "hospital_name": "DR AGARWALS EYE HOSPITAL- NELLORE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "NELLORE",
+        "facilities": ""
+    },
+    {
+        "sno_": 48,
+        "city_name": "Hyderabad",
+        "hospital_name": "DR AGARWAL S EYE HOSPITAL - PANJAGUTTA",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 49,
+        "city_name": "Hyderabad",
+        "hospital_name": "DR AGARWALS EYE HOSPITRAL-RAJAJHUMDRY",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 3",
+        "address": "RAJHAMUNDRY",
+        "facilities": ""
+    },
+    {
+        "sno_": 50,
+        "city_name": "Hyderabad",
+        "hospital_name": "DR ANUS DENTAL CARE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 51,
+        "city_name": "Hyderabad",
+        "hospital_name": "DRISHTI EYE CARE CENTRE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 52,
+        "city_name": "Hyderabad",
+        "hospital_name": "DRISHTI EYE CARE CENTRE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 53,
+        "city_name": "Hyderabad",
+        "hospital_name": "Dr.Kirans Eye Hospitals Pvt Ltd",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 54,
+        "city_name": "Hyderabad",
+        "hospital_name": "Dr.Radhika Multi Specialty Hospitals Pvt. Ltd.",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 55,
+        "city_name": "Hyderabad",
+        "hospital_name": "DR RAMANARAJUS VISION TREE SUPERSPECIALITY EYE CARE CENTRE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 56,
+        "city_name": "Hyderabad",
+        "hospital_name": "Dr Ramesh Cardiac and Multispeciality Hospital PvtLtd",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "Vijayawada",
+        "facilities": ""
+    },
+    {
+        "sno_": 57,
+        "city_name": "Hyderabad",
+        "hospital_name": "Dr Shiva Nagini Yalavarthi Multi Speciality Dental Clinc",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 58,
+        "city_name": "Hyderabad",
+        "hospital_name": "Enel Hospitals",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "NELLORE",
+        "facilities": ""
+    },
+    {
+        "sno_": 59,
+        "city_name": "Hyderabad",
+        "hospital_name": "GAYATRI VIDYA PARISHAD INSTITUTE OF HEALH CARE AND MEDICAL TECHNOLOGY",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 60,
+        "city_name": "Hyderabad",
+        "hospital_name": "GEMCARE PULOMI HOSPITALS (A UNIT OF GEMCARE HOSPITALS PVT LTD)",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 61,
+        "city_name": "Hyderabad",
+        "hospital_name": "Gleneagles AWARE Hospital",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 62,
+        "city_name": "Hyderabad",
+        "hospital_name": "Gleneagles Global Hospital",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 63,
+        "city_name": "Hyderabad",
+        "hospital_name": "GLOBAL DENT DENTAL HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 64,
+        "city_name": "Hyderabad",
+        "hospital_name": "GURUNANAK CARE HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 65,
+        "city_name": "Hyderabad",
+        "hospital_name": "HARNI DENTAL/HARNI HEALTH CARE",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 66,
+        "city_name": "Hyderabad",
+        "hospital_name": "HCG CURIE CITY CANCER CENTRE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 67,
+        "city_name": "Hyderabad",
+        "hospital_name": "HCG PINNACLE CANCER CENTRE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 68,
+        "city_name": "Hyderabad",
+        "hospital_name": "HIGH SIGHT SUPER SPECILAITY EYE HOSPITAL A UNIT OF AARNI EYE HOSPITALS PRIVATE LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 69,
+        "city_name": "Hyderabad",
+        "hospital_name": "HIMAGIRI HOSPITALS PVT LTD",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 70,
+        "city_name": "Hyderabad",
+        "hospital_name": "INDUS HOSPITALS UNIT OF VASUGAN MEDICALS SPECIALI",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 71,
+        "city_name": "Hyderabad",
+        "hospital_name": "KALYANI DENTAL HOSPITAL AND IMPLANT CENTRE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 72,
+        "city_name": "Hyderabad",
+        "hospital_name": "Kamineni Health Services Pvt Ltd",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 73,
+        "city_name": "Hyderabad",
+        "hospital_name": "KAMINENI HOSPITALS PRIVATE LIMITED",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 74,
+        "city_name": "Hyderabad",
+        "hospital_name": "Kanakadurga Hospital a unit of Dr k b chowdary healthcare providers",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 75,
+        "city_name": "Hyderabad",
+        "hospital_name": "KIMS HOSPITAL ENTERPRISES PVT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 76,
+        "city_name": "Hyderabad",
+        "hospital_name": "KIMS ICON HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 77,
+        "city_name": "Hyderabad",
+        "hospital_name": "KRISHNA INSTITUTE OF MEDICAL SCIENCES LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 78,
+        "city_name": "Hyderabad",
+        "hospital_name": "Lalitha Super Speciality Hospital P Ltd",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 79,
+        "city_name": "Hyderabad",
+        "hospital_name": "MAA HOSPITALS PRIVATE LIMITED",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 80,
+        "city_name": "Hyderabad",
+        "hospital_name": "Mahatma Gandhi Cancer Hospital and Research Institute",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 81,
+        "city_name": "Hyderabad",
+        "hospital_name": "MALATAMBA DENTAL HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 82,
+        "city_name": "Hyderabad",
+        "hospital_name": "MALLAREDDY NARAYANA MULTISPECIALITY HOSPITAS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 83,
+        "city_name": "Hyderabad",
+        "hospital_name": "Mamata Academy of Medical Sciences Hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 84,
+        "city_name": "Hyderabad",
+        "hospital_name": "MAXIVISION EYE HOSPITAL PRIVATE LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 85,
+        "city_name": "Hyderabad",
+        "hospital_name": "MAXIVISION EYE HOSPITALS PRIVATE LIMITED",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 86,
+        "city_name": "Hyderabad",
+        "hospital_name": "MAXIVISION EYE HOSPITALS PRIVATE LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 87,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDICARE SUPER SPECIALITY HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 88,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDICOVER CANCER INSTITUTE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "Hyderabad",
+        "facilities": ""
+    },
+    {
+        "sno_": 89,
+        "city_name": "Hyderabad",
+        "hospital_name": "Medicover Hospitals",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 90,
+        "city_name": "Hyderabad",
+        "hospital_name": "Medicover Hospitals",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 91,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDICOVER HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 92,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDICOVER HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 93,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDICOVER HOSPITALS BEGUMPET",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 94,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDICOVER HOSPITALS CHANDANAGAR",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 95,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDICOVER HOSPITALS UNIT : ABHAYANJANEYA HEALTH",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "NELLORE",
+        "facilities": ""
+    },
+    {
+        "sno_": 96,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDICOVER HOSPITALS VENKOJIPALEM",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 97,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDIVISION EYE AND HEALTHCARE CENTRE PVT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 98,
+        "city_name": "Hyderabad",
+        "hospital_name": "MEDIVISTA EYE CARE CENTREUNIT OF SUDHA HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 99,
+        "city_name": "Hyderabad",
+        "hospital_name": "MODERN EYE HOSPITAL AND RESEARCH CENTRE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "NELLORE",
+        "facilities": ""
+    },
+    {
+        "sno_": 100,
+        "city_name": "Hyderabad",
+        "hospital_name": "M S REDDY LIONS EYE HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 101,
+        "city_name": "Hyderabad",
+        "hospital_name": "M/s. SHANMUKHA VAISHNAVI HOSPITALS PVT., LTD.,",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 102,
+        "city_name": "Hyderabad",
+        "hospital_name": "MYTHRI HOSPITAL MEHDIPATNAM",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 103,
+        "city_name": "Hyderabad",
+        "hospital_name": "NEORETINA EYECARE INSTITUTE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 104,
+        "city_name": "Hyderabad",
+        "hospital_name": "NEO VISION EYE CARE AND LASER CENTRE PVT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 105,
+        "city_name": "Hyderabad",
+        "hospital_name": "NETHRA EYE INSTITUTE A UNIT OF SOWRYA HOSPITALS",
+        "accreditation": "Non-NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 106,
+        "city_name": "Hyderabad",
+        "hospital_name": "NEW LIFELINE MULTISPECIALITY HOSPITAL PVT LTD",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 107,
+        "city_name": "Hyderabad",
+        "hospital_name": "Nikhil hospitals",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 108,
+        "city_name": "Hyderabad",
+        "hospital_name": "Nikhil Hospitals",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 109,
+        "city_name": "Hyderabad",
+        "hospital_name": "NUHA HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 110,
+        "city_name": "Hyderabad",
+        "hospital_name": "OMEGA HOSPITALS",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 111,
+        "city_name": "Hyderabad",
+        "hospital_name": "OMEGA HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 112,
+        "city_name": "Hyderabad",
+        "hospital_name": "OMEGA HOSPITALS  A UNIT OF HYDERABAD INSTITUTE OF ONCOLOGY",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 113,
+        "city_name": "Hyderabad",
+        "hospital_name": "OMNI HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "Hyderabad",
+        "facilities": ""
+    },
+    {
+        "sno_": 114,
+        "city_name": "Hyderabad",
+        "hospital_name": "OMNI HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 115,
+        "city_name": "Hyderabad",
+        "hospital_name": "OZONE HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 116,
+        "city_name": "Hyderabad",
+        "hospital_name": "PACE HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 117,
+        "city_name": "Hyderabad",
+        "hospital_name": "PADMAJA HOSPITAL MULTI SPECIALITY SERVICE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 118,
+        "city_name": "Hyderabad",
+        "hospital_name": "PANACEA MERIDIAN HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 119,
+        "city_name": "Hyderabad",
+        "hospital_name": "Pinnacle Hospitals India Pvt Ltd",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 120,
+        "city_name": "Hyderabad",
+        "hospital_name": "PRAGNA HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 121,
+        "city_name": "Hyderabad",
+        "hospital_name": "PRASAD HOSPITALS (UNIT OF UNITED BIO SCIENCES PVT.LTD)",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 122,
+        "city_name": "Hyderabad",
+        "hospital_name": "Prathima Hospitals   a unit of Mamatha Medicare Private Limited",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "Hyderabad",
+        "facilities": ""
+    },
+    {
+        "sno_": 123,
+        "city_name": "Hyderabad",
+        "hospital_name": "PRATHIMA HOSPITALS  A unit of Sri Sai Balaji Health Care India Private Limited",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 124,
+        "city_name": "Hyderabad",
+        "hospital_name": "Pratyusha Dental Hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 125,
+        "city_name": "Hyderabad",
+        "hospital_name": "Praveen hospitals",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 126,
+        "city_name": "Hyderabad",
+        "hospital_name": "Prime Retina Eye Care Centre",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 127,
+        "city_name": "Hyderabad",
+        "hospital_name": "Prime Retina Eye Care Centre",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 128,
+        "city_name": "Hyderabad",
+        "hospital_name": "PRK HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 129,
+        "city_name": "Hyderabad",
+        "hospital_name": "PUSHPAGIRI EYE INSTITUTE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 130,
+        "city_name": "Hyderabad",
+        "hospital_name": "Q1 HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 131,
+        "city_name": "Hyderabad",
+        "hospital_name": "QUEENS NRI HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 132,
+        "city_name": "Hyderabad",
+        "hospital_name": "QULAITYCARE INDIA LTD CARE Hospital Visakhapatnam",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 133,
+        "city_name": "Hyderabad",
+        "hospital_name": "RAGHAVENDRA HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 134,
+        "city_name": "Hyderabad",
+        "hospital_name": "Raju Neuro & Multi Specialty Hospital",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 3",
+        "address": "RAJHAMUNDRY",
+        "facilities": ""
+    },
+    {
+        "sno_": 135,
+        "city_name": "Hyderabad",
+        "hospital_name": "Ramdevrao Hospitals",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 136,
+        "city_name": "Hyderabad",
+        "hospital_name": "RAVI HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 137,
+        "city_name": "Hyderabad",
+        "hospital_name": "REMEDY HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 138,
+        "city_name": "Hyderabad",
+        "hospital_name": "RENOVA CENTURY HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 139,
+        "city_name": "Hyderabad",
+        "hospital_name": "Renova Hospitals",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 140,
+        "city_name": "Hyderabad",
+        "hospital_name": "RENOVA HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 141,
+        "city_name": "Hyderabad",
+        "hospital_name": "Renova Neelima Hospital",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 142,
+        "city_name": "Hyderabad",
+        "hospital_name": "Renova NIGL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 143,
+        "city_name": "Hyderabad",
+        "hospital_name": "Renova Soumya cancer center",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 144,
+        "city_name": "Hyderabad",
+        "hospital_name": "Rishab Eye Care Centres Pvt Ltd",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 145,
+        "city_name": "Hyderabad",
+        "hospital_name": "RV SUPERSPECIALITY EYE CARE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 146,
+        "city_name": "Hyderabad",
+        "hospital_name": "Sai Godavari Super Speciality Hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 147,
+        "city_name": "Hyderabad",
+        "hospital_name": "SAI JYOTHI EYE INSTITUTE-MARREDPALLY",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 148,
+        "city_name": "Hyderabad",
+        "hospital_name": "SAI SANJEEVINI HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 149,
+        "city_name": "Hyderabad",
+        "hospital_name": "SAMISHTA HOSPITAL AND RESEARCH INSTITUTE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 150,
+        "city_name": "Hyderabad",
+        "hospital_name": "SANKAR FOUNDATION EYE HOSPITAL And INSTITUTE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 151,
+        "city_name": "Hyderabad",
+        "hospital_name": "SATHYA DIAGNOSTIC CENTRE",
+        "accreditation": "NABL",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 152,
+        "city_name": "Hyderabad",
+        "hospital_name": "SATHYA KIDNEY CENTRE And SUPER SPECIALITY HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 153,
+        "city_name": "Hyderabad",
+        "hospital_name": "SEASONS HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 154,
+        "city_name": "Hyderabad",
+        "hospital_name": "SECUNDERABAD DIAGNOSTIC and RESEARCH CENTRE",
+        "accreditation": "NABL",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 155,
+        "city_name": "Hyderabad",
+        "hospital_name": "SevenHills Healthcare Private Limited",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 156,
+        "city_name": "Hyderabad",
+        "hospital_name": "SHISHIRA HOSPITALS PRIVATE LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 157,
+        "city_name": "Hyderabad",
+        "hospital_name": "Shiva Hospitals",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 158,
+        "city_name": "Hyderabad",
+        "hospital_name": "Sidarth Hospitals A Unit of Uma Gowri Hospital P Ltd",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 159,
+        "city_name": "Hyderabad",
+        "hospital_name": "SLG HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 160,
+        "city_name": "Hyderabad",
+        "hospital_name": "Smart Vision Eye Specialities Private Limited",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 161,
+        "city_name": "Hyderabad",
+        "hospital_name": "Smile and Shine Dental",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 162,
+        "city_name": "Hyderabad",
+        "hospital_name": "SMILE DENTAL CLINICS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 163,
+        "city_name": "Hyderabad",
+        "hospital_name": "SMILE SUPER SPECIALITY DENTAL HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "NELLORE",
+        "facilities": ""
+    },
+    {
+        "sno_": 164,
+        "city_name": "Hyderabad",
+        "hospital_name": "SOLIS EYE CARE HOSPITALS PVT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 165,
+        "city_name": "Hyderabad",
+        "hospital_name": "Spashta Eye Hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 166,
+        "city_name": "Hyderabad",
+        "hospital_name": "Sree Gayatri Superspeciality Cancer Hospital Pvt Ltd",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 167,
+        "city_name": "Hyderabad",
+        "hospital_name": "SREE NETRALAYA EYE HOSPITAL AND LASER CENTRE PVT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 168,
+        "city_name": "Hyderabad",
+        "hospital_name": "SREE SHIRIDI SAI 4DS DENTAL AND POLY CLINIC",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 169,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRESHTASRIKAMALAHOPSITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 170,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRI BHAVANI HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 171,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRIKARA HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 172,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRIKARA HOSPITALS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 173,
+        "city_name": "Hyderabad",
+        "hospital_name": "Srikara Hospitals Miyapur",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 174,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRI MAHALAXMI MAXIVISION EYE HOSPITAL PVT LTD",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 175,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRINIDHI MULTISPECIALITY DENTAL HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 176,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRI SAI NETHRALAYA EYE HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 177,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRI SAIRAM DENTAL HOSPITAL & IMPLANT CENTRE",
+        "accreditation": "Non NABH",
+        "tier_type": "Tier 3",
+        "address": "RAJHAMUNDRY",
+        "facilities": ""
+    },
+    {
+        "sno_": 178,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRI SHANKARA NETHRALAYA",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 179,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRI SRI HOLISTIC HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "Hyderabad",
+        "facilities": ""
+    },
+    {
+        "sno_": 180,
+        "city_name": "Hyderabad",
+        "hospital_name": "SRI SRI HOLISTIC HOSPITALS",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 181,
+        "city_name": "Hyderabad",
+        "hospital_name": "Sri Visista Super Speciality Ayurveda",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 182,
+        "city_name": "Hyderabad",
+        "hospital_name": "S S Dental Hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 183,
+        "city_name": "Hyderabad",
+        "hospital_name": "STAR HOSPITALS A UNIT OF UNIMED HEALTH CARE PRIVATE LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 184,
+        "city_name": "Hyderabad",
+        "hospital_name": "Sunrise Hospitals",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 185,
+        "city_name": "Hyderabad",
+        "hospital_name": "SUNSHINE HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 186,
+        "city_name": "Hyderabad",
+        "hospital_name": "Swarna Scans",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 187,
+        "city_name": "Hyderabad",
+        "hospital_name": "Swarup Eye Centre",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 188,
+        "city_name": "Hyderabad",
+        "hospital_name": "Swarup Eye Centre",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 189,
+        "city_name": "Hyderabad",
+        "hospital_name": "TESLA DIAGNOSTICS",
+        "accreditation": "NABL",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 190,
+        "city_name": "Hyderabad",
+        "hospital_name": "THE DECCAN HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 191,
+        "city_name": "Hyderabad",
+        "hospital_name": "TOPSTARS HOSPITALS PRIVATE LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 192,
+        "city_name": "Hyderabad",
+        "hospital_name": "TREATMENT RANGE HOSPITAL PVT LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 193,
+        "city_name": "Hyderabad",
+        "hospital_name": "Trust Hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 194,
+        "city_name": "Hyderabad",
+        "hospital_name": "TX HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 195,
+        "city_name": "Hyderabad",
+        "hospital_name": "TX HOSPITAL BANJARA HILLS",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 196,
+        "city_name": "Hyderabad",
+        "hospital_name": "TX HOSPITAL UPPAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 197,
+        "city_name": "Hyderabad",
+        "hospital_name": "UDAI OMNI HOSPITALS  PRIVATE   LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 198,
+        "city_name": "Hyderabad",
+        "hospital_name": "USHA MULLAPUDI CARDIAC CENTRE",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 199,
+        "city_name": "Hyderabad",
+        "hospital_name": "vasan health care pvt ltd",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "GUNTUR",
+        "facilities": ""
+    },
+    {
+        "sno_": 200,
+        "city_name": "Hyderabad",
+        "hospital_name": "vasan health care pvt ltd",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 201,
+        "city_name": "Hyderabad",
+        "hospital_name": "vasan health care pvt ltd",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 202,
+        "city_name": "Hyderabad",
+        "hospital_name": "vasan health care pvt ltd",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "NELLORE",
+        "facilities": ""
+    },
+    {
+        "sno_": 203,
+        "city_name": "Hyderabad",
+        "hospital_name": "vasan health care pvt. ltd.",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 204,
+        "city_name": "Hyderabad",
+        "hospital_name": "VASAVI HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 205,
+        "city_name": "Hyderabad",
+        "hospital_name": "VASCULAR CARE CENTER",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 206,
+        "city_name": "Hyderabad",
+        "hospital_name": "VIJAYA DIAGNOSTIC CENTRE LIMITED",
+        "accreditation": "NABL",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 207,
+        "city_name": "Hyderabad",
+        "hospital_name": "VIJAYA DIAGNOSTIC CENTRE PVT LTD - VISAKHAPATNAM",
+        "accreditation": "NABL",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 208,
+        "city_name": "Hyderabad",
+        "hospital_name": "VIJAYA DIAGNOSTICS CENTRE PVT LTD",
+        "accreditation": "NABL",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 209,
+        "city_name": "Hyderabad",
+        "hospital_name": "VIJAYA HEALTH CARE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 210,
+        "city_name": "Hyderabad",
+        "hospital_name": "Vijaya Super Speciality Hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VIJAYAWADA",
+        "facilities": ""
+    },
+    {
+        "sno_": 211,
+        "city_name": "Hyderabad",
+        "hospital_name": "VIMSVisakha Institute of Medical Sciences",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 212,
+        "city_name": "Hyderabad",
+        "hospital_name": "Virinchi Hospital",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 213,
+        "city_name": "Hyderabad",
+        "hospital_name": "VISAKHA EYE HOSPITAL",
+        "accreditation": "NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 214,
+        "city_name": "Hyderabad",
+        "hospital_name": "Vivekanada hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 215,
+        "city_name": "Hyderabad",
+        "hospital_name": "VRINDAA SUPER SPECIALITY HOSPITAL AND CANCER RESEARCH CENTRE",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 2",
+        "address": "VISAKHAPATNAM",
+        "facilities": ""
+    },
+    {
+        "sno_": 216,
+        "city_name": "Hyderabad",
+        "hospital_name": "VR Multi Speciality Hospital",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 217,
+        "city_name": "Hyderabad",
+        "hospital_name": "WIN VISION EYE HOSPITALS PVT LTD",
+        "accreditation": "NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 218,
+        "city_name": "Hyderabad",
+        "hospital_name": "ZOI HEALTH PRIVATE LIMITED",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    },
+    {
+        "sno_": 219,
+        "city_name": "Hyderabad",
+        "hospital_name": "ZOI HOSPITAL",
+        "accreditation": "NON NABH",
+        "tier_type": "Tier 1",
+        "address": "HYDERABAD",
+        "facilities": ""
+    }
+]
