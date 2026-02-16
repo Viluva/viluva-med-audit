@@ -81,7 +81,7 @@ export default function Verdict({ procedure, hospital }: VerdictProps) {
         <div className="mt-6">
           {priceDifference > 0 ? (
             <div className="p-4 rounded-lg bg-red-100 text-red-800 text-center">
-              <p className="font-bold text-lg">You might be overpaying!</p>
+              <p className="font-bold text-lg">You are overpaying!</p>
             </div>
           ) : priceDifference < 0 ? (
             <div className="p-4 rounded-lg bg-green-100 text-green-800 text-center">

@@ -115,7 +115,6 @@ export default function Home() {
           ) : (
             <div>
               <div className="flex justify-between items-center mb-4">
-                4
                 <h2 className="text-2xl font-semibold text-gray-700">
                   Step 3: See the Verdict
                 </h2>

@@ -7,6 +7,12 @@ const tierMap: { [key: string]: string } = {
   'Tier 1': 'I',
   'Tier 2': 'II',
   'Tier 3': 'III',
+  'TIER 1': 'I',
+  'TIER 2': 'II',
+  'TIER 3': 'III',
+  'tier 1': 'I',
+  'tier 2': 'II',
+  'tier 3': 'III',
 };
 
 export async function GET(request: NextRequest) {
@@ -20,7 +26,7 @@ export async function GET(request: NextRequest) {
 
   const romanTier = tierMap[tier];
   if (!romanTier) {
-    return NextResponse.json({ error: 'Invalid tier' }, { status: 400 });
+    return NextResponse.json({ error: `Invalid tier: ${tier}` }, { status: 400 });
   }
 
   const filteredPrices = (prices as Price[]).filter((price) => {
