@@ -1,16 +1,34 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import HospitalSelect from '@/components/HospitalSelect';
-import ProcedureSearch from '@/components/ProcedureSearch';
-import Verdict from '@/components/Verdict';
-import { Hospital, Price } from '@/lib/data/types';
-import hospitals from '@/lib/data/hospitals.json';
+import React, { useState, useMemo } from "react";
+import Image from "next/image";
+import CitySelect from "@/components/CitySelect";
+import HospitalSelect from "@/components/HospitalSelect";
+import ProcedureSearch from "@/components/ProcedureSearch";
+import Verdict from "@/components/Verdict";
+import { Hospital, Price } from "@/lib/data/types";
+import hospitals from "@/lib/data/hospitals.json";
 
 export default function Home() {
-  const [selectedHospital, setSelectedHospital] = useState<Hospital | null>(null);
-  const [selectedProcedure, setSelectedProcedure] = useState<Price | null>(null);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const [selectedHospital, setSelectedHospital] = useState<Hospital | null>(
+    null,
+  );
+  const [selectedProcedure, setSelectedProcedure] = useState<Price | null>(
+    null,
+  );
+
+  // Filter hospitals by selected city - memoized for performance
+  const cityHospitals = useMemo(() => {
+    if (!selectedCity) return [];
+    return (hospitals as Hospital[]).filter((h) => h.address === selectedCity);
+  }, [selectedCity]);
+
+  const handleCitySelect = (city: string) => {
+    setSelectedCity(city);
+    setSelectedHospital(null);
+    setSelectedProcedure(null);
+  };
 
   const handleHospitalSelect = (hospital: Hospital | null) => {
     setSelectedHospital(hospital);
@@ -22,6 +40,7 @@ export default function Home() {
   };
 
   const handleReset = () => {
+    setSelectedCity(null);
     setSelectedHospital(null);
     setSelectedProcedure(null);
   };
@@ -40,18 +59,43 @@ export default function Home() {
         </header>
 
         <div className="bg-white p-8 rounded-lg shadow-md">
-          {!selectedHospital ? (
+          {!selectedCity ? (
             <div>
-              <h2 className="text-2xl font-semibold text-gray-700 mb-4">Step 1: Select a Hospital</h2>
-              <HospitalSelect
+              <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+                Step 1: Select a City
+              </h2>
+              <CitySelect
                 hospitals={hospitals as Hospital[]}
+                onSelect={handleCitySelect}
+              />
+            </div>
+          ) : !selectedHospital ? (
+            <div>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-semibold text-gray-700">
+                  Step 2: Select a Hospital
+                </h2>
+                <button
+                  onClick={handleReset}
+                  className="text-sm text-blue-500 hover:underline"
+                >
+                  Start Over
+                </button>
+              </div>
+              <p className="mb-4 text-gray-600">
+                <span className="font-semibold">City:</span> {selectedCity}
+              </p>
+              <HospitalSelect
+                hospitals={cityHospitals}
                 onSelect={handleHospitalSelect}
               />
             </div>
           ) : !selectedProcedure ? (
             <div>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-semibold text-gray-700">Step 2: Find a Procedure</h2>
+                <h2 className="text-2xl font-semibold text-gray-700">
+                  Step 2: Find a Procedure
+                </h2>
                 <button
                   onClick={handleReset}
                   className="text-sm text-blue-500 hover:underline"
@@ -60,7 +104,8 @@ export default function Home() {
                 </button>
               </div>
               <p className="mb-4">
-                <span className="font-semibold">Hospital:</span> {selectedHospital.hospital_name}
+                <span className="font-semibold">Hospital:</span>{" "}
+                {selectedHospital.hospital_name}
               </p>
               <ProcedureSearch
                 tier={selectedHospital.tier_type}
@@ -70,7 +115,10 @@ export default function Home() {
           ) : (
             <div>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-semibold text-gray-700">Step 3: See the Verdict</h2>
+                4
+                <h2 className="text-2xl font-semibold text-gray-700">
+                  Step 3: See the Verdict
+                </h2>
                 <button
                   onClick={handleReset}
                   className="text-sm text-blue-500 hover:underline"
@@ -78,7 +126,10 @@ export default function Home() {
                   Start Over
                 </button>
               </div>
-              <Verdict hospital={selectedHospital} procedure={selectedProcedure} />
+              <Verdict
+                hospital={selectedHospital}
+                procedure={selectedProcedure}
+              />
             </div>
           )}
         </div>
