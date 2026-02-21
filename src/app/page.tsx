@@ -44,26 +44,29 @@ export default function Home() {
       </div>
 
       <div className="w-full max-w-4xl mx-auto relative z-10">
-        <header className="flex flex-col items-center text-center mb-8">
-          <div className="flex items-center gap-3 mb-3">
+        <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
+          <div
+            onClick={handleReset}
+            className="flex items-center gap-2 sm:gap-3 mb-3"
+          >
             <Image
               src="/Viluva.png"
               alt="MedClarity Logo"
-              width={40}
-              height={40}
+              width={32}
+              height={32}
               priority
-              className="drop-shadow-md"
+              className="drop-shadow-md sm:w-10 sm:h-10"
             />
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
               MedClarity
             </h1>
           </div>
-          <p className="text-slate-600 font-semibold text-lg mt-1 max-w-md">
+          <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-md px-4">
             CGHS Price Cap Compliance Validator
           </p>
-          <div className="flex items-center gap-2 mt-3 px-4 py-2 bg-emerald-50 border border-emerald-200 rounded-full">
+          <div className="flex items-center gap-2 mt-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-emerald-50 border border-emerald-200 rounded-full">
             <svg
-              className="w-4 h-4 text-emerald-600"
+              className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-600"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -73,18 +76,18 @@ export default function Home() {
                 clipRule="evenodd"
               />
             </svg>
-            <span className="text-xs font-black text-emerald-700 uppercase tracking-wide">
+            <span className="text-[10px] sm:text-xs font-black text-emerald-700 uppercase tracking-wide">
               2026 MoHFW Certified
             </span>
           </div>
         </header>
 
         {/* Trust Badge Bar */}
-        <div className="glass px-6 py-4 rounded-2xl mb-6 shadow-lg">
-          <div className="flex flex-wrap justify-center items-center gap-4 text-xs">
-            <div className="flex items-center gap-2">
+        <div className="glass px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl mb-4 sm:mb-6 shadow-lg">
+          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 text-[10px] sm:text-xs">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <svg
-                className="w-4 h-4 text-blue-600"
+                className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -100,10 +103,10 @@ export default function Home() {
                 End-to-End Encrypted
               </span>
             </div>
-            <div className="h-4 w-px bg-slate-300"></div>
-            <div className="flex items-center gap-2">
+            <div className="hidden sm:block h-4 w-px bg-slate-300"></div>
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <svg
-                className="w-4 h-4 text-blue-600"
+                className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -117,10 +120,10 @@ export default function Home() {
               </svg>
               <span className="font-bold text-slate-700">No Data Stored</span>
             </div>
-            <div className="h-4 w-px bg-slate-300"></div>
-            <div className="flex items-center gap-2">
+            <div className="hidden sm:block h-4 w-px bg-slate-300"></div>
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <svg
-                className="w-4 h-4 text-blue-600"
+                className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -133,7 +136,10 @@ export default function Home() {
                 />
               </svg>
               <span className="font-bold text-slate-700">
-                Legally Verified/Regulation Compliant (TBD)
+                <span className="hidden sm:inline">
+                  Legally Verified/Regulation Compliant (TBD)
+                </span>
+                <span className="sm:hidden">Legally Verified</span>
               </span>
             </div>
           </div>
@@ -143,8 +149,8 @@ export default function Home() {
           {/* STEP 1: CITY */}
           {!selectedCity && (
             <div className="animate-in fade-in slide-in-from-bottom-2">
-              <h2 className="text-lg font-bold mb-6 flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-sm text-white font-black shadow-lg">
+              <h2 className="text-base sm:text-lg font-bold mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
+                <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs sm:text-sm text-white font-black shadow-lg flex-shrink-0">
                   1
                 </span>
                 <span className="text-slate-800">
@@ -161,16 +167,16 @@ export default function Home() {
           {/* STEP 2: HOSPITAL */}
           {selectedCity && !selectedHospital && (
             <div className="animate-in fade-in slide-in-from-right-4">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-bold flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-sm text-white font-black shadow-lg">
+              <div className="flex justify-between items-center mb-4 sm:mb-6 gap-2">
+                <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 sm:gap-3">
+                  <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs sm:text-sm text-white font-black shadow-lg flex-shrink-0">
                     2
                   </span>
                   <span className="text-slate-800">Select the Hospital</span>
                 </h2>
                 <button
                   onClick={handleReset}
-                  className="text-xs font-bold text-cyan-600 hover:text-cyan-700 hover:underline transition-colors"
+                  className="text-[10px] sm:text-xs font-bold text-cyan-600 hover:text-cyan-700 hover:underline transition-colors whitespace-nowrap"
                 >
                   ← Change City
                 </button>
@@ -184,26 +190,26 @@ export default function Home() {
 
           {/* STEP 3: CONTEXT & PROCEDURE */}
           {selectedHospital && !selectedProcedure && (
-            <div className="animate-in fade-in slide-in-from-right-4 space-y-8">
-              <div className="flex justify-between items-center">
-                <h2 className="text-lg font-bold flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-sm text-white font-black shadow-lg">
+            <div className="animate-in fade-in slide-in-from-right-4 space-y-6 sm:space-y-8">
+              <div className="flex justify-between items-center gap-2">
+                <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 sm:gap-3">
+                  <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs sm:text-sm text-white font-black shadow-lg flex-shrink-0">
                     3
                   </span>
                   <span className="text-slate-800">Audit Details</span>
                 </h2>
                 <button
                   onClick={handleReset}
-                  className="text-xs font-bold text-cyan-600 hover:text-cyan-700 hover:underline transition-colors"
+                  className="text-[10px] sm:text-xs font-bold text-cyan-600 hover:text-cyan-700 hover:underline transition-colors whitespace-nowrap"
                 >
                   ↺ Reset
                 </button>
               </div>
 
-              <div className="p-5 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl border-2 border-cyan-200/50 shadow-inner">
-                <label className="block text-xs font-black text-cyan-900 uppercase mb-4 tracking-wide flex items-center gap-2">
+              <div className="p-4 sm:p-5 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl sm:rounded-2xl border-2 border-cyan-200/50 shadow-inner">
+                <label className="block text-[10px] sm:text-xs font-black text-cyan-900 uppercase mb-3 sm:mb-4 tracking-wide flex items-center gap-2">
                   <svg
-                    className="w-4 h-4"
+                    className="w-3 h-3 sm:w-4 sm:h-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -217,13 +223,13 @@ export default function Home() {
                   </svg>
                   Select Ward Type
                 </label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {(["General", "Semi-Private", "Private"] as const).map(
                     (t) => (
                       <button
                         key={t}
                         onClick={() => setWardType(t)}
-                        className={`py-3 px-2 rounded-xl text-xs font-bold transition-all duration-200 border-2 transform hover:scale-105 ${
+                        className={`py-2.5 sm:py-3 px-1 sm:px-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold transition-all duration-200 border-2 transform hover:scale-105 ${
                           wardType === t
                             ? "bg-gradient-to-br from-cyan-500 to-blue-600 border-transparent text-white shadow-xl shadow-cyan-200"
                             : "bg-white border-slate-200 text-slate-600 hover:border-cyan-300 shadow-sm"
@@ -237,9 +243,9 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs font-black text-slate-600 uppercase mb-3 tracking-wide flex items-center gap-2">
+                <label className="block text-[10px] sm:text-xs font-black text-slate-600 uppercase mb-2 sm:mb-3 tracking-wide flex items-center gap-1.5 sm:gap-2">
                   <svg
-                    className="w-4 h-4"
+                    className="w-3 h-3 sm:w-4 sm:h-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -273,10 +279,10 @@ export default function Home() {
         </div>
 
         {/* Comprehensive Legal Disclaimer */}
-        <div className="mt-8 glass p-6 rounded-2xl shadow-lg">
-          <div className="flex items-start gap-3 mb-3">
+        <div className="mt-6 sm:mt-8 glass p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
+          <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
             <svg
-              className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 flex-shrink-0 mt-0.5"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -286,8 +292,8 @@ export default function Home() {
                 clipRule="evenodd"
               />
             </svg>
-            <div className="text-xs text-slate-600 leading-relaxed space-y-2">
-              <p className="font-bold text-slate-800 text-sm">
+            <div className="text-[10px] sm:text-xs text-slate-600 leading-relaxed space-y-2">
+              <p className="font-bold text-slate-800 text-xs sm:text-sm">
                 Important Legal Disclaimer
               </p>
               <p>

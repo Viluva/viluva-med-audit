@@ -42,7 +42,7 @@ export default function CitySelect({
         <input
           type="text"
           placeholder="Type your city or town name..."
-          className="w-full py-4 pl-14 pr-6 rounded-2xl bg-white border-2 border-slate-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 outline-none text-lg font-semibold text-slate-800 placeholder:text-slate-400 transition-all shadow-sm"
+          className="w-full py-3 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-6 rounded-xl sm:rounded-2xl bg-white border-2 border-slate-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 outline-none text-base sm:text-lg font-semibold text-slate-800 placeholder:text-slate-400 transition-all shadow-sm"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />

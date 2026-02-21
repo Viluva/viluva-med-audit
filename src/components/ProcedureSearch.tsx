@@ -51,7 +51,7 @@ export default function ProcedureSearch({
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full py-4 pl-14 pr-6 rounded-2xl bg-white border-2 border-slate-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 focus:outline-none text-lg font-semibold placeholder:text-slate-400 transition-all shadow-sm"
+          className="w-full py-3 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-6 rounded-xl sm:rounded-2xl bg-white border-2 border-slate-200 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 focus:outline-none text-base sm:text-lg font-semibold placeholder:text-slate-400 transition-all shadow-sm"
           placeholder="e.g. MRI Brain, CBC Test, Cataract Surgery..."
         />
         {loading && (
@@ -62,23 +62,23 @@ export default function ProcedureSearch({
       </div>
 
       {results.length > 0 && (
-        <ul className="absolute z-50 mt-3 w-full bg-white rounded-2xl shadow-2xl border-2 border-slate-200 max-h-72 overflow-y-auto custom-scrollbar">
+        <ul className="absolute z-50 mt-3 w-full bg-white rounded-xl sm:rounded-2xl shadow-2xl border-2 border-slate-200 max-h-72 overflow-y-auto custom-scrollbar">
           {results.map((p) => (
             <li
               key={p.code}
               onClick={() => onSelect(p)}
-              className="group p-5 cursor-pointer hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 border-b border-slate-100 last:border-0 transition-all duration-200 relative overflow-hidden"
+              className="group p-4 sm:p-5 cursor-pointer hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 border-b border-slate-100 last:border-0 transition-all duration-200 relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-50 to-blue-50 opacity-0 group-hover:opacity-0 transition-opacity"></div>
               <div className="relative">
-                <p className="font-bold text-base text-slate-800 group-hover:text-white transition-colors">
+                <p className="font-bold text-sm sm:text-base text-slate-800 group-hover:text-white transition-colors">
                   {p.name}
                 </p>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="text-xs font-black uppercase tracking-wide px-2 py-1 rounded-md bg-slate-100 text-slate-600 group-hover:bg-white/30 group-hover:text-white transition-colors">
+                <div className="flex items-center gap-2 mt-2 flex-wrap">
+                  <span className="text-[10px] sm:text-xs font-black uppercase tracking-wide px-2 py-1 rounded-md bg-slate-100 text-slate-600 group-hover:bg-white/30 group-hover:text-white transition-colors">
                     {p.code}
                   </span>
-                  <span className="text-xs font-semibold text-slate-500 group-hover:text-cyan-100 transition-colors">
+                  <span className="text-[10px] sm:text-xs font-semibold text-slate-500 group-hover:text-cyan-100 transition-colors">
                     {p.specialityClassification}
                   </span>
                 </div>

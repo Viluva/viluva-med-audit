@@ -106,9 +106,9 @@ export default function Verdict({
       </div>
 
       <div className="space-y-3">
-        <label className="text-sm font-black text-slate-700 uppercase flex items-center gap-2">
+        <label className="text-xs sm:text-sm font-black text-slate-700 uppercase flex items-center gap-2">
           <svg
-            className="w-4 h-4 text-slate-600"
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -123,16 +123,16 @@ export default function Verdict({
           Enter Hospital Bill Amount
         </label>
         <div className="relative group">
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-200 to-slate-300 rounded-2xl blur-sm opacity-0 group-focus-within:opacity-50 transition-opacity"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-200 to-slate-300 rounded-xl sm:rounded-2xl blur-sm opacity-0 group-focus-within:opacity-50 transition-opacity"></div>
           <div className="relative">
-            <span className="absolute left-7 top-1/2 -translate-y-1/2 text-3xl font-black text-slate-500 group-focus-within:text-cyan-600 transition-colors">
+            <span className="absolute left-4 sm:left-7 top-1/2 -translate-y-1/2 text-2xl sm:text-3xl font-black text-slate-500 group-focus-within:text-cyan-600 transition-colors">
               ₹
             </span>
             <input
               type="number"
               value={userPrice}
               onChange={(e) => setUserPrice(e.target.value)}
-              className="w-full text-4xl font-black p-5 pl-16 rounded-2xl bg-white border-3 border-slate-300 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 outline-none transition-all shadow-lg"
+              className="w-full text-2xl sm:text-4xl font-black p-4 sm:p-5 pl-12 sm:pl-16 rounded-xl sm:rounded-2xl bg-white border-3 border-slate-300 focus:border-cyan-500 focus:ring-4 focus:ring-cyan-100 outline-none transition-all shadow-lg"
               placeholder="0.00"
             />
           </div>
@@ -155,11 +155,11 @@ export default function Verdict({
             ></div>
 
             <div className="relative space-y-5">
-              <div className="flex justify-between items-start gap-4">
-                <div className="flex-1">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+                <div className="flex-1 w-full sm:w-auto">
                   <div className="flex items-center gap-2 mb-2">
                     <svg
-                      className={`w-5 h-5 ${isOvercharged ? "text-red-600" : "text-emerald-600"}`}
+                      className={`w-4 h-4 sm:w-5 sm:h-5 ${isOvercharged ? "text-red-600" : "text-emerald-600"}`}
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -169,22 +169,22 @@ export default function Verdict({
                         clipRule="evenodd"
                       />
                     </svg>
-                    <p className="text-xs font-black uppercase tracking-wide text-slate-700">
+                    <p className="text-[10px] sm:text-xs font-black uppercase tracking-wide text-slate-700">
                       CGHS Approved Rate
                     </p>
                   </div>
-                  <p className="text-4xl font-black text-slate-900">
+                  <p className="text-2xl sm:text-4xl font-black text-slate-900">
                     ₹{auditPrice.toLocaleString("en-IN")}
                   </p>
-                  <p className="text-xs text-slate-600 font-semibold mt-1">
+                  <p className="text-[10px] sm:text-xs text-slate-600 font-semibold mt-1">
                     Legally Capped Maximum
                   </p>
                 </div>
                 {isOvercharged && (
-                  <div className="text-right bg-white/70 backdrop-blur-sm px-4 py-3 rounded-xl border-2 border-red-200 shadow-lg">
-                    <p className="text-xs font-black uppercase text-red-600 mb-1 flex items-center gap-1 justify-end">
+                  <div className="w-full sm:w-auto text-left sm:text-right bg-white/70 backdrop-blur-sm px-4 py-3 rounded-xl border-2 border-red-200 shadow-lg">
+                    <p className="text-[10px] sm:text-xs font-black uppercase text-red-600 mb-1 flex items-center gap-1 justify-start sm:justify-end">
                       <svg
-                        className="w-4 h-4"
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -196,7 +196,7 @@ export default function Verdict({
                       </svg>
                       Overcharge Detected
                     </p>
-                    <p className="text-3xl font-black text-red-700">
+                    <p className="text-2xl sm:text-3xl font-black text-red-700">
                       ₹{Math.abs(diff).toLocaleString("en-IN")}
                     </p>
                   </div>
@@ -263,10 +263,10 @@ export default function Verdict({
                   </div>
 
                   <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl blur-md opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                    <button className="relative w-full bg-gradient-to-r from-red-600 to-orange-600 text-white font-black py-5 rounded-2xl shadow-2xl hover:from-red-700 hover:to-orange-700 transform hover:scale-[1.02] transition-all active:scale-95 flex items-center justify-center gap-3">
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl sm:rounded-2xl blur-md opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                    <button className="relative w-full bg-gradient-to-r from-red-600 to-orange-600 text-white font-black py-4 sm:py-5 rounded-xl sm:rounded-2xl shadow-2xl hover:from-red-700 hover:to-orange-700 transform hover:scale-[1.02] transition-all active:scale-95 flex items-center justify-center gap-2 sm:gap-3">
                       <svg
-                        className="w-6 h-6"
+                        className="w-5 h-5 sm:w-6 sm:h-6"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -278,8 +278,10 @@ export default function Verdict({
                           d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                         />
                       </svg>
-                      <span className="text-lg">Generate Legal Notice</span>
-                      <span className="px-3 py-1 bg-white/20 rounded-full text-sm">
+                      <span className="text-base sm:text-lg">
+                        Generate Legal Notice
+                      </span>
+                      <span className="px-2 sm:px-3 py-1 bg-white/20 rounded-full text-xs sm:text-sm">
                         ₹9
                       </span>
                     </button>
