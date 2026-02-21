@@ -18,120 +18,169 @@ export default function Home() {
     null,
   );
 
-  // Filter hospitals by selected city - memoized for performance
+  // NEW STATE: Ward Type is critical for 2026 CGHS Logic
+  const [wardType, setWardType] = useState<
+    "General" | "Semi-Private" | "Private"
+  >("Semi-Private");
+
   const cityHospitals = useMemo(() => {
     if (!selectedCity) return [];
     return (hospitals as Hospital[]).filter((h) => h.address === selectedCity);
   }, [selectedCity]);
 
-  const handleCitySelect = (city: string) => {
-    setSelectedCity(city);
-    setSelectedHospital(null);
-    setSelectedProcedure(null);
-  };
-
-  const handleHospitalSelect = (hospital: Hospital | null) => {
-    setSelectedHospital(hospital);
-    setSelectedProcedure(null);
-  };
-
-  const handleProcedureSelect = (procedure: Price | null) => {
-    setSelectedProcedure(procedure);
-  };
-
   const handleReset = () => {
     setSelectedCity(null);
     setSelectedHospital(null);
     setSelectedProcedure(null);
+    setWardType("Semi-Private");
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 sm:p-8 bg-gray-50">
+    <main className="flex min-h-screen flex-col items-center p-4 sm:p-8 bg-slate-50">
       <div className="w-full max-w-2xl mx-auto">
-        <header className="flex flex-col items-center text-center mb-8">
-          <Image src="/Viluva.png" alt="Viluva Logo" width={80} height={80} />
-          <h1 className="text-4xl font-bold text-gray-800 mt-4">
+        <header className="flex flex-col items-center text-center mb-10">
+          <div className="bg-white p-3 rounded-2xl shadow-sm border border-slate-100">
+            <Image
+              src="/Viluva.png"
+              alt="Viluva Logo"
+              width={60}
+              height={60}
+              priority
+            />
+          </div>
+          <h1 className="text-3xl font-extrabold text-slate-900 mt-6 tracking-tight">
             Viluva Med Audit
           </h1>
-          <p className="text-gray-600 mt-2">
-            Your trusted partner in medical bill auditing.
+          <p className="text-slate-500 mt-2 font-medium">
+            Official 2026 CGHS Compliance Checker
           </p>
         </header>
 
-        <div className="bg-white p-8 rounded-lg shadow-md">
+        <div className="bg-white p-6 sm:p-10 rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100">
+          {/* STEP 1: CITY */}
           {!selectedCity ? (
-            <div>
-              <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-                Step 1: Select a City
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-sm text-white">
+                  1
+                </span>
+                Where is the hospital located?
               </h2>
               <CitySelect
                 hospitals={hospitals as Hospital[]}
-                onSelect={handleCitySelect}
+                onSelect={(city) => setSelectedCity(city)}
               />
             </div>
-          ) : !selectedHospital ? (
-            <div>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-semibold text-gray-700">
-                  Step 2: Select a Hospital
+          ) : /* STEP 2: HOSPITAL & WARD */
+          !selectedHospital ? (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-sm text-white">
+                    2
+                  </span>
+                  Select the Hospital
                 </h2>
                 <button
                   onClick={handleReset}
-                  className="text-sm text-blue-500 hover:underline"
+                  className="text-sm font-semibold text-indigo-600 hover:text-indigo-700"
                 >
-                  Start Over
+                  Change City
                 </button>
               </div>
-              <p className="mb-4 text-gray-600">
-                <span className="font-semibold">City:</span> {selectedCity}
-              </p>
               <HospitalSelect
                 hospitals={cityHospitals}
-                onSelect={handleHospitalSelect}
+                onSelect={(h) => setSelectedHospital(h)}
               />
+              <p className="mt-4 text-xs text-slate-400 italic">
+                Showing empanelled facilities in {selectedCity}
+              </p>
             </div>
-          ) : !selectedProcedure ? (
-            <div>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-semibold text-gray-700">
-                  Step 2: Find a Procedure
+          ) : /* STEP 3: PROCEDURE & WARD TYPE */
+          !selectedProcedure ? (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-8">
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-sm text-white">
+                    3
+                  </span>
+                  Final Details
                 </h2>
                 <button
                   onClick={handleReset}
-                  className="text-sm text-blue-500 hover:underline"
+                  className="text-sm font-semibold text-indigo-600 hover:text-indigo-700"
                 >
                   Start Over
                 </button>
               </div>
-              <p className="mb-4">
-                <span className="font-semibold">Hospital:</span>{" "}
-                {selectedHospital.hospital_name}
-              </p>
-              <ProcedureSearch
-                tier={selectedHospital.tier_type}
-                onSelect={handleProcedureSelect}
-              />
+
+              {/* WARD SELECTION UI */}
+              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Which ward were you in?
+                </label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(["General", "Semi-Private", "Private"] as const).map(
+                    (type) => (
+                      <button
+                        key={type}
+                        onClick={() => setWardType(type)}
+                        className={`py-2 px-1 rounded-xl text-xs font-bold transition-all border-2 ${
+                          wardType === type
+                            ? "bg-indigo-600 border-indigo-600 text-white shadow-md"
+                            : "bg-white border-slate-200 text-slate-600 hover:border-indigo-300"
+                        }`}
+                      >
+                        {type}
+                      </button>
+                    ),
+                  )}
+                </div>
+                <p className="mt-2 text-[10px] text-slate-400">
+                  Note: Government rates vary by ward entitlement.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  What procedure are we auditing?
+                </label>
+                <ProcedureSearch
+                  tier={selectedHospital.tier_type}
+                  onSelect={(p) => setSelectedProcedure(p)}
+                />
+              </div>
             </div>
           ) : (
-            <div>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-semibold text-gray-700">
-                  Step 3: See the Verdict
-                </h2>
+            /* STEP 4: VERDICT */
+            <div className="animate-in zoom-in-95 duration-500">
+              <div className="flex justify-end mb-4">
                 <button
                   onClick={handleReset}
-                  className="text-sm text-blue-500 hover:underline"
+                  className="text-sm font-bold text-indigo-600 bg-indigo-50 px-4 py-2 rounded-full hover:bg-indigo-100 transition"
                 >
-                  Start Over
+                  Audit Another Bill
                 </button>
               </div>
               <Verdict
                 hospital={selectedHospital}
                 procedure={selectedProcedure}
+                wardType={wardType}
               />
             </div>
           )}
         </div>
+
+        <footer className="mt-12 text-center text-slate-400 text-[10px] leading-relaxed px-6">
+          <p>
+            © 2026 Viluva Med-Audit. Data sourced from MoHFW Office Memorandum
+            dated 03.10.2025.
+          </p>
+          <p className="mt-1 font-medium">
+            This tool provides an audit report for informational purposes and
+            does not constitute legal advice.
+          </p>
+        </footer>
       </div>
     </main>
   );
