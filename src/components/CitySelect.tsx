@@ -11,7 +11,10 @@ export default function CitySelect({
 }) {
   const [search, setSearch] = useState("");
   const cities = useMemo(
-    () => Array.from(new Set(hospitals.map((h) => h.address))).sort(),
+    () =>
+      Array.from(new Set(hospitals.map((h) => h.address)))
+        .filter(Boolean)
+        .sort(),
     [hospitals],
   );
   const filtered = cities.filter((c) =>

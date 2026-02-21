@@ -52,7 +52,7 @@ export default function ProcedureSearch({
             >
               <p className="font-bold text-sm">{p.name}</p>
               <p className="text-[10px] uppercase opacity-60 tracking-tighter">
-                Code: {p.code} • {p.classification}
+                Code: {p.code} • {p.specialityClassification}
               </p>
             </li>
           ))}
