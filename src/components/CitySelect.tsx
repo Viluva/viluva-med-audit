@@ -52,9 +52,9 @@ export default function CitySelect({
           <button
             key={city}
             onClick={() => onSelect(city)}
-            className="group text-left p-4 rounded-xl bg-white border-2 border-slate-200 hover:border-cyan-500 hover:shadow-lg hover:scale-[1.02] transition-all duration-200 relative overflow-hidden"
+            className="group text-left p-4 rounded-xl bg-white border-2 border-slate-200 hover:border-cyan-500 hover:shadow-lg transition-all duration-200 relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
             <div className="relative flex items-center gap-2">
               <svg
                 className="w-4 h-4 text-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity"
