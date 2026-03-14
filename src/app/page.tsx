@@ -295,20 +295,27 @@ export default function Home() {
                 Important Legal Disclaimer
               </p>
               <p>
-                <strong>Viluva BillCheck</strong> is an independent compliance
-                verification tool. This platform references the Ministry of
-                Health and Family Welfare (MoHFW) Office Memorandum dated
-                03.10.2025 and CGHS empanelment guidelines. The calculations
-                provided are for{" "}
-                <strong>informational and transparency purposes only</strong>{" "}
-                and do not constitute legal advice.
+                <strong>Viluva BillCheck</strong> validates{" "}
+                <strong>individual procedure rates</strong> against CGHS
+                approved caps. This platform references the Ministry of Health
+                and Family Welfare (MoHFW) Office Memorandum dated 03.10.2025
+                and CGHS empanelment guidelines.
+              </p>
+              <p className="font-semibold text-amber-800">
+                <strong>What we DON'T validate:</strong> Multiple surgery
+                bundling, bilateral surgery pricing, ICU/ventilator charges,
+                package period calculations, blood bank component rates, implant
+                costs, or complications within package periods.
               </p>
               <p>
-                While we strive for accuracy, users should verify all rates
-                independently and consult with qualified legal professionals
-                before taking any legal action. Hospital pricing may vary based
-                on case complexity, emergency status, or other clinical factors
-                not captured in this audit.
+                The calculations provided are for{" "}
+                <strong>informational and transparency purposes only</strong>{" "}
+                and do not constitute legal advice. While we strive for
+                accuracy, users should verify all rates independently and
+                consult with qualified legal professionals before taking any
+                legal action. Hospital pricing may vary based on case
+                complexity, emergency status, or other clinical factors not
+                captured in this audit.
               </p>
               <p className="font-semibold text-slate-700">
                 By using this service, you acknowledge that Viluva BillCheck is

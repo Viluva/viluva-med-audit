@@ -16,29 +16,42 @@ export default function Verdict({
   const [userPrice, setUserPrice] = useState("");
 
   const calculateAuditPrice = () => {
-    let rate = hospital.accreditation.toUpperCase().includes("NABH")
+    // Check if hospital is NABH accredited (exclude "NON NABH")
+    const isNABH =
+      hospital.accreditation.toUpperCase().includes("NABH") &&
+      !hospital.accreditation.toUpperCase().includes("NON");
+
+    let rate = isNABH
       ? parseFloat(procedure.nabhRate.toString())
       : parseFloat(procedure.nonNabhRate.toString());
 
-    // Super Speciality Check
-    if (
-      hospital.hospital_name.toLowerCase().includes("super speciality") &&
-      hospital.accreditation.includes("NABH")
-    ) {
-      rate *= 1.15;
+    // Super Speciality Rate - Use pre-calculated rate if available
+    if (procedure.superSpecialityRate && isNABH) {
+      rate = parseFloat(procedure.superSpecialityRate.toString());
     }
 
     // City Tier Adjustment
     if (hospital.tier_type.includes("2")) rate *= 0.9;
     if (hospital.tier_type.includes("3")) rate *= 0.8;
 
-    // Ward Multiplier (Excluded for Investigations/Consults)
-    const isUniform = [
+    // Ward Multiplier (Excluded for uniform rate procedures)
+    // Use specialityClassification for accurate detection
+    const uniformRateTypes = [
       "consultation",
       "investigation",
       "diagnostic",
       "radiotherapy",
-    ].some((c) => procedure.name.toLowerCase().includes(c));
+      "chemotherapy",
+      "critical care",
+      "blood component",
+    ];
+
+    const isUniform = uniformRateTypes.some(
+      (type) =>
+        procedure.specialityClassification.toLowerCase().includes(type) ||
+        procedure.name.toLowerCase().includes(type),
+    );
+
     if (!isUniform) {
       if (wardType === "General") rate *= 0.95;
       if (wardType === "Private") rate *= 1.05;
@@ -329,12 +342,24 @@ export default function Verdict({
               clipRule="evenodd"
             />
           </svg>
-          <p className="leading-relaxed">
-            <strong className="text-slate-800">Note:</strong> This audit uses
-            the official CGHS rate calculation formula including tier
-            adjustments, accreditation multipliers, and ward differentials.
-            Results are for informational purposes only.
-          </p>
+          <div className="leading-relaxed space-y-2">
+            <p>
+              <strong className="text-slate-800">
+                What this tool validates:
+              </strong>
+            </p>
+            <p>
+              This audit calculates the CGHS-approved rate for{" "}
+              <strong>individual procedures</strong> using official formulas
+              (tier adjustments, NABH/Non-NABH rates, ward differentials).
+            </p>
+            <p className="text-red-700 font-semibold">
+              <strong>Limitations:</strong> Does NOT handle multiple surgeries
+              bundling, ICU/ventilator charges, package period calculations,
+              blood bank components, or implant costs. For complex bills,
+              consult a healthcare attorney.
+            </p>
+          </div>
         </div>
       </div>
     </div>
