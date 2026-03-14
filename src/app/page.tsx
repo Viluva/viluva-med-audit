@@ -276,6 +276,37 @@ export default function Home() {
           )}
         </div>
 
+        {/* Target Audience - Who is this for? */}
+        <div className="mt-6 sm:mt-8 glass px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg border-l-4 border-cyan-500">
+          <div className="flex items-start gap-2 sm:gap-3">
+            <svg
+              className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600 flex-shrink-0 mt-0.5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <div>
+              <p className="font-bold text-slate-800 text-xs sm:text-sm mb-1">
+                Who is this for?
+              </p>
+              <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed">
+                This tool is exclusively for{" "}
+                <strong className="text-cyan-700">CGHS beneficiaries</strong>:
+                Central Government employees, Central Government pensioners,
+                Members of Parliament, and their eligible dependents. If you
+                hold a valid CGHS card and received treatment at a
+                CGHS-empanelled hospital, this tool helps verify your bill
+                complies with approved rates.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Comprehensive Legal Disclaimer */}
         <div className="mt-6 sm:mt-8 glass p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
           <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
@@ -295,6 +326,15 @@ export default function Home() {
                 Important Legal Disclaimer
               </p>
               <p>
+                <strong className="text-cyan-700">Eligibility:</strong> This
+                tool is designed exclusively for CGHS beneficiaries (Central
+                Government employees, pensioners, MPs, and their dependents).
+                Non-CGHS beneficiaries, including state government employees,
+                private sector employees, and the general public, should not use
+                this tool as it references CGHS-specific rates that do not apply
+                to other insurance schemes or out-of-pocket patients.
+              </p>
+              <p>
                 <strong>Viluva BillCheck</strong> validates{" "}
                 <strong>individual procedure rates</strong> against CGHS
                 approved caps. This platform references the Ministry of Health
@@ -302,10 +342,11 @@ export default function Home() {
                 and CGHS empanelment guidelines.
               </p>
               <p className="font-semibold text-amber-800">
-                <strong>What we DON'T validate:</strong> Multiple surgery
-                bundling, bilateral surgery pricing, ICU/ventilator charges,
-                package period calculations, blood bank component rates, implant
-                costs, or complications within package periods.
+                <strong>What we DON&apos;T validate:</strong> Multiple surgery
+                bundling (100%/50%/25% rules), bilateral surgery pricing,
+                package period calculations, implant cost separation, or
+                complications within package periods. These complex scenarios
+                require manual verification using official CGHS guidelines.
               </p>
               <p>
                 The calculations provided are for{" "}
@@ -327,7 +368,7 @@ export default function Home() {
           </div>
         </div>
 
-        <footer className="mt-6 text-center space-y-2">
+        <footer className="mt-6 sm:mt-8 text-center space-y-2">
           <div className="flex justify-center items-center gap-2 text-xs text-slate-500">
             <span className="font-bold">Data Source:</span>
             <span>MoHFW OM 03.10.2025 • CGHS Empanelment 2026</span>

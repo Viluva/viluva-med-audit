@@ -2,6 +2,46 @@
 
 **Professional medical bill auditing tool** for verifying CGHS compliance, checking for overcharges, and ensuring fair pricing using official 2026 MoHFW guidelines.
 
+## Who Is This For?
+
+**🎯 Target Audience: CGHS Beneficiaries Only**
+
+This tool is exclusively designed for:
+
+✅ **Central Government Employees**
+- Active serving employees with CGHS coverage
+- All grades and pay scales eligible under CGHS
+
+✅ **Central Government Pensioners**
+- Retired Central Government employees
+- Family pensioners of deceased employees
+
+✅ **Members of Parliament (MPs)**
+- Lok Sabha and Rajya Sabha members
+- Eligible for CGHS facilities
+
+✅ **Eligible Dependents**
+- Spouse
+- Children (up to age limits as per CGHS rules)
+- Parents (where applicable)
+
+✅ **Other CGHS Card Holders**
+- Judiciary members under CGHS
+- Governors and specified constitutional positions
+
+### ❌ Who This Tool is NOT For:
+
+- ❌ State Government employees (different schemes)
+- ❌ Private sector employees
+- ❌ ESIC (Employees' State Insurance) beneficiaries
+- ❌ Private insurance policy holders
+- ❌ General public without CGHS coverage
+- ❌ Out-of-pocket patients at non-empanelled hospitals
+
+**Requirement:** You must hold a valid CGHS card and have received treatment at a CGHS-empanelled hospital for this tool to be applicable.
+
+---
+
 ## Overview
 
 Viluva BillCheck helps patients and healthcare beneficiaries verify whether their hospital bills comply with CGHS (Central Government Health Scheme) approved rates. The tool uses official government data to calculate the maximum permissible charges for medical procedures across different hospital types, tiers, and ward categories.
