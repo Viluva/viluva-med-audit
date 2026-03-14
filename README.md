@@ -1,10 +1,10 @@
-# MedClarity - CGHS Price Cap Compliance Validator
+# Viluva BillCheck - CGHS Price Cap Compliance Validator
 
 **Professional medical bill auditing tool** for verifying CGHS compliance, checking for overcharges, and ensuring fair pricing using official 2026 MoHFW guidelines.
 
 ## Overview
 
-MedClarity helps patients and healthcare beneficiaries verify whether their hospital bills comply with CGHS (Central Government Health Scheme) approved rates. The tool uses official government data to calculate the maximum permissible charges for medical procedures across different hospital types, tiers, and ward categories.
+Viluva BillCheck helps patients and healthcare beneficiaries verify whether their hospital bills comply with CGHS (Central Government Health Scheme) approved rates. The tool uses official government data to calculate the maximum permissible charges for medical procedures across different hospital types, tiers, and ward categories.
 
 ## Features
 
@@ -34,7 +34,7 @@ All data is sourced from official government documents:
 
 ## Security
 
-MedClarity implements enterprise-grade security features:
+Viluva BillCheck implements enterprise-grade security features:
 
 - 🔒 **Rate Limiting**: 100 requests/min per IP
 - 🛡️ **Input Sanitization**: XSS prevention on all inputs
@@ -124,7 +124,7 @@ The tool calculates CGHS-approved rates using:
 
 ## Legal Disclaimer
 
-**MedClarity is an independent tool for informational purposes only.** 
+**Viluva BillCheck is an independent tool for informational purposes only.** 
 
 - This tool does **not** constitute legal or medical advice
 - Results should be verified independently
@@ -167,5 +167,5 @@ For questions, issues, or feature requests, please open an issue on the project 
 
 ---
 
-**Built for healthcare transparency** | © 2026 MedClarity
+**Built for healthcare transparency** | © 2026 Viluva BillCheck
 

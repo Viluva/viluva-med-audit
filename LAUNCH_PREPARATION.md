@@ -187,7 +187,7 @@ All critical issues have been resolved:
 1. **CORS Configuration** (5 minutes)
    - Update line 113 in `/src/app/api/audit/search/route.ts`
    - Change `Access-Control-Allow-Origin: *` to your domain
-   - Example: `https://medclarity.app`
+   - Example: `https://viluvabillcheck.com`
 
 2. **Environment Setup** (10 minutes)
    - Set up HTTPS/SSL certificate

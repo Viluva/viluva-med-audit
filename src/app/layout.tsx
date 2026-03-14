@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MedClarity - CGHS Price Cap Compliance Validator",
+  title: "Viluva BillCheck - CGHS Price Cap Compliance Validator",
   description:
     "Professional medical bill auditing tool. Verify CGHS compliance, check for overcharges, and ensure fair pricing using official 2026 MoHFW guidelines.",
   icons: {

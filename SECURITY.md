@@ -1,7 +1,7 @@
 # Security Implementation
 
 ## Overview
-MedClarity implements multiple layers of security to protect users and ensure service reliability.
+Viluva BillCheck implements multiple layers of security to protect users and ensure service reliability.
 
 ## Security Features
 

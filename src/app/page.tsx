@@ -51,14 +51,14 @@ export default function Home() {
           >
             <Image
               src="/Viluva.png"
-              alt="MedClarity Logo"
+              alt="Viluva BillCheck Logo"
               width={32}
               height={32}
               priority
               className="drop-shadow-md sm:w-10 sm:h-10"
             />
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              MedClarity
+              Viluva BillCheck
             </h1>
           </div>
           <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-md px-4">
@@ -295,7 +295,7 @@ export default function Home() {
                 Important Legal Disclaimer
               </p>
               <p>
-                <strong>MedClarity</strong> is an independent compliance
+                <strong>Viluva BillCheck</strong> is an independent compliance
                 verification tool. This platform references the Ministry of
                 Health and Family Welfare (MoHFW) Office Memorandum dated
                 03.10.2025 and CGHS empanelment guidelines. The calculations
@@ -311,10 +311,10 @@ export default function Home() {
                 not captured in this audit.
               </p>
               <p className="font-semibold text-slate-700">
-                By using this service, you acknowledge that MedClarity is not
-                liable for any decisions made based on this information. Always
-                seek professional medical and legal counsel for healthcare
-                disputes.
+                By using this service, you acknowledge that Viluva BillCheck is
+                not liable for any decisions made based on this information.
+                Always seek professional medical and legal counsel for
+                healthcare disputes.
               </p>
             </div>
           </div>
@@ -326,7 +326,7 @@ export default function Home() {
             <span>MoHFW OM 03.10.2025 • CGHS Empanelment 2026</span>
           </div>
           <p className="text-xs text-slate-400 font-medium">
-            © 2026 MedClarity. Built for healthcare transparency.
+            © 2026 Viluva BillCheck. Built for healthcare transparency.
           </p>
         </footer>
       </div>
