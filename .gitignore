@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Source data files (keep processed JSON only)
+src/lib/data/**/*.xlsx
+src/lib/data/**/*.pdf
+src/lib/data/**/*.xls

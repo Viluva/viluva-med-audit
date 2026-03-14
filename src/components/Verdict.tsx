@@ -262,29 +262,30 @@ export default function Verdict({
                     </div>
                   </div>
 
-                  <div className="relative group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl sm:rounded-2xl blur-md opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                    <button className="relative w-full bg-gradient-to-r from-red-600 to-orange-600 text-white font-black py-4 sm:py-5 rounded-xl sm:rounded-2xl shadow-2xl hover:from-red-700 hover:to-orange-700 transform hover:scale-[1.02] transition-all active:scale-95 flex items-center justify-center gap-2 sm:gap-3">
+                  <div className="p-4 bg-blue-50 border-2 border-blue-200 rounded-xl">
+                    <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 sm:w-6 sm:h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                        className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
                       >
                         <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2.5"
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                          clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-base sm:text-lg">
-                        Generate Legal Notice
-                      </span>
-                      <span className="px-2 sm:px-3 py-1 bg-white/20 rounded-full text-xs sm:text-sm">
-                        ₹9
-                      </span>
-                    </button>
+                      <div>
+                        <p className="text-xs font-black text-blue-900 uppercase mb-1">
+                          Next Steps
+                        </p>
+                        <p className="text-sm text-blue-800 font-semibold leading-snug">
+                          Document this overcharge with your hospital bill and
+                          this audit report. Consult with a legal professional
+                          or consumer forum to pursue a refund claim.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}

@@ -77,7 +77,7 @@ export default function Home() {
               />
             </svg>
             <span className="text-[10px] sm:text-xs font-black text-emerald-700 uppercase tracking-wide">
-              2026 MoHFW Certified
+              Based on 2026 MoHFW Data
             </span>
           </div>
         </header>
@@ -100,7 +100,7 @@ export default function Home() {
                 />
               </svg>
               <span className="font-bold text-slate-700">
-                End-to-End Encrypted
+                Official Government Data
               </span>
             </div>
             <div className="hidden sm:block h-4 w-px bg-slate-300"></div>
@@ -136,10 +136,8 @@ export default function Home() {
                 />
               </svg>
               <span className="font-bold text-slate-700">
-                <span className="hidden sm:inline">
-                  Legally Verified/Regulation Compliant (TBD)
-                </span>
-                <span className="sm:hidden">Legally Verified</span>
+                <span className="hidden sm:inline">CGHS Empanelment 2026</span>
+                <span className="sm:hidden">CGHS 2026</span>
               </span>
             </div>
           </div>
