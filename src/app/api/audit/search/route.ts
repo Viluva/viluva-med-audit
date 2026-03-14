@@ -2,6 +2,7 @@ import prices from "@/lib/data/prices.json";
 import { Price } from "@/lib/data/types";
 import { NextRequest, NextResponse } from "next/server";
 
+// --- EXISTING DATA & TYPES ---
 const tierMap: { [key: string]: string } = {
   "Tier 1": "I",
   "Tier 2": "II",
@@ -14,6 +15,18 @@ const tierMap: { [key: string]: string } = {
   "tier 3": "III",
 };
 
+export interface UserIncomeData {
+  monthlyNetIncome: number;
+  hoursWorkedPerWeek: number;
+}
+
+export interface ConversionResult {
+  totalHours: number;
+  formattedTime: string;
+  shareableQuote: string;
+}
+
+// --- RATE LIMITING ---
 // Rate limiting storage (in production, use Redis or similar)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 
@@ -50,6 +63,7 @@ function checkRateLimit(identifier: string): boolean {
   return true;
 }
 
+// --- UTILITIES ---
 function sanitizeInput(input: string): string {
   // Remove any HTML tags and special characters that could be used for XSS
   return input
@@ -59,24 +73,57 @@ function sanitizeInput(input: string): string {
     .slice(0, 100); // Limit length
 }
 
-export async function GET(request: NextRequest) {
-  // Get client identifier (IP address or forwarded IP)
-  const identifier =
-    request.headers.get("x-forwarded-for")?.split(",")[0] ||
+function calculateTimeCost(price: number, incomeData: UserIncomeData, itemName: string = "this item"): ConversionResult {
+  const monthlyHoursWorked = incomeData.hoursWorkedPerWeek * 4.33;
+  const trueHourlyWage = incomeData.monthlyNetIncome / monthlyHoursWorked;
+  const totalHours = price / trueHourlyWage;
+
+  const workingDays = Math.floor(totalHours / 8);
+  const remainingHours = Math.round(totalHours % 8);
+
+  let formattedTime = "";
+  if (workingDays > 0) formattedTime += `${workingDays} working days `;
+  if (remainingHours > 0 || workingDays === 0) formattedTime += `${remainingHours} hours`;
+
+  const shareableQuote = `Is ${itemName} really worth ${formattedTime.trim()} of your life? 🤔 Find out your true purchase power with Viluva AI.`;
+
+  return {
+    totalHours: Number(totalHours.toFixed(2)),
+    formattedTime: formattedTime.trim(),
+    shareableQuote
+  };
+}
+
+// Helper to attach security headers
+function attachSecurityHeaders(response: NextResponse) {
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("X-XSS-Protection", "1; mode=block");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("Access-Control-Allow-Origin", "*");
+  response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+  return response;
+}
+
+function getClientIdentifier(request: NextRequest): string {
+  return request.headers.get("x-forwarded-for")?.split(",")[0] ||
     request.headers.get("x-real-ip") ||
     "unknown";
+}
 
-  // Check rate limit
+// --- ROUTE HANDLERS ---
+
+// 1. GET: Existing Price Search
+export async function GET(request: NextRequest) {
+  const identifier = getClientIdentifier(request);
+
   if (!checkRateLimit(identifier)) {
     return NextResponse.json(
       { error: "Too many requests. Please try again later." },
       {
         status: 429,
-        headers: {
-          "Retry-After": "60",
-          "X-RateLimit-Limit": "100",
-          "X-RateLimit-Remaining": "0",
-        },
+        headers: { "Retry-After": "60" },
       },
     );
   }
@@ -86,29 +133,19 @@ export async function GET(request: NextRequest) {
   const tier = searchParams.get("tier");
 
   if (!query || !tier) {
-    return NextResponse.json(
-      { error: "Missing query or tier" },
-      { status: 400 },
-    );
+    return attachSecurityHeaders(NextResponse.json({ error: "Missing query or tier" }, { status: 400 }));
   }
 
-  // Sanitize inputs to prevent XSS
   const sanitizedQuery = sanitizeInput(query);
   const sanitizedTier = sanitizeInput(tier);
 
   if (sanitizedQuery.length === 0 || sanitizedTier.length === 0) {
-    return NextResponse.json(
-      { error: "Invalid input parameters" },
-      { status: 400 },
-    );
+    return attachSecurityHeaders(NextResponse.json({ error: "Invalid input parameters" }, { status: 400 }));
   }
 
   const romanTier = tierMap[sanitizedTier];
   if (!romanTier) {
-    return NextResponse.json(
-      { error: `Invalid tier: ${sanitizedTier}` },
-      { status: 400 },
-    );
+    return attachSecurityHeaders(NextResponse.json({ error: `Invalid tier: ${sanitizedTier}` }, { status: 400 }));
   }
 
   const filteredPrices = (prices as Price[]).filter((price) => {
@@ -118,30 +155,60 @@ export async function GET(request: NextRequest) {
     );
   });
 
-  // Add security headers and CORS
-  const response = NextResponse.json(filteredPrices);
-
-  // Security headers
-  response.headers.set("X-Content-Type-Options", "nosniff");
-  response.headers.set("X-Frame-Options", "DENY");
-  response.headers.set("X-XSS-Protection", "1; mode=block");
-  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-
-  // CORS headers (adjust origin as needed for production)
-  response.headers.set("Access-Control-Allow-Origin", "*");
-  response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
-
-  return response;
+  return attachSecurityHeaders(NextResponse.json(filteredPrices));
 }
 
-// Handle OPTIONS for CORS preflight
+// 2. POST: "Time = Money" Converter
+export async function POST(request: NextRequest) {
+  const identifier = getClientIdentifier(request);
+
+  if (!checkRateLimit(identifier)) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      {
+        status: 429,
+        headers: { "Retry-After": "60" },
+      },
+    );
+  }
+
+  try {
+    const body = await request.json();
+    const { price, itemName, monthlyNetIncome, hoursWorkedPerWeek = 40 } = body;
+
+    if (!price || !monthlyNetIncome || isNaN(price) || isNaN(monthlyNetIncome)) {
+      return attachSecurityHeaders(NextResponse.json(
+        { error: 'Valid price and monthlyNetIncome are required.' }, 
+        { status: 400 }
+      ));
+    }
+
+    // Sanitize the item name before using it in the quote to prevent XSS
+    const sanitizedItemName = itemName ? sanitizeInput(String(itemName)) : 'this item';
+
+    const incomeData = { 
+      monthlyNetIncome: Number(monthlyNetIncome), 
+      hoursWorkedPerWeek: Number(hoursWorkedPerWeek) 
+    };
+    
+    const result = calculateTimeCost(Number(price), incomeData, sanitizedItemName);
+
+    return attachSecurityHeaders(NextResponse.json({ success: true, data: result }));
+  } catch (error) {
+    return attachSecurityHeaders(NextResponse.json(
+      { error: 'Invalid request body' }, 
+      { status: 500 }
+    ));
+  }
+}
+
+// 3. OPTIONS: Handle CORS preflight
 export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, {
     status: 204,
     headers: {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     },
   });

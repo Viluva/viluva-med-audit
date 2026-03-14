@@ -2,6 +2,8 @@
 
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import Navigation from "@/components/Navigation";
 import CitySelect from "@/components/CitySelect";
 import HospitalSelect from "@/components/HospitalSelect";
 import ProcedureSearch from "@/components/ProcedureSearch";
@@ -36,14 +38,17 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 sm:p-8 font-sans text-slate-900 relative overflow-hidden">
+    <main className="flex min-h-screen flex-col items-center font-sans text-slate-900 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="w-full max-w-4xl mx-auto relative z-10">
+      {/* Navigation */}
+      <Navigation />
+
+      <div className="w-full max-w-4xl mx-auto relative z-10 px-4 sm:px-8">
         <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
           <div
             onClick={handleReset}
@@ -58,7 +63,7 @@ export default function Home() {
               className="drop-shadow-md sm:w-10 sm:h-10"
             />
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Viluva BillCheck
+              CGHS BillCheck
             </h1>
           </div>
           <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-md px-4">
@@ -365,6 +370,60 @@ export default function Home() {
                 healthcare disputes.
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* More Tools Section */}
+        <div className="mt-6 sm:mt-8 glass p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
+          <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-4 text-center">
+            Explore More Viluva Tools
+          </h3>
+          <Link
+            href="/time-converter"
+            className="block glass p-4 sm:p-5 rounded-xl hover:shadow-xl transition-all border-2 border-transparent hover:border-cyan-500 group"
+          >
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <svg
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <h4 className="font-bold text-slate-800 text-sm sm:text-base mb-1 group-hover:text-cyan-700 transition-colors">
+                  True Cost Calculator
+                </h4>
+                <p className="text-[10px] sm:text-xs text-slate-600">
+                  Discover what your purchases really cost in hours of your
+                  life. Calculate your true purchasing power.
+                </p>
+              </div>
+              <svg
+                className="w-5 h-5 text-slate-400 group-hover:text-cyan-600 group-hover:translate-x-1 transition-all flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
+          </Link>
+          <div className="mt-4 text-center">
+            <p className="text-[10px] sm:text-xs text-slate-500 font-semibold">
+              More tools coming soon...
+            </p>
           </div>
         </div>
 
