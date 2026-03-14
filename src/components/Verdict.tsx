@@ -280,9 +280,10 @@ export default function Verdict({
                           Next Steps
                         </p>
                         <p className="text-sm text-blue-800 font-semibold leading-snug">
-                          Document this overcharge with your hospital bill and
-                          this audit report. Consult with a legal professional
-                          or consumer forum to pursue a refund claim.
+                          Take a screenshot of these results along with your
+                          hospital bill as documentation. Consult with a legal
+                          professional or consumer forum to pursue a refund
+                          claim.
                         </p>
                       </div>
                     </div>
