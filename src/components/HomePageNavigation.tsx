@@ -10,7 +10,7 @@ export default function HomePageNavigation() {
   return (
     <nav className="w-full sticky top-0 z-50 glass">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-        <div className="relative flex items-center justify-center sm:justify-between">
+        <div className="relative flex items-center justify-center">
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/"
@@ -32,7 +32,7 @@ export default function HomePageNavigation() {
             </Link>
           </div>
           {/* Hamburger button */}
-          <div className="absolute right-0 sm:hidden">
+          <div className="absolute right-0">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-slate-600 hover:text-cyan-600 focus:outline-none"
@@ -61,26 +61,11 @@ export default function HomePageNavigation() {
               </svg>
             </button>
           </div>
-          {/* Desktop Links */}
-          <div className="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-2 sm:gap-4">
-            <Link
-              href="/cghs-billcheck"
-              className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
-            >
-              CGHS BillCheck
-            </Link>
-            <Link
-              href="/time-converter"
-              className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
-            >
-              True Cost Calculator
-            </Link>
-          </div>
         </div>
-        {/* Mobile Menu */}
+        {/* Dropdown Menu */}
         {isMenuOpen && (
-          <div className="sm:hidden mt-4">
-            <div className="flex flex-col gap-4">
+          <div className="mt-4">
+            <div className="flex flex-col items-center gap-4">
               <Link
                 href="/cghs-billcheck"
                 className="text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
