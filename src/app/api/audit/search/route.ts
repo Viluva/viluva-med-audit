@@ -73,7 +73,11 @@ function sanitizeInput(input: string): string {
     .slice(0, 100); // Limit length
 }
 
-function calculateTimeCost(price: number, incomeData: UserIncomeData, itemName: string = "this item"): ConversionResult {
+function calculateTimeCost(
+  price: number,
+  incomeData: UserIncomeData,
+  itemName: string = "this item",
+): ConversionResult {
   const monthlyHoursWorked = incomeData.hoursWorkedPerWeek * 4.33;
   const trueHourlyWage = incomeData.monthlyNetIncome / monthlyHoursWorked;
   const totalHours = price / trueHourlyWage;
@@ -83,14 +87,15 @@ function calculateTimeCost(price: number, incomeData: UserIncomeData, itemName: 
 
   let formattedTime = "";
   if (workingDays > 0) formattedTime += `${workingDays} working days `;
-  if (remainingHours > 0 || workingDays === 0) formattedTime += `${remainingHours} hours`;
+  if (remainingHours > 0 || workingDays === 0)
+    formattedTime += `${remainingHours} hours`;
 
   const shareableQuote = `Is ${itemName} really worth ${formattedTime.trim()} of your life? 🤔 Find out your true purchase power with Viluva AI.`;
 
   return {
     totalHours: Number(totalHours.toFixed(2)),
     formattedTime: formattedTime.trim(),
-    shareableQuote
+    shareableQuote,
   };
 }
 
@@ -100,16 +105,21 @@ function attachSecurityHeaders(response: NextResponse) {
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-XSS-Protection", "1; mode=block");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-  response.headers.set("Access-Control-Allow-Origin", "*");
+  // CORS: Allow production domain and localhost for development
+  const origin =
+    process.env.NODE_ENV === "production" ? "https://www.viluva.app" : "*";
+  response.headers.set("Access-Control-Allow-Origin", origin);
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   response.headers.set("Access-Control-Allow-Headers", "Content-Type");
   return response;
 }
 
 function getClientIdentifier(request: NextRequest): string {
-  return request.headers.get("x-forwarded-for")?.split(",")[0] ||
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0] ||
     request.headers.get("x-real-ip") ||
-    "unknown";
+    "unknown"
+  );
 }
 
 // --- ROUTE HANDLERS ---
@@ -133,19 +143,28 @@ export async function GET(request: NextRequest) {
   const tier = searchParams.get("tier");
 
   if (!query || !tier) {
-    return attachSecurityHeaders(NextResponse.json({ error: "Missing query or tier" }, { status: 400 }));
+    return attachSecurityHeaders(
+      NextResponse.json({ error: "Missing query or tier" }, { status: 400 }),
+    );
   }
 
   const sanitizedQuery = sanitizeInput(query);
   const sanitizedTier = sanitizeInput(tier);
 
   if (sanitizedQuery.length === 0 || sanitizedTier.length === 0) {
-    return attachSecurityHeaders(NextResponse.json({ error: "Invalid input parameters" }, { status: 400 }));
+    return attachSecurityHeaders(
+      NextResponse.json({ error: "Invalid input parameters" }, { status: 400 }),
+    );
   }
 
   const romanTier = tierMap[sanitizedTier];
   if (!romanTier) {
-    return attachSecurityHeaders(NextResponse.json({ error: `Invalid tier: ${sanitizedTier}` }, { status: 400 }));
+    return attachSecurityHeaders(
+      NextResponse.json(
+        { error: `Invalid tier: ${sanitizedTier}` },
+        { status: 400 },
+      ),
+    );
   }
 
   const filteredPrices = (prices as Price[]).filter((price) => {
@@ -176,38 +195,54 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { price, itemName, monthlyNetIncome, hoursWorkedPerWeek = 40 } = body;
 
-    if (!price || !monthlyNetIncome || isNaN(price) || isNaN(monthlyNetIncome)) {
-      return attachSecurityHeaders(NextResponse.json(
-        { error: 'Valid price and monthlyNetIncome are required.' }, 
-        { status: 400 }
-      ));
+    if (
+      !price ||
+      !monthlyNetIncome ||
+      isNaN(price) ||
+      isNaN(monthlyNetIncome)
+    ) {
+      return attachSecurityHeaders(
+        NextResponse.json(
+          { error: "Valid price and monthlyNetIncome are required." },
+          { status: 400 },
+        ),
+      );
     }
 
     // Sanitize the item name before using it in the quote to prevent XSS
-    const sanitizedItemName = itemName ? sanitizeInput(String(itemName)) : 'this item';
+    const sanitizedItemName = itemName
+      ? sanitizeInput(String(itemName))
+      : "this item";
 
-    const incomeData = { 
-      monthlyNetIncome: Number(monthlyNetIncome), 
-      hoursWorkedPerWeek: Number(hoursWorkedPerWeek) 
+    const incomeData = {
+      monthlyNetIncome: Number(monthlyNetIncome),
+      hoursWorkedPerWeek: Number(hoursWorkedPerWeek),
     };
-    
-    const result = calculateTimeCost(Number(price), incomeData, sanitizedItemName);
 
-    return attachSecurityHeaders(NextResponse.json({ success: true, data: result }));
+    const result = calculateTimeCost(
+      Number(price),
+      incomeData,
+      sanitizedItemName,
+    );
+
+    return attachSecurityHeaders(
+      NextResponse.json({ success: true, data: result }),
+    );
   } catch (error) {
-    return attachSecurityHeaders(NextResponse.json(
-      { error: 'Invalid request body' }, 
-      { status: 500 }
-    ));
+    return attachSecurityHeaders(
+      NextResponse.json({ error: "Invalid request body" }, { status: 500 }),
+    );
   }
 }
 
 // 3. OPTIONS: Handle CORS preflight
 export async function OPTIONS(request: NextRequest) {
+  const origin =
+    process.env.NODE_ENV === "production" ? "https://www.viluva.app" : "*";
   return new NextResponse(null, {
     status: 204,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": origin,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
     },

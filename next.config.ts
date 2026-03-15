@@ -21,6 +21,11 @@ const nextConfig: NextConfig = {
             value: "SAMEORIGIN",
           },
           {
+            key: "Content-Security-Policy",
+            value:
+              "frame-ancestors 'self' https://www.google.com https://googleads.g.doubleclick.net;",
+          },
+          {
             key: "X-Content-Type-Options",
             value: "nosniff",
           },
