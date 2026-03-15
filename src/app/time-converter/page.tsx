@@ -16,6 +16,7 @@ export default function TimeConverter() {
   const [returnRate, setReturnRate] = useState(8);
   const [years, setYears] = useState(20);
   const [result, setResult] = useState<ConversionResult | null>(null);
+  const [isEditingHours, setIsEditingHours] = useState(false);
 
   const calculate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,17 +81,18 @@ export default function TimeConverter() {
       <div className="w-full max-w-4xl mx-auto relative z-10 px-4 sm:px-8">
         {/* Header */}
         <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
-          <br/>
+          <br />
           <Link
             href="/time-converter"
             className="flex items-center gap-2 sm:gap-3 mb-3 hover:opacity-80 transition-opacity"
           >
-            <h4 className="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
               True Cost Calculator
-            </h4>
+            </h1>
           </Link>
-          <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-md px-4">
-            See what your purchases really cost in hours of your life
+          <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-2xl px-4">
+            Find out how many hours you have to work for something, and how much
+            that money could grow if you invested it instead.
           </p>
           <div className="flex items-center gap-2 mt-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-amber-50 border border-amber-200 rounded-full">
             <svg
@@ -169,24 +171,43 @@ export default function TimeConverter() {
               </div>
             </div>
 
-            {/* Hours Per Week */}
-            <div>
-              <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                Hours Worked Per Week
-              </label>
-              <input
-                type="number"
-                placeholder="40"
-                value={formData.hoursPerWeek}
-                onChange={(e) =>
-                  setFormData({ ...formData, hoursPerWeek: e.target.value })
-                }
-                required
-                min="1"
-                max="168"
-                className="w-full p-3 sm:p-4 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all text-sm sm:text-base bg-white/50"
-              />
-            </div>
+            {/* Hours per week note */}
+            {isEditingHours ? (
+              <div className="text-center text-xs text-slate-500 pb-2 flex justify-center items-center gap-1">
+                <span>Based on a </span>
+                <input
+                  type="number"
+                  value={formData.hoursPerWeek}
+                  onChange={(e) =>
+                    setFormData({ ...formData, hoursPerWeek: e.target.value })
+                  }
+                  className="w-16 p-1 rounded border border-slate-300 text-center"
+                  autoFocus
+                  min="1"
+                  max="168"
+                  onBlur={() => setIsEditingHours(false)}
+                />
+                <span> hour work week. </span>
+                <button
+                  type="button"
+                  onClick={() => setIsEditingHours(false)}
+                  className="font-bold text-cyan-600 hover:text-cyan-800"
+                >
+                  (Save)
+                </button>
+              </div>
+            ) : (
+              <div className="text-center text-xs text-slate-500 pb-2">
+                <span>Based on a {formData.hoursPerWeek} hour work week. </span>
+                <button
+                  type="button"
+                  onClick={() => setIsEditingHours(true)}
+                  className="font-bold text-cyan-600 hover:text-cyan-800"
+                >
+                  (Edit)
+                </button>
+              </div>
+            )}
 
             {/* Calculate Button */}
             <button
