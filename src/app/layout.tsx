@@ -14,11 +14,36 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Viluva BillCheck - CGHS Price Cap Compliance Validator",
+  title: {
+    template: "%s | Viluva",
+    default: "Viluva | From Financial Anxiety to Confident Decisions",
+  },
   description:
-    "Professional medical bill auditing tool. Verify CGHS compliance, check for overcharges, and ensure fair pricing using official 2026 MoHFW guidelines.",
+    "Viluva is your proactive financial co-pilot. Make smart decisions for the future with our AI-powered True Cost Calculator and CGHS BillCheck compliance validator.",
+  keywords: [
+    "personal finance",
+    "wealth building",
+    "opportunity cost calculator",
+    "CGHS bill check",
+    "medical bill audit",
+  ],
+  authors: [{ name: "Viluva" }],
   icons: {
     icon: "/Viluva.png",
+    apple: "/Viluva.png",
+  },
+  openGraph: {
+    title: "Viluva | Smarter Financial Decisions",
+    description:
+      "Viluva is your proactive financial co-pilot helping you make smart decisions for the future. Try our True Cost Calculator and CGHS BillCheck.",
+    siteName: "Viluva",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Viluva | Smarter Financial Decisions",
+    description:
+      "Viluva is your proactive financial co-pilot helping you make smart decisions for the future.",
   },
 };
 
