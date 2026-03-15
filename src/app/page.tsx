@@ -18,10 +18,10 @@ export default function Home() {
     setMessage("");
 
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email }),
       });
@@ -55,35 +55,14 @@ export default function Home() {
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={2}
-            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
           />
         </svg>
       ),
-      title: "Budget Tracker",
+      title: "AI-Powered Clarity",
       description:
-        "Take control of your spending with intelligent budget tracking. Monitor your expenses in real-time and stay on top of your financial goals.",
+        "Our proprietary AI analyzes any potential purchase against your unique financial situation and gives you an instant, unbiased 'Smart Score'.",
       color: "from-cyan-500 to-blue-500",
-    },
-    {
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-          />
-        </svg>
-      ),
-      title: "Financial Insights",
-      description:
-        "Receive automated, data-driven insights into your financial habits. Your personal AI advisor helps you make smarter money decisions.",
-      color: "from-purple-500 to-pink-500",
     },
     {
       icon: (
@@ -101,52 +80,31 @@ export default function Home() {
           />
         </svg>
       ),
-      title: "Peer Comparison",
+      title: "Peer-Driven Context",
       description:
-        "See how you stack up against anonymized peers in your income bracket. Gamified insights that motivate better financial habits.",
+        "Confidentially benchmark your decisions against thousands of anonymous people just like you—in your city, in your income bracket—to answer that critical question, 'Is this normal?'",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 20.417l4.5-4.5M12 14a6 6 0 100-12 6 6 0 000 12z"
+          />
+        </svg>
+      ),
+      title: "Community-Powered Confidence",
+      description:
+        "See the real, anonymized experiences and decisions of others, giving you the social proof you need to feel certain about your choice.",
       color: "from-green-500 to-emerald-500",
-    },
-    {
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      ),
-      title: "Spending Advisor",
-      description:
-        "Get actionable advice to save money on everyday purchases. Real-world impact on your finances with personalized recommendations.",
-      color: "from-orange-500 to-red-500",
-    },
-    {
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-          />
-        </svg>
-      ),
-      title: "Social Feed",
-      description:
-        "Join a community of financially savvy individuals. Share insights, learn from others, and grow together in your financial journey.",
-      color: "from-indigo-500 to-purple-500",
     },
   ];
 
@@ -159,7 +117,7 @@ export default function Home() {
         <div className="absolute -bottom-40 right-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
       </div>
 
-<HomePageNavigation />
+      <HomePageNavigation />
 
       <div className="w-full max-w-6xl mx-auto relative z-10 px-4 sm:px-8 py-12 sm:py-20">
         {/* Hero Section */}
@@ -179,14 +137,14 @@ export default function Home() {
             <span className="text-sm font-bold text-cyan-700">Coming Soon</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
-            Your Financial Companion
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+            From Financial Anxiety to Confident Decisions.
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8 leading-relaxed">
-            We are building a comprehensive suite of tools to help you master
-            your finances. Track, analyze, and optimize your spending with
-            intelligent insights.
+            Most financial apps are rearview mirrors, showing you what you have
+            already spent. Viluva is your windshield, a proactive financial
+            co-pilot helping you make smart decisions for the future.
           </p>
 
           {/* Email Signup Form */}
@@ -240,10 +198,11 @@ export default function Home() {
         {/* Features Section */}
         <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl font-black text-center mb-4 bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
-            Launching Soon
+            How Viluva Works
           </h2>
           <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
-            These powerful features will be available once we launch
+            Vuluva combines three powerful layers of intelligence to turn
+            financial anxiety into confident decisions.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
