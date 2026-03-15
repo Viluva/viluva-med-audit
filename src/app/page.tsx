@@ -1,5 +1,6 @@
 "use client";
 
+import HomePageNavigation from "@/components/HomePageNavigation";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -158,40 +159,7 @@ export default function Home() {
         <div className="absolute -bottom-40 right-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Navigation Bar */}
-      <nav className="w-full bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Image
-                src="/Viluva.png"
-                alt="Viluva Logo"
-                width={32}
-                height={32}
-                priority
-                className="drop-shadow-md sm:w-10 sm:h-10"
-              />
-              <span className="text-xl sm:text-2xl font-black bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                Viluva
-              </span>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-4">
-              <Link
-                href="/cghs-billcheck"
-                className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
-              >
-                CGHS BillCheck
-              </Link>
-              <Link
-                href="/time-converter"
-                className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
-              >
-                True Cost Calculator
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+<HomePageNavigation />
 
       <div className="w-full max-w-6xl mx-auto relative z-10 px-4 sm:px-8 py-12 sm:py-20">
         {/* Hero Section */}
@@ -212,19 +180,17 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
-            Your AI-Powered
-            <br />
-            Financial Companion
+            Your Financial Companion
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+          <p className="text-lg sm:text-xl text-slate-600 max-w-3xl mx-auto mb-8 leading-relaxed">
             We are building a comprehensive suite of tools to help you master
             your finances. Track, analyze, and optimize your spending with
             intelligent insights.
           </p>
 
           {/* Email Signup Form */}
-          <div className="max-w-md mx-auto">
+          <div className="max-w-lg mx-auto">
             <form
               onSubmit={handleSubmit}
               className="glass p-6 sm:p-8 rounded-2xl shadow-xl"
@@ -250,7 +216,7 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={status === "loading" || status === "success"}
-                  className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none whitespace-nowrap"
                 >
                   {status === "loading"
                     ? "Joining..."

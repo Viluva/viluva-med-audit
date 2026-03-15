@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navigation from "@/components/Navigation";
+import HomePageNavigation from "@/components/HomePageNavigation";
 import { calculateTimeCost, type ConversionResult } from "@/lib/timeconvertor";
 
 export default function TimeConverter() {
@@ -75,26 +75,19 @@ export default function TimeConverter() {
       </div>
 
       {/* Navigation */}
-      <Navigation />
+      <HomePageNavigation />
 
       <div className="w-full max-w-4xl mx-auto relative z-10 px-4 sm:px-8">
         {/* Header */}
         <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
+          <br/>
           <Link
             href="/time-converter"
             className="flex items-center gap-2 sm:gap-3 mb-3 hover:opacity-80 transition-opacity"
           >
-            <Image
-              src="/Viluva.png"
-              alt="Viluva Logo"
-              width={32}
-              height={32}
-              priority
-              className="drop-shadow-md sm:w-10 sm:h-10"
-            />
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <h4 className="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
               True Cost Calculator
-            </h1>
+            </h4>
           </Link>
           <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-md px-4">
             See what your purchases really cost in hours of your life
