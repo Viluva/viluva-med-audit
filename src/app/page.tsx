@@ -1,117 +1,309 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Navigation from "@/components/Navigation";
-import CitySelect from "@/components/CitySelect";
-import HospitalSelect from "@/components/HospitalSelect";
-import ProcedureSearch from "@/components/ProcedureSearch";
-import Verdict from "@/components/Verdict";
-import { Hospital, Price } from "@/lib/data/types";
-import hospitalsData from "@/lib/data/hospitals.json";
 
 export default function Home() {
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
-  const [selectedHospital, setSelectedHospital] = useState<Hospital | null>(
-    null,
-  );
-  const [selectedProcedure, setSelectedProcedure] = useState<Price | null>(
-    null,
-  );
-  const [wardType, setWardType] = useState<
-    "General" | "Semi-Private" | "Private"
-  >("Semi-Private");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [message, setMessage] = useState("");
 
-  const cityHospitals = useMemo(() => {
-    if (!selectedCity) return [];
-    return (hospitalsData as Hospital[]).filter(
-      (h) => h.address === selectedCity,
-    );
-  }, [selectedCity]);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
 
-  const handleReset = () => {
-    setSelectedCity(null);
-    setSelectedHospital(null);
-    setSelectedProcedure(null);
-    setWardType("Semi-Private");
+    try {
+      // Simulate API call - replace with actual endpoint later
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setStatus("success");
+      setMessage("Thanks for joining! We'll notify you when we launch.");
+      setEmail("");
+    } catch (error) {
+      setStatus("error");
+      setMessage("Something went wrong. Please try again.");
+    }
   };
+
+  const features = [
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+      title: "Budget Tracker",
+      description:
+        "Take control of your spending with intelligent budget tracking. Monitor your expenses in real-time and stay on top of your financial goals.",
+      color: "from-cyan-500 to-blue-500",
+    },
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+          />
+        </svg>
+      ),
+      title: "Financial Insights",
+      description:
+        "Receive automated, data-driven insights into your financial habits. Your personal AI advisor helps you make smarter money decisions.",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+          />
+        </svg>
+      ),
+      title: "Peer Comparison",
+      description:
+        "See how you stack up against anonymized peers in your income bracket. Gamified insights that motivate better financial habits.",
+      color: "from-green-500 to-emerald-500",
+    },
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      ),
+      title: "Spending Advisor",
+      description:
+        "Get actionable advice to save money on everyday purchases. Real-world impact on your finances with personalized recommendations.",
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+          />
+        </svg>
+      ),
+      title: "Social Feed",
+      description:
+        "Join a community of financially savvy individuals. Share insights, learn from others, and grow together in your financial journey.",
+      color: "from-indigo-500 to-purple-500",
+    },
+  ];
 
   return (
     <main className="flex min-h-screen flex-col items-center font-sans text-slate-900 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 -left-40 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 right-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Navigation */}
-      <Navigation />
-
-      <div className="w-full max-w-4xl mx-auto relative z-10 px-4 sm:px-8">
-        <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
-          <div
-            onClick={handleReset}
-            className="flex items-center gap-2 sm:gap-3 mb-3"
-          >
-            <Image
-              src="/Viluva.png"
-              alt="Viluva BillCheck Logo"
-              width={32}
-              height={32}
-              priority
-              className="drop-shadow-md sm:w-10 sm:h-10"
-            />
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              CGHS BillCheck
-            </h1>
+      {/* Navigation Bar */}
+      <nav className="w-full bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Image
+                src="/Viluva.png"
+                alt="Viluva Logo"
+                width={32}
+                height={32}
+                priority
+                className="drop-shadow-md sm:w-10 sm:h-10"
+              />
+              <span className="text-xl sm:text-2xl font-black bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
+                Viluva
+              </span>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Link
+                href="/cghs-billcheck"
+                className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
+              >
+                CGHS BillCheck
+              </Link>
+              <Link
+                href="/time-converter"
+                className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
+              >
+                True Cost Calculator
+              </Link>
+            </div>
           </div>
-          <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-md px-4">
-            CGHS Price Cap Compliance Validator
-          </p>
-          <div className="flex items-center gap-2 mt-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-emerald-50 border border-emerald-200 rounded-full">
+        </div>
+      </nav>
+
+      <div className="w-full max-w-6xl mx-auto relative z-10 px-4 sm:px-8 py-12 sm:py-20">
+        {/* Hero Section */}
+        <div className="text-center mb-16 sm:mb-24">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-50 border border-cyan-200 rounded-full mb-6">
             <svg
-              className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-600"
+              className="w-4 h-4 text-cyan-600 animate-pulse"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
               <path
                 fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
                 clipRule="evenodd"
               />
             </svg>
-            <span className="text-[10px] sm:text-xs font-black text-emerald-700 uppercase tracking-wide">
-              Based on 2026 MoHFW Data
-            </span>
+            <span className="text-sm font-bold text-cyan-700">Coming Soon</span>
           </div>
-        </header>
 
-        {/* Trust Badge Bar */}
-        <div className="glass px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl mb-4 sm:mb-6 shadow-lg">
-          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 text-[10px] sm:text-xs">
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <svg
-                className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2.5"
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+            Your AI-Powered
+            <br />
+            Financial Companion
+          </h1>
+
+          <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+            We are building a comprehensive suite of tools to help you master
+            your finances. Track, analyze, and optimize your spending with
+            intelligent insights.
+          </p>
+
+          {/* Email Signup Form */}
+          <div className="max-w-md mx-auto">
+            <form
+              onSubmit={handleSubmit}
+              className="glass p-6 sm:p-8 rounded-2xl shadow-xl"
+            >
+              <h3 className="text-lg sm:text-xl font-bold text-slate-800 mb-4">
+                Join the Waitlist
+              </h3>
+              <p className="text-sm text-slate-600 mb-6">
+                Be the first to know when we launch. Get early access and
+                exclusive features.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  disabled={status === "loading" || status === "success"}
+                  className="flex-1 px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-200 outline-none transition-all disabled:bg-slate-100 disabled:cursor-not-allowed"
                 />
-              </svg>
-              <span className="font-bold text-slate-700">
-                Official Government Data
-              </span>
-            </div>
-            <div className="hidden sm:block h-4 w-px bg-slate-300"></div>
-            <div className="flex items-center gap-1.5 sm:gap-2">
+                <button
+                  type="submit"
+                  disabled={status === "loading" || status === "success"}
+                  className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                >
+                  {status === "loading"
+                    ? "Joining..."
+                    : status === "success"
+                      ? "Joined!"
+                      : "Join Waitlist"}
+                </button>
+              </div>
+
+              {message && (
+                <p
+                  className={`mt-4 text-sm font-medium ${status === "success" ? "text-green-600" : "text-red-600"}`}
+                >
+                  {message}
+                </p>
+              )}
+            </form>
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <div className="mb-12">
+          <h2 className="text-3xl sm:text-4xl font-black text-center mb-4 bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+            Launching Soon
+          </h2>
+          <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
+            These powerful features will be available once we launch
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="glass p-6 rounded-2xl hover:shadow-xl transition-all duration-300 group hover:scale-[1.02]"
+              >
+                <div
+                  className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${feature.color} text-white mb-4 group-hover:scale-110 transition-transform`}
+                >
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold text-slate-800 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-slate-600 text-sm leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Current Tools CTA */}
+        <div className="glass p-8 rounded-2xl text-center">
+          <h3 className="text-2xl font-bold text-slate-800 mb-4">
+            Try Our Available Tools
+          </h3>
+          <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+            While we build the complete suite, explore our existing tools to
+            start your financial journey
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/cghs-billcheck"
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl"
+            >
               <svg
-                className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -119,294 +311,18 @@ export default function Home() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth="2.5"
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
-              <span className="font-bold text-slate-700">No Data Stored</span>
-            </div>
-            <div className="hidden sm:block h-4 w-px bg-slate-300"></div>
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <svg
-                className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2.5"
+                  strokeWidth={2}
                   d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                 />
               </svg>
-              <span className="font-bold text-slate-700">
-                <span className="hidden sm:inline">CGHS Empanelment 2026</span>
-                <span className="sm:hidden">CGHS 2026</span>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
-          {/* STEP 1: CITY */}
-          {!selectedCity && (
-            <div className="animate-in fade-in slide-in-from-bottom-2">
-              <h2 className="text-base sm:text-lg font-bold mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
-                <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs sm:text-sm text-white font-black shadow-lg flex-shrink-0">
-                  1
-                </span>
-                <span className="text-slate-800">
-                  Where is the hospital located?
-                </span>
-              </h2>
-              <CitySelect
-                hospitals={hospitalsData as Hospital[]}
-                onSelect={(city) => setSelectedCity(city)}
-              />
-            </div>
-          )}
-
-          {/* STEP 2: HOSPITAL */}
-          {selectedCity && !selectedHospital && (
-            <div className="animate-in fade-in slide-in-from-right-4">
-              <div className="flex justify-between items-center mb-4 sm:mb-6 gap-2">
-                <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 sm:gap-3">
-                  <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs sm:text-sm text-white font-black shadow-lg flex-shrink-0">
-                    2
-                  </span>
-                  <span className="text-slate-800">Select the Hospital</span>
-                </h2>
-                <button
-                  onClick={handleReset}
-                  className="text-[10px] sm:text-xs font-bold text-cyan-600 hover:text-cyan-700 hover:underline transition-colors whitespace-nowrap"
-                >
-                  ← Change City
-                </button>
-              </div>
-              <HospitalSelect
-                hospitals={cityHospitals}
-                onSelect={(h) => setSelectedHospital(h)}
-              />
-            </div>
-          )}
-
-          {/* STEP 3: CONTEXT & PROCEDURE */}
-          {selectedHospital && !selectedProcedure && (
-            <div className="animate-in fade-in slide-in-from-right-4 space-y-6 sm:space-y-8">
-              <div className="flex justify-between items-center gap-2">
-                <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 sm:gap-3">
-                  <span className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-xs sm:text-sm text-white font-black shadow-lg flex-shrink-0">
-                    3
-                  </span>
-                  <span className="text-slate-800">Audit Details</span>
-                </h2>
-                <button
-                  onClick={handleReset}
-                  className="text-[10px] sm:text-xs font-bold text-cyan-600 hover:text-cyan-700 hover:underline transition-colors whitespace-nowrap"
-                >
-                  ↺ Reset
-                </button>
-              </div>
-
-              <div className="p-4 sm:p-5 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl sm:rounded-2xl border-2 border-cyan-200/50 shadow-inner">
-                <label className="block text-[10px] sm:text-xs font-black text-cyan-900 uppercase mb-3 sm:mb-4 tracking-wide flex items-center gap-2">
-                  <svg
-                    className="w-3 h-3 sm:w-4 sm:h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2.5"
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
-                  Select Ward Type
-                </label>
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                  {(["General", "Semi-Private", "Private"] as const).map(
-                    (t) => (
-                      <button
-                        key={t}
-                        onClick={() => setWardType(t)}
-                        className={`py-2.5 sm:py-3 px-1 sm:px-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold transition-all duration-200 border-2 transform hover:scale-105 ${
-                          wardType === t
-                            ? "bg-gradient-to-br from-cyan-500 to-blue-600 border-transparent text-white shadow-xl shadow-cyan-200"
-                            : "bg-white border-slate-200 text-slate-600 hover:border-cyan-300 shadow-sm"
-                        }`}
-                      >
-                        {t}
-                      </button>
-                    ),
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[10px] sm:text-xs font-black text-slate-600 uppercase mb-2 sm:mb-3 tracking-wide flex items-center gap-1.5 sm:gap-2">
-                  <svg
-                    className="w-3 h-3 sm:w-4 sm:h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2.5"
-                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                    />
-                  </svg>
-                  Search Procedure or Test
-                </label>
-                <ProcedureSearch
-                  tier={selectedHospital.tier_type}
-                  onSelect={(p) => setSelectedProcedure(p)}
-                />
-              </div>
-            </div>
-          )}
-
-          {/* STEP 4: VERDICT */}
-          {selectedProcedure && selectedHospital && (
-            <Verdict
-              hospital={selectedHospital}
-              procedure={selectedProcedure}
-              wardType={wardType}
-              onReset={handleReset}
-            />
-          )}
-        </div>
-
-        {/* Target Audience - Who is this for? */}
-        <div className="mt-6 sm:mt-8 glass px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-lg border-l-4 border-cyan-500">
-          <div className="flex items-start gap-2 sm:gap-3">
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600 flex-shrink-0 mt-0.5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
+              CGHS BillCheck
+            </Link>
+            <Link
+              href="/time-converter"
+              className="inline-flex items-center justify-center gap-2 bg-white text-slate-700 font-bold px-6 py-3 rounded-xl hover:bg-slate-50 transition-all border-2 border-slate-200 hover:border-cyan-500"
             >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <div>
-              <p className="font-bold text-slate-800 text-xs sm:text-sm mb-1">
-                Who is this for?
-              </p>
-              <p className="text-[10px] sm:text-xs text-slate-600 leading-relaxed">
-                This tool is exclusively for{" "}
-                <strong className="text-cyan-700">CGHS beneficiaries</strong>:
-                Central Government employees, Central Government pensioners,
-                Members of Parliament, and their eligible dependents. If you
-                hold a valid CGHS card and received treatment at a
-                CGHS-empanelled hospital, this tool helps verify your bill
-                complies with approved rates.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Comprehensive Legal Disclaimer */}
-        <div className="mt-6 sm:mt-8 glass p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
-          <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
-            <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 flex-shrink-0 mt-0.5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <div className="text-[10px] sm:text-xs text-slate-600 leading-relaxed space-y-2">
-              <p className="font-bold text-slate-800 text-xs sm:text-sm">
-                Important Legal Disclaimer
-              </p>
-              <p>
-                <strong className="text-cyan-700">Eligibility:</strong> This
-                tool is designed exclusively for CGHS beneficiaries (Central
-                Government employees, pensioners, MPs, and their dependents).
-                Non-CGHS beneficiaries, including state government employees,
-                private sector employees, and the general public, should not use
-                this tool as it references CGHS-specific rates that do not apply
-                to other insurance schemes or out-of-pocket patients.
-              </p>
-              <p>
-                <strong>Viluva BillCheck</strong> validates{" "}
-                <strong>individual procedure rates</strong> against CGHS
-                approved caps. This platform references the Ministry of Health
-                and Family Welfare (MoHFW) Office Memorandum dated 03.10.2025
-                and CGHS empanelment guidelines.
-              </p>
-              <p className="font-semibold text-amber-800">
-                <strong>What we DON&apos;T validate:</strong> Multiple surgery
-                bundling (100%/50%/25% rules), bilateral surgery pricing,
-                package period calculations, implant cost separation, or
-                complications within package periods. These complex scenarios
-                require manual verification using official CGHS guidelines.
-              </p>
-              <p>
-                The calculations provided are for{" "}
-                <strong>informational and transparency purposes only</strong>{" "}
-                and do not constitute legal advice. While we strive for
-                accuracy, users should verify all rates independently and
-                consult with qualified legal professionals before taking any
-                legal action. Hospital pricing may vary based on case
-                complexity, emergency status, or other clinical factors not
-                captured in this audit.
-              </p>
-              <p className="font-semibold text-slate-700">
-                By using this service, you acknowledge that Viluva BillCheck is
-                not liable for any decisions made based on this information.
-                Always seek professional medical and legal counsel for
-                healthcare disputes.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* More Tools Section */}
-        <div className="mt-6 sm:mt-8 glass p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
-          <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-4 text-center">
-            Explore More Viluva Tools
-          </h3>
-          <Link
-            href="/time-converter"
-            className="block glass p-4 sm:p-5 rounded-xl hover:shadow-xl transition-all border-2 border-transparent hover:border-cyan-500 group"
-          >
-            <div className="flex items-start gap-3 sm:gap-4">
-              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <svg
-                  className="w-5 h-5 sm:w-6 sm:h-6 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h4 className="font-bold text-slate-800 text-sm sm:text-base mb-1 group-hover:text-cyan-700 transition-colors">
-                  True Cost Calculator
-                </h4>
-                <p className="text-[10px] sm:text-xs text-slate-600">
-                  Discover what your purchases really cost in hours of your
-                  life. Calculate your true purchasing power.
-                </p>
-              </div>
               <svg
-                className="w-5 h-5 text-slate-400 group-hover:text-cyan-600 group-hover:translate-x-1 transition-all flex-shrink-0"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -414,26 +330,19 @@ export default function Home() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 5l7 7-7 7"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-            </div>
-          </Link>
-          <div className="mt-4 text-center">
-            <p className="text-[10px] sm:text-xs text-slate-500 font-semibold">
-              More tools coming soon...
-            </p>
+              True Cost Calculator
+            </Link>
           </div>
         </div>
 
-        <footer className="mt-6 sm:mt-8 text-center space-y-2">
-          <div className="flex justify-center items-center gap-2 text-xs text-slate-500">
-            <span className="font-bold">Data Source:</span>
-            <span>MoHFW OM 03.10.2025 • CGHS Empanelment 2026</span>
-          </div>
-          <p className="text-xs text-slate-400 font-medium">
-            © 2026 Viluva BillCheck. Built for healthcare transparency.
+        {/* Footer */}
+        <footer className="mt-16 text-center space-y-2">
+          <p className="text-sm text-slate-500 font-medium">
+            © 2026 Viluva. Building tools for smarter financial decisions.
           </p>
         </footer>
       </div>
