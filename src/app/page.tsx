@@ -14,13 +14,27 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
+    setMessage("");
 
     try {
-      // Simulate API call - replace with actual endpoint later
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setStatus("success");
-      setMessage("Thanks for joining! We'll notify you when we launch.");
-      setEmail("");
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setMessage("Thanks for joining! We'll notify you when we launch.");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(data.error || "Something went wrong. Please try again.");
+      }
     } catch (error) {
       setStatus("error");
       setMessage("Something went wrong. Please try again.");
