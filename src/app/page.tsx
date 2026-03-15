@@ -119,7 +119,7 @@ export default function Home() {
 
       <HomePageNavigation />
 
-      <div className="w-full max-w-6xl mx-auto relative z-10 px-4 sm:px-8 py-12 sm:py-20">
+      <div className="w-full max-w-6xl mx-auto relative z-10 px-4 sm:px-8 py-6 sm:py-10">
         {/* Hero Section */}
         <div className="text-center mb-16 sm:mb-24">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-50 border border-cyan-200 rounded-full mb-6">

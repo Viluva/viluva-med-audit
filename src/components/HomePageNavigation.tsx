@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function HomePageNavigation() {
   return (
-    <nav className="w-full bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+    <nav className="w-full sticky top-0 z-50 glass">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="relative flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
@@ -33,6 +33,7 @@ export default function HomePageNavigation() {
             >
               CGHS BillCheck
             </Link>
+            <br />
             <Link
               href="/time-converter"
               className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
