@@ -1,11 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function HomePageNavigation() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <nav className="w-full sticky top-0 z-50 glass">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-        <div className="relative flex items-center justify-between">
+        <div className="relative flex items-center justify-center sm:justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/"
@@ -26,14 +31,44 @@ export default function HomePageNavigation() {
               </div>
             </Link>
           </div>
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-4">
+          {/* Hamburger button */}
+          <div className="absolute right-0 sm:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-slate-600 hover:text-cyan-600 focus:outline-none"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+          {/* Desktop Links */}
+          <div className="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-2 sm:gap-4">
             <Link
               href="/cghs-billcheck"
               className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
             >
               CGHS BillCheck
             </Link>
-            <br />
             <Link
               href="/time-converter"
               className="text-xs sm:text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
@@ -41,8 +76,26 @@ export default function HomePageNavigation() {
               True Cost Calculator
             </Link>
           </div>
-          <div></div>
         </div>
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="sm:hidden mt-4">
+            <div className="flex flex-col gap-4">
+              <Link
+                href="/cghs-billcheck"
+                className="text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
+              >
+                CGHS BillCheck
+              </Link>
+              <Link
+                href="/time-converter"
+                className="text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
+              >
+                True Cost Calculator
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
