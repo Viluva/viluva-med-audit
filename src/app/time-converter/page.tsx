@@ -296,20 +296,29 @@ export default function TimeConverter() {
                       }}
                       className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
                     />
-                    <div className="flex justify-between text-[10px] text-slate-500 mt-2 leading-tight">
-                      <span className="text-left flex-1">
+                    <div className="relative text-[10px] text-slate-500 mt-2 leading-tight h-8">
+                      <span
+                        className="absolute text-center"
+                        style={{ left: "20%", transform: "translateX(-50%)" }}
+                      >
                         <span className="font-semibold text-slate-600">7%</span>
                         <br />
                         FD (Safe)
                       </span>
-                      <span className="text-center flex-1">
+                      <span
+                        className="absolute text-center"
+                        style={{ left: "70%", transform: "translateX(-50%)" }}
+                      >
                         <span className="font-semibold text-slate-600">
                           12%
                         </span>
                         <br />
                         Nifty50
                       </span>
-                      <span className="text-right flex-1">
+                      <span
+                        className="absolute text-right"
+                        style={{ right: "0" }}
+                      >
                         <span className="font-semibold text-slate-600">
                           15%
                         </span>
