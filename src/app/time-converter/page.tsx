@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import HomePageNavigation from "@/components/HomePageNavigation";
@@ -17,6 +17,42 @@ export default function TimeConverter() {
   const [years, setYears] = useState(20);
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [isEditingHours, setIsEditingHours] = useState(false);
+  const [currencyCode, setCurrencyCode] = useState("INR");
+
+  useEffect(() => {
+    // Detect currency automatically via IP geolocation
+    fetch("https://ipapi.co/currency/")
+      .then((res) => res.text())
+      .then((currency) => {
+        // Verify it is a valid 3-letter currency code
+        if (currency && /^[A-Z]{3}$/.test(currency)) {
+          setCurrencyCode(currency);
+        }
+      })
+      .catch(() => {
+        console.error("Failed to detect location, defaulting to INR");
+      });
+  }, []);
+
+  // Automatically formats numbers based on the user's locale and detected currency
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: currencyCode,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
+  // Extracts just the local currency symbol (e.g., ₹, $, £) for the input labels
+  const currencySymbol = useMemo(() => {
+    const parts = new Intl.NumberFormat(undefined, {
+      style: "currency",
+      currency: currencyCode,
+    }).formatToParts(0);
+    return (
+      parts.find((part) => part.type === "currency")?.value || currencyCode
+    );
+  }, [currencyCode]);
 
   const calculate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,7 +90,12 @@ export default function TimeConverter() {
 
   const shareToTwitter = () => {
     if (!result) return;
-    const text = encodeURIComponent(result.shareableQuote);
+    const formattedPrice = formatCurrency(Number(formData.price));
+    const formattedFutureValue = formatCurrency(
+      result.futureWealth.futureValue,
+    );
+    const shareableQuote = `I just calculated the true cost of a ${formData.item || "purchase"}! It costs me ${result.formattedTime} of my life, and that money could grow to ${formattedFutureValue} in ${result.futureWealth.years} years if invested instead of spent. #TrueCostCalculator`;
+    const text = encodeURIComponent(shareableQuote);
     const url = encodeURIComponent(window.location.href);
     window.open(
       `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
@@ -136,7 +177,7 @@ export default function TimeConverter() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                  Price (₹)
+                  Price ({currencySymbol})
                 </label>
                 <input
                   type="number"
@@ -154,7 +195,7 @@ export default function TimeConverter() {
 
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                  Monthly Net Income (₹)
+                  Monthly Net Income ({currencySymbol})
                 </label>
                 <input
                   type="number"
@@ -241,7 +282,7 @@ export default function TimeConverter() {
                     Opportunity Cost
                   </h3>
                   <p className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-                    ₹{result.futureWealth.futureValue.toLocaleString("en-IN")}
+                    {formatCurrency(result.futureWealth.futureValue)}
                   </p>
                   <p className="text-sm text-slate-600">
                     Could grow to{" "}
@@ -250,11 +291,9 @@ export default function TimeConverter() {
                   </p>
                   <p className="text-xs text-slate-500 mt-2 max-w-md mx-auto">
                     If invested today at {result.futureWealth.returnRate * 100}%
-                    returns, this ₹
-                    {Number(formData.price).toLocaleString("en-IN")} could be
-                    worth ₹
-                    {result.futureWealth.futureValue.toLocaleString("en-IN")} in{" "}
-                    {result.futureWealth.years} years
+                    returns, this {formatCurrency(Number(formData.price))} could
+                    be worth {formatCurrency(result.futureWealth.futureValue)}{" "}
+                    in {result.futureWealth.years} years
                   </p>
                 </div>
 
@@ -272,7 +311,7 @@ export default function TimeConverter() {
                       }}
                     >
                       <span className="px-2">
-                        ₹{Number(formData.price).toLocaleString("en-IN")}
+                        {formatCurrency(Number(formData.price))}
                       </span>
                     </div>
                     <div
