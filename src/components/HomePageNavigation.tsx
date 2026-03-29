@@ -79,6 +79,24 @@ export default function HomePageNavigation() {
                 True Cost Calculator
               </Link>
               <Link
+                href="/fire-calculator"
+                className="text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
+              >
+                FIRE Calculator
+              </Link>
+              <Link
+                href="/coast-fire-calculator"
+                className="text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
+              >
+                Coast FIRE Calculator
+              </Link>
+              <Link
+                href="/fat-fire-calculator"
+                className="text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
+              >
+                Fat FIRE Calculator
+              </Link>
+              <Link
                 href="/barista-fire-calculator"
                 className="text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
               >
