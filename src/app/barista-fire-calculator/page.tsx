@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useMemo } from "react";
 import {
   PieChart,
@@ -24,59 +25,15 @@ import {
   ChevronUp,
   RotateCcw,
 } from "lucide-react";
-
 import HomePageNavigation from "@/components/HomePageNavigation";
-
-// ─── Helpers ────────────────────────────────────────────────────────────────
+import {
+  fireNumber,
+  baristaFireNumber,
+  yearsToTarget,
+  buildGrowthSeries,
+} from "@/lib/fireMath";
 
 const fmt = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
-
-/**
- * Years to reach `target` from `current`, saving `annualSaving` per year
- * and compounding at `rate` (e.g. 0.08 for 8%).
- * Uses FV formula: FV = PV*(1+r)^n + PMT*((1+r)^n - 1)/r
- * Solves numerically (binary search) since closed-form requires Lambert W.
- */
-function yearsToReach(
-  current: number,
-  target: number,
-  annualSaving: number,
-  rate: number,
-): number {
-  if (current >= target) return 0;
-  if (annualSaving <= 0 && rate <= 0) return Infinity;
-  // Numerical solve
-  let lo = 0,
-    hi = 200;
-  for (let i = 0; i < 100; i++) {
-    const mid = (lo + hi) / 2;
-    const fv =
-      current * Math.pow(1 + rate, mid) +
-      (rate > 0
-        ? annualSaving * ((Math.pow(1 + rate, mid) - 1) / rate)
-        : annualSaving * mid);
-    if (fv >= target) hi = mid;
-    else lo = mid;
-  }
-  return Math.ceil(hi);
-}
-
-/** Build a year-by-year portfolio growth series up to `maxYears`. */
-function buildGrowthSeries(
-  current: number,
-  annualSaving: number,
-  rate: number,
-  maxYears: number,
-  startAge: number,
-): { age: number; portfolio: number }[] {
-  const data: { age: number; portfolio: number }[] = [];
-  let pv = current;
-  for (let y = 0; y <= maxYears; y++) {
-    data.push({ age: startAge + y, portfolio: Math.round(pv) });
-    pv = pv * (1 + rate) + annualSaving;
-  }
-  return data;
-}
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -130,26 +87,23 @@ export default function BaristaFIRECalculator() {
   const calc = useMemo(() => {
     const expenses = Math.max(0, Number(formData.expenses));
     const baristaIncome = Math.max(0, Number(formData.baristaIncome));
-    const swr = Number(formData.swr) / 100;
+    const swr = Number(formData.swr);
     const currentSavings = Math.max(0, Number(formData.currentSavings));
     const currentAge = Math.max(18, Number(formData.currentAge));
     const annualSavings = Math.max(0, Number(formData.annualSavings));
     const returnRate = Number(formData.returnRate) / 100;
 
-    // Core numbers
     const gap = Math.max(0, expenses - baristaIncome);
-    const baristaTarget = swr > 0 ? Math.round(gap / swr) : 0;
-    const fullFireTarget = swr > 0 ? Math.round(expenses / swr) : 0;
+    const baristaTarget = baristaFireNumber(expenses, baristaIncome, swr);
+    const fullFireTarget = fireNumber(expenses, swr);
     const savingsRate = expenses > 0 ? (annualSavings / expenses) * 100 : 0;
-
-    // Years / ages
-    const baristaYears = yearsToReach(
+    const baristaYears = yearsToTarget(
       currentSavings,
       baristaTarget,
       annualSavings,
       returnRate,
     );
-    const fullFireYears = yearsToReach(
+    const fullFireYears = yearsToTarget(
       currentSavings,
       fullFireTarget,
       annualSavings,
@@ -159,18 +113,12 @@ export default function BaristaFIRECalculator() {
       baristaYears === Infinity ? null : currentAge + baristaYears;
     const fullFireAge =
       fullFireYears === Infinity ? null : currentAge + fullFireYears;
-
-    // Pie chart
     const portfolioCovers = gap;
     const jobCovers = baristaIncome;
-
-    // Percentage savings vs full FIRE
     const pctFaster =
       fullFireTarget > 0
         ? Math.round(((fullFireTarget - baristaTarget) / fullFireTarget) * 100)
         : 0;
-
-    // Growth chart data (max 60 years or until full FIRE + 5)
     const chartYears = Math.min(
       60,
       (fullFireYears === Infinity ? 40 : fullFireYears) + 5,
@@ -184,7 +132,6 @@ export default function BaristaFIRECalculator() {
           currentAge,
         )
       : [];
-
     return {
       expenses,
       baristaIncome,
@@ -625,6 +572,44 @@ export default function BaristaFIRECalculator() {
                 </div>
               )}
 
+              {/* ── Output Transparency & Assumptions ─────────────── */}
+              <div className="mt-6 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-4">
+                <p>
+                  <strong>Assumptions:</strong>
+                </p>
+                <ul className="list-disc ml-5">
+                  <li>Withdrawal rate: {formData.swr}%</li>
+                  <li>
+                    Return rate: {formData.returnRate}% (nominal, pre-tax)
+                  </li>
+                  <li>All savings invested at return rate</li>
+                  <li>No taxes or fees considered</li>
+                  <li>
+                    Inflation is not included; for real returns, subtract
+                    expected inflation from return rate
+                  </li>
+                  <li>All calculations are in today's rupees (₹)</li>
+                </ul>
+                <p className="mt-2">
+                  Barista FIRE number = (annual expenses − part-time income) /
+                  withdrawal rate
+                </p>
+                <p className="mt-1">
+                  Full FIRE number = annual expenses / withdrawal rate
+                </p>
+                <p className="mt-1">
+                  Timeline uses compound growth:{" "}
+                  <em>
+                    FV = PV × (1+r)<sup>n</sup> + PMT × ((1+r)<sup>n</sup> − 1)
+                    / r
+                  </em>
+                </p>
+                <p className="mt-1 text-amber-700">
+                  <strong>Tip:</strong> For a more conservative estimate, use a
+                  lower return rate (real, after inflation) and a lower SWR.
+                </p>
+              </div>
+
               {/* ── Early Exit highlight ─────────────────────────────────── */}
               <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
                 <p className="text-sm text-amber-800 leading-relaxed">
@@ -740,13 +725,18 @@ function Field({
   min?: number;
   max?: number;
 }) {
+  const id = `field-${name}`;
   return (
     <div>
-      <label className="block text-sm sm:text-base font-bold text-slate-800 mb-1">
+      <label
+        htmlFor={id}
+        className="block text-sm sm:text-base font-bold text-slate-800 mb-1"
+      >
         {label}
       </label>
       {hint && <p className="text-xs text-slate-400 mb-1.5">{hint}</p>}
       <input
+        id={id}
         type="number"
         name={name}
         min={min ?? 0}

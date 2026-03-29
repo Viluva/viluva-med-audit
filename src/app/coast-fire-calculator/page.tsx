@@ -22,93 +22,16 @@ import {
   Anchor,
   Sparkles,
 } from "lucide-react";
-
 import HomePageNavigation from "@/components/HomePageNavigation";
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+import {
+  fireNumber,
+  coastNumber,
+  yearsToTarget,
+  yearsToCoastAlone,
+  buildCoastSeries,
+} from "@/lib/fireMath";
 
 const fmt = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
-
-/**
- * Coast FIRE number = FV needed at retirement / (1+r)^yearsToRetirement
- * i.e. how much you need TODAY so that compound growth alone reaches your
- * full FIRE number by your target retirement age, with ZERO additional savings.
- */
-function coastNumber(
-  fullFire: number,
-  yearsToRetirement: number,
-  returnRate: number
-): number {
-  if (yearsToRetirement <= 0) return fullFire;
-  return fullFire / Math.pow(1 + returnRate, yearsToRetirement);
-}
-
-/**
- * Years until current savings compounds to `target` at `rate` (no extra contributions).
- * PV*(1+r)^n = target  →  n = ln(target/PV) / ln(1+r)
- */
-function yearsToCoastAlone(
-  current: number,
-  target: number,
-  rate: number
-): number {
-  if (current <= 0 || rate <= 0) return Infinity;
-  if (current >= target) return 0;
-  return Math.log(target / current) / Math.log(1 + rate);
-}
-
-/**
- * Years to reach `target` saving `annualSaving` at `rate` (with contributions).
- */
-function yearsToReach(
-  current: number,
-  target: number,
-  annualSaving: number,
-  rate: number
-): number {
-  if (current >= target) return 0;
-  if (annualSaving <= 0 && rate <= 0) return Infinity;
-  let lo = 0,
-    hi = 200;
-  for (let i = 0; i < 100; i++) {
-    const mid = (lo + hi) / 2;
-    const fv =
-      current * Math.pow(1 + rate, mid) +
-      (rate > 0
-        ? annualSaving * ((Math.pow(1 + rate, mid) - 1) / rate)
-        : annualSaving * mid);
-    if (fv >= target) hi = mid;
-    else lo = mid;
-  }
-  return Math.ceil(hi);
-}
-
-/** Two-phase growth series: accumulation (with savings) then coasting (no savings). */
-function buildCoastSeries(
-  current: number,
-  annualSaving: number,
-  rate: number,
-  coastTarget: number,
-  fullFireTarget: number,
-  startAge: number,
-  retirementAge: number
-): { age: number; portfolio: number; phase: "accumulate" | "coast" }[] {
-  const data: { age: number; portfolio: number; phase: "accumulate" | "coast" }[] = [];
-  let pv = current;
-  const maxAge = retirementAge + 5;
-  for (let y = 0; y <= maxAge - startAge; y++) {
-    const age = startAge + y;
-    const reachedCoast = pv >= coastTarget;
-    const phase: "accumulate" | "coast" = reachedCoast ? "coast" : "accumulate";
-    data.push({ age, portfolio: Math.round(pv), phase });
-    if (reachedCoast) {
-      pv = pv * (1 + rate); // coast — no contributions
-    } else {
-      pv = pv * (1 + rate) + annualSaving;
-    }
-  }
-  return data;
-}
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -135,7 +58,11 @@ interface CalcResult {
   alreadyCoasting: boolean;
   pctOfCoast: number;
   annualSavings: number;
-  growthSeries: { age: number; portfolio: number; phase: "accumulate" | "coast" }[];
+  growthSeries: {
+    age: number;
+    portfolio: number;
+    phase: "accumulate" | "coast";
+  }[];
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -155,26 +82,37 @@ export default function CoastFIRECalculator() {
 
   const calc = useMemo((): CalcResult => {
     const expenses = Math.max(0, Number(formData.expenses));
-    const swr = Number(formData.swr) / 100;
+    const swr = Number(formData.swr);
     const currentAge = Math.max(18, Number(formData.currentAge));
-    const retirementAge = Math.max(currentAge + 1, Number(formData.retirementAge));
+    const retirementAge = Math.max(
+      currentAge + 1,
+      Number(formData.retirementAge),
+    );
     const currentSavings = Math.max(0, Number(formData.currentSavings));
     const annualSavings = Math.max(0, Number(formData.annualSavings));
     const returnRate = Number(formData.returnRate) / 100;
 
-    const fullFireTarget = swr > 0 ? expenses / swr : 0;
+    const fullFireTarget = fireNumber(expenses, swr);
     const yearsToRetirement = retirementAge - currentAge;
-    const coastTarget = coastNumber(fullFireTarget, yearsToRetirement, returnRate);
+    const coastTarget = coastNumber(
+      fullFireTarget,
+      yearsToRetirement,
+      returnRate,
+    );
 
     const alreadyCoasting = currentSavings >= coastTarget;
     const yearsToCoastRaw = alreadyCoasting
       ? 0
-      : yearsToReach(currentSavings, coastTarget, annualSavings, returnRate);
-    const yearsToCoast = yearsToCoastRaw === Infinity ? Infinity : Math.ceil(yearsToCoastRaw);
-    const coastAge = yearsToCoast === Infinity ? null : currentAge + yearsToCoast;
+      : yearsToTarget(currentSavings, coastTarget, annualSavings, returnRate);
+    const yearsToCoast =
+      yearsToCoastRaw === Infinity ? Infinity : Math.ceil(yearsToCoastRaw);
+    const coastAge =
+      yearsToCoast === Infinity ? null : currentAge + yearsToCoast;
 
     const pctOfCoast =
-      coastTarget > 0 ? Math.min(100, Math.round((currentSavings / coastTarget) * 100)) : 0;
+      coastTarget > 0
+        ? Math.min(100, Math.round((currentSavings / coastTarget) * 100))
+        : 0;
 
     const growthSeries = buildCoastSeries(
       currentSavings,
@@ -183,7 +121,7 @@ export default function CoastFIRECalculator() {
       coastTarget,
       fullFireTarget,
       currentAge,
-      retirementAge
+      retirementAge,
     );
 
     return {
@@ -247,8 +185,8 @@ export default function CoastFIRECalculator() {
             Coast FIRE Calculator
           </h1>
           <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-2xl px-4">
-            Find the number you need to save today — then stop, and let
-            compound interest carry you to retirement.
+            Find the number you need to save today — then stop, and let compound
+            interest carry you to retirement.
           </p>
           <div className="flex items-center gap-2 mt-3 px-3 sm:px-4 py-1.5 sm:py-2 bg-teal-50 border border-teal-200 rounded-full">
             <Waves className="w-4 h-4 text-teal-600" />
@@ -349,7 +287,6 @@ export default function CoastFIRECalculator() {
           {/* Results */}
           {showResult && (
             <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-
               {/* Headline numbers */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <NumberCard
@@ -395,8 +332,8 @@ export default function CoastFIRECalculator() {
                       calc.alreadyCoasting
                         ? "You're coasting!"
                         : calc.coastAge === null
-                        ? "Not achievable"
-                        : `${calc.yearsToCoast} yrs`
+                          ? "Not achievable"
+                          : `${calc.yearsToCoast} yrs`
                     }
                   />
                   <InsightItem
@@ -406,8 +343,8 @@ export default function CoastFIRECalculator() {
                       calc.alreadyCoasting
                         ? `Age ${calc.currentAge}`
                         : calc.coastAge !== null
-                        ? `Age ${calc.coastAge}`
-                        : "—"
+                          ? `Age ${calc.coastAge}`
+                          : "—"
                     }
                   />
                   <InsightItem
@@ -448,7 +385,11 @@ export default function CoastFIRECalculator() {
                     <TrendingUp className="w-4 h-4 text-teal-500" />
                     View Two-Phase Growth Chart
                   </span>
-                  {showChart ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  {showChart ? (
+                    <ChevronUp className="w-4 h-4" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4" />
+                  )}
                 </button>
 
                 {showChart && (
@@ -457,26 +398,51 @@ export default function CoastFIRECalculator() {
                       Accumulation → Coast phase
                     </p>
                     <p className="text-xs text-slate-400 mb-4">
-                      Blue = saving aggressively · Teal = coasting (no new contributions)
+                      Blue = saving aggressively · Teal = coasting (no new
+                      contributions)
                     </p>
                     <div className="h-60">
                       <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={calc.growthSeries}>
                           <defs>
-                            <linearGradient id="coastGrad" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="#0d9488" stopOpacity={0.3} />
-                              <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
+                            <linearGradient
+                              id="coastGrad"
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="1"
+                            >
+                              <stop
+                                offset="5%"
+                                stopColor="#0d9488"
+                                stopOpacity={0.3}
+                              />
+                              <stop
+                                offset="95%"
+                                stopColor="#0d9488"
+                                stopOpacity={0}
+                              />
                             </linearGradient>
                           </defs>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                          <CartesianGrid
+                            strokeDasharray="3 3"
+                            stroke="#f1f5f9"
+                          />
                           <XAxis
                             dataKey="age"
                             tick={{ fontSize: 11 }}
-                            label={{ value: "Age", position: "insideBottomRight", offset: -5, fontSize: 11 }}
+                            label={{
+                              value: "Age",
+                              position: "insideBottomRight",
+                              offset: -5,
+                              fontSize: 11,
+                            }}
                           />
                           <YAxis
                             tickFormatter={(v) =>
-                              v >= 1e7 ? `₹${(v / 1e7).toFixed(1)}Cr` : `₹${(v / 1e5).toFixed(0)}L`
+                              v >= 1e7
+                                ? `₹${(v / 1e7).toFixed(1)}Cr`
+                                : `₹${(v / 1e5).toFixed(0)}L`
                             }
                             tick={{ fontSize: 10 }}
                             width={62}
@@ -487,14 +453,24 @@ export default function CoastFIRECalculator() {
                               x={calc.coastAge}
                               stroke="#0d9488"
                               strokeDasharray="4 3"
-                              label={{ value: "Coast", position: "top", fontSize: 10, fill: "#0d9488" }}
+                              label={{
+                                value: "Coast",
+                                position: "top",
+                                fontSize: 10,
+                                fill: "#0d9488",
+                              }}
                             />
                           )}
                           <ReferenceLine
                             x={calc.retirementAge}
                             stroke="#3b82f6"
                             strokeDasharray="4 3"
-                            label={{ value: "Retire", position: "top", fontSize: 10, fill: "#3b82f6" }}
+                            label={{
+                              value: "Retire",
+                              position: "top",
+                              fontSize: 10,
+                              fill: "#3b82f6",
+                            }}
                           />
                           <Area
                             type="monotone"
@@ -531,15 +507,21 @@ export default function CoastFIRECalculator() {
                 <p>
                   Coast FIRE = Full FIRE Number ÷ (1 + r)^years_to_retirement.
                   Once you hit this number, compound interest alone grows your
-                  portfolio to your full retirement goal — no new investments needed.
+                  portfolio to your full retirement goal — no new investments
+                  needed.
                 </p>
               </div>
             </div>
           </div>
 
           <footer className="mt-6 text-center space-y-1">
-            <p className="text-xs font-bold text-slate-500">Part of Viluva Tools Suite</p>
-            <p className="text-xs text-slate-400">© 2026 Viluva. For educational purposes only. Not financial advice.</p>
+            <p className="text-xs font-bold text-slate-500">
+              Part of Viluva Tools Suite
+            </p>
+            <p className="text-xs text-slate-400">
+              © 2026 Viluva. For educational purposes only. Not financial
+              advice.
+            </p>
           </footer>
         </div>
       </div>
@@ -573,8 +555,8 @@ function CoastStatusBanner({ calc }: { calc: CalcResult }): React.ReactElement {
       <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
         <p className="text-sm text-emerald-800 font-bold">
           🎉 You&apos;re already at your Coast FIRE number! You can stop making
-          new investments. Your portfolio will grow to {fmt(calc.fullFireTarget)} by age{" "}
-          {calc.retirementAge} on its own.
+          new investments. Your portfolio will grow to{" "}
+          {fmt(calc.fullFireTarget)} by age {calc.retirementAge} on its own.
         </p>
       </div>
     );
@@ -593,10 +575,10 @@ function CoastStatusBanner({ calc }: { calc: CalcResult }): React.ReactElement {
   return (
     <div className="p-4 bg-teal-50 border border-teal-200 rounded-xl">
       <p className="text-sm text-teal-800 font-bold">
-        ✅ You&apos;ll reach Coast FIRE at age <strong>{calc.coastAge}</strong> in{" "}
-        <strong>{calc.yearsToCoast} years</strong>. Then enjoy{" "}
-        <strong>{coastingYears} years</strong> of coasting before full retirement
-        at age {calc.retirementAge}.
+        ✅ You&apos;ll reach Coast FIRE at age <strong>{calc.coastAge}</strong>{" "}
+        in <strong>{calc.yearsToCoast} years</strong>. Then enjoy{" "}
+        <strong>{coastingYears} years</strong> of coasting before full
+        retirement at age {calc.retirementAge}.
       </p>
     </div>
   );
@@ -619,11 +601,18 @@ function Field({
   min?: number;
   max?: number;
 }) {
+  const id = `field-${name}`;
   return (
     <div>
-      <label className="block text-sm sm:text-base font-bold text-slate-800 mb-1">{label}</label>
+      <label
+        htmlFor={id}
+        className="block text-sm sm:text-base font-bold text-slate-800 mb-1"
+      >
+        {label}
+      </label>
       {hint && <p className="text-xs text-slate-400 mb-1.5">{hint}</p>}
       <input
+        id={id}
         type="number"
         name={name}
         min={min ?? 0}
@@ -666,7 +655,9 @@ function SliderField({
 }) {
   return (
     <div>
-      <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">{label}</label>
+      <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+        {label}
+      </label>
       <input
         type="range"
         name={name}
@@ -701,12 +692,16 @@ function NumberCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className={`bg-gradient-to-br ${gradient} text-white rounded-2xl shadow-lg p-6 flex flex-col gap-1`}>
+    <div
+      className={`bg-gradient-to-br ${gradient} text-white rounded-2xl shadow-lg p-6 flex flex-col gap-1`}
+    >
       <div className="flex items-center gap-2 text-white/80 text-sm font-semibold">
         {icon}
         {label}
       </div>
-      <p className="text-3xl sm:text-4xl font-black tracking-tight mt-1">{value}</p>
+      <p className="text-3xl sm:text-4xl font-black tracking-tight mt-1">
+        {value}
+      </p>
       <p className="text-xs text-white/70 mt-1">{sub}</p>
     </div>
   );
