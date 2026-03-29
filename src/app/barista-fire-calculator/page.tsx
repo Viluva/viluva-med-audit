@@ -588,7 +588,7 @@ export default function BaristaFIRECalculator() {
                     Inflation is not included; for real returns, subtract
                     expected inflation from return rate
                   </li>
-                  <li>All calculations are in today's rupees (₹)</li>
+                  <li>All calculations are in today&apos;s rupees (₹)</li>
                 </ul>
                 <p className="mt-2">
                   Barista FIRE number = (annual expenses − part-time income) /
