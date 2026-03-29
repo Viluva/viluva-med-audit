@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     "overcharge detection",
     "MoHFW guidelines",
     "NABH rates",
+    "viluva",
   ],
   openGraph: {
     title: "CGHS BillCheck | Viluva",

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     "true cost of a purchase",
     "time equals money",
     "financial independence",
+    "viluva",
   ],
   openGraph: {
     title: "True Cost Calculator | Viluva",
