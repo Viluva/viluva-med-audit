@@ -78,6 +78,12 @@ export default function HomePageNavigation() {
               >
                 True Cost Calculator
               </Link>
+              <Link
+                href="/barista-fire-calculator"
+                className="text-sm font-semibold text-slate-600 hover:text-cyan-600 transition-colors"
+              >
+                Barista FIRE Calculator
+              </Link>
             </div>
           </div>
         )}
