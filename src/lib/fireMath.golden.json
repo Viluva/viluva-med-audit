@@ -1,0 +1,127 @@
+[
+  {
+    "description": "Early-stage investor",
+    "input": {
+      "expenses": 600000,
+      "swr": 4,
+      "currentAge": 25,
+      "currentSavings": 0,
+      "annualSavings": 200000,
+      "returnRate": 0.1
+    },
+    "expected": { "fireTarget": 15000000, "yearsToFire": 30, "fireAge": 55 }
+  },
+  {
+    "description": "Late starter",
+    "input": {
+      "expenses": 1200000,
+      "swr": 3.5,
+      "currentAge": 45,
+      "currentSavings": 5000000,
+      "annualSavings": 400000,
+      "returnRate": 0.08
+    },
+    "expected": { "fireTarget": 34285714.29, "yearsToFire": 23, "fireAge": 68 }
+  },
+  {
+    "description": "High income, low savings",
+    "input": {
+      "expenses": 900000,
+      "swr": 4,
+      "currentAge": 35,
+      "currentSavings": 1000000,
+      "annualSavings": 50000,
+      "returnRate": 0.07
+    },
+    "expected": { "fireTarget": 22500000, "yearsToFire": 56, "fireAge": 91 }
+  },
+  {
+    "description": "Coast FIRE scenario",
+    "input": {
+      "expenses": 600000,
+      "swr": 4,
+      "currentAge": 30,
+      "currentSavings": 2000000,
+      "annualSavings": 0,
+      "returnRate": 0.1,
+      "retirementAge": 60
+    },
+    "expected": {
+      "fireTarget": 15000000,
+      "coastTarget": 1726061,
+      "alreadyCoasting": true
+    }
+  },
+  {
+    "description": "Barista FIRE scenario",
+    "input": {
+      "expenses": 800000,
+      "baristaIncome": 300000,
+      "swr": 4,
+      "currentSavings": 2000000,
+      "annualSavings": 200000,
+      "returnRate": 0.1
+    },
+    "expected": { "baristaFire": 12500000, "yearsToBarista": 53 }
+  },
+  {
+    "description": "Zero expenses",
+    "input": {
+      "expenses": 0,
+      "swr": 4,
+      "currentAge": 30,
+      "currentSavings": 0,
+      "annualSavings": 100000,
+      "returnRate": 0.1
+    },
+    "expected": { "fireTarget": 0, "yearsToFire": 0, "fireAge": 30 }
+  },
+  {
+    "description": "Negative inputs",
+    "input": {
+      "expenses": -100000,
+      "swr": 4,
+      "currentAge": 30,
+      "currentSavings": -100000,
+      "annualSavings": -10000,
+      "returnRate": 0.1
+    },
+    "expected": { "fireTarget": -2500000, "yearsToFire": 0, "fireAge": 30 }
+  },
+  {
+    "description": "Inflation >= return rate",
+    "input": {
+      "expenses": 600000,
+      "swr": 4,
+      "currentAge": 30,
+      "currentSavings": 0,
+      "annualSavings": 100000,
+      "returnRate": 0.04
+    },
+    "expected": { "fireTarget": 15000000, "yearsToFire": 38, "fireAge": 68 }
+  },
+  {
+    "description": "Early retirement age",
+    "input": {
+      "expenses": 600000,
+      "swr": 4,
+      "currentAge": 18,
+      "currentSavings": 0,
+      "annualSavings": 100000,
+      "returnRate": 0.1
+    },
+    "expected": { "fireTarget": 15000000, "yearsToFire": 30, "fireAge": 48 }
+  },
+  {
+    "description": "Very large inputs",
+    "input": {
+      "expenses": 100000000,
+      "swr": 4,
+      "currentAge": 30,
+      "currentSavings": 50000000,
+      "annualSavings": 5000000,
+      "returnRate": 0.1
+    },
+    "expected": { "fireTarget": 2500000000, "yearsToFire": 32, "fireAge": 62 }
+  }
+]
