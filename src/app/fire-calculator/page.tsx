@@ -227,7 +227,7 @@ export default function FIRECalculator() {
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
           <form onSubmit={handleCalculate} className="space-y-6">
             {/* Row 1: Expenses & Income */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-6">
               <Field
                 label="Current Annual Expenses (₹)"
                 name="expenses"

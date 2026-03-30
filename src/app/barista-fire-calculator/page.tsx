@@ -227,8 +227,8 @@ export default function BaristaFIRECalculator() {
         {/* ── Form card ─────────────────────────────────────────────────── */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
           <form onSubmit={handleCalculate} className="space-y-6">
-            {/* Expenses & Barista Income */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* All input fields stacked vertically */}
+            <div className="flex flex-col gap-6">
               <Field
                 label="Current Annual Expenses (₹)"
                 name="expenses"
@@ -242,19 +242,6 @@ export default function BaristaFIRECalculator() {
                 value={formData.baristaIncome}
                 onChange={handleChange}
                 hint="What you expect to earn per year from part-time or Barista work after leaving your main job."
-              />
-            </div>
-
-            {/* Age, Savings, Annual Savings */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Field
-                label="Current Age"
-                name="currentAge"
-                value={formData.currentAge}
-                onChange={handleChange}
-                min={10}
-                max={80}
-                hint="Your age today."
               />
               <Field
                 label="Current Portfolio / Savings (₹)"
@@ -270,10 +257,18 @@ export default function BaristaFIRECalculator() {
                 onChange={handleChange}
                 hint="How much you plan to invest each year from now on."
               />
+              <Field
+                label="Current Age"
+                name="currentAge"
+                value={formData.currentAge}
+                onChange={handleChange}
+                min={10}
+                max={80}
+                hint="Your age today."
+              />
             </div>
-
-            {/* Assumptions: SWR, Return, Inflation */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Sliders section visually separated */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-50 border border-slate-200 rounded-lg p-4 mt-2">
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
                   Safe Withdrawal Rate (SWR)
