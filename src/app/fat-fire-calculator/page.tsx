@@ -16,30 +16,38 @@ import {
   Crown,
   Info,
   TrendingUp,
-  Target,
   Clock,
   ChevronDown,
   ChevronUp,
   RotateCcw,
   Gem,
-  Star,
-  DollarSign,
 } from "lucide-react";
 import HomePageNavigation from "@/components/HomePageNavigation";
 import { fireNumber, yearsToTarget, buildGrowthSeries } from "@/lib/fireMath";
 
-const fmt = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
-const fmtL = (n: number) => {
+// Format large numbers for display (Cr, Lakh, etc)
+function fmtL(n: number): string {
   if (n >= 1e7) return `₹${(n / 1e7).toFixed(2)} Cr`;
   if (n >= 1e5) return `₹${(n / 1e5).toFixed(1)} L`;
   return fmt(n);
-};
+}
 
 // Fat FIRE lifestyle buckets breakdown
-interface LifestyleBucket {
+type LifestyleBucket = {
   category: string;
   amount: number;
   color: string;
+};
+
+interface FormData {
+  baseExpenses: string;
+  luxuryMultiplier: number;
+  swr: number;
+  currentAge: string;
+  currentSavings: string;
+  annualSavings: string;
+  returnRate: number;
+  inflationRate: number;
 }
 
 function buildLifestyleBuckets(totalExpenses: number): LifestyleBucket[] {
@@ -80,15 +88,9 @@ function buildLifestyleBuckets(totalExpenses: number): LifestyleBucket[] {
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-interface FormData {
-  baseExpenses: string;
-  luxuryMultiplier: number;
-  swr: number;
-  currentAge: string;
-  currentSavings: string;
-  annualSavings: string;
-  returnRate: number;
-  inflationRate: number;
+// Rupee formatting helper
+function fmt(n: number): string {
+  return "₹" + Math.round(n).toLocaleString("en-IN");
 }
 
 interface CalcResult {
@@ -273,34 +275,9 @@ export default function FatFIRECalculator() {
 
         {/* Card */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
-          <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
+          <form onSubmit={handleCalculate} className="space-y-6">
+            {/* Row 1: Expenses & Current Savings */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Inflation rate slider */}
-              <div>
-                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                  Inflation Rate (%)
-                </label>
-                <input
-                  type="range"
-                  name="inflationRate"
-                  min={0}
-                  max={10}
-                  step={0.1}
-                  value={formData.inflationRate}
-                  onChange={handleSlider}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-violet-600"
-                />
-                <div className="flex justify-between text-xs text-slate-400 mt-1">
-                  <span>0%</span>
-                  <span className="font-bold text-violet-600">
-                    {formData.inflationRate}% p.a.
-                  </span>
-                  <span>10%</span>
-                </div>
-                <p className="text-xs text-slate-500 mt-1">
-                  Typical Indian inflation: 4–6%.
-                </p>
-              </div>
               <Field
                 label="Current Annual Expenses (₹)"
                 name="baseExpenses"
@@ -310,7 +287,7 @@ export default function FatFIRECalculator() {
                 accentColor="violet"
               />
               <Field
-                label="Current Savings / Portfolio (₹)"
+                label="Current Portfolio / Savings (₹)"
                 name="currentSavings"
                 value={formData.currentSavings}
                 onChange={handleChange}
@@ -319,60 +296,8 @@ export default function FatFIRECalculator() {
               />
             </div>
 
-            {/* Luxury multiplier slider */}
-            <div className="p-4 bg-violet-50 border border-violet-100 rounded-xl">
-              <label className="block text-sm sm:text-base font-bold text-slate-800 mb-1">
-                Luxury Multiplier
-              </label>
-              <p className="text-xs text-slate-500 mb-3">
-                How many times your current expenses would your ideal Fat FIRE
-                lifestyle cost? (2x = comfortable luxury, 3x = high-end, 4x+ =
-                ultra-wealthy)
-              </p>
-              <input
-                type="range"
-                name="luxuryMultiplier"
-                min={1.5}
-                max={5}
-                step={0.1}
-                value={formData.luxuryMultiplier}
-                onChange={handleSlider}
-                className="w-full h-2 bg-violet-200 rounded-lg appearance-none cursor-pointer accent-violet-600"
-              />
-              <div className="flex justify-between text-xs mt-1">
-                <span className="text-slate-400">1.5× (modest)</span>
-                <span className="font-black text-violet-700 text-sm">
-                  {formData.luxuryMultiplier}× ={" "}
-                  {fmt(
-                    Number(formData.baseExpenses) * formData.luxuryMultiplier,
-                  )}
-                  /yr
-                </span>
-                <span className="text-slate-400">5× (ultra)</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field
-                label="Current Age"
-                name="currentAge"
-                value={formData.currentAge}
-                onChange={handleChange}
-                min={10}
-                max={80}
-                accentColor="violet"
-              />
-              <Field
-                label="Annual Savings / Investment (₹)"
-                name="annualSavings"
-                value={formData.annualSavings}
-                onChange={handleChange}
-                hint="How much you invest each year"
-                accentColor="violet"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Row 4: Assumptions - SWR, Return, Inflation */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <SliderField
                 label="Safe Withdrawal Rate (SWR)"
                 name="swr"
@@ -399,11 +324,24 @@ export default function FatFIRECalculator() {
                 rightLabel="18%"
                 hint="Indian equity long-term avg: ~12–14%"
               />
+              <SliderField
+                label="Inflation Rate"
+                name="inflationRate"
+                min={0}
+                max={10}
+                step={0.1}
+                value={formData.inflationRate}
+                onChange={handleSlider}
+                display={`${formData.inflationRate}%`}
+                leftLabel="0%"
+                rightLabel="10%"
+                hint="Long-term India avg: 5–6%"
+              />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-violet-600 to-purple-600 text-white font-bold py-3 sm:py-4 rounded-xl hover:from-violet-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] text-base sm:text-lg"
+              className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-bold py-3 sm:py-4 rounded-xl hover:from-violet-700 hover:to-fuchsia-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] text-base sm:text-lg"
             >
               Calculate My Fat FIRE Number
             </button>

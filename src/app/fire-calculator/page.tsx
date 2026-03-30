@@ -22,9 +22,7 @@ import {
   ChevronDown,
   ChevronUp,
   RotateCcw,
-  Zap,
   Shield,
-  CheckCircle,
 } from "lucide-react";
 import HomePageNavigation from "@/components/HomePageNavigation";
 import { fireNumber, yearsToTarget, buildGrowthSeries } from "@/lib/fireMath";
@@ -206,9 +204,7 @@ export default function FIRECalculator() {
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-orange-400/20 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-amber-400/20 rounded-full blur-3xl" />
       </div>
-
       <HomePageNavigation />
-
       <div className="w-full max-w-4xl mx-auto relative z-10 px-4 sm:px-8 pb-12">
         {/* Header */}
         <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
@@ -227,81 +223,54 @@ export default function FIRECalculator() {
             </span>
           </div>
         </header>
-
         {/* Card */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
-          <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
+          <form onSubmit={handleCalculate} className="space-y-6">
+            {/* Row 1: Expenses & Income */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Inflation rate slider */}
-              <div>
-                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                  Inflation Rate (%)
-                </label>
-                <input
-                  type="range"
-                  name="inflationRate"
-                  min={0}
-                  max={10}
-                  step={0.1}
-                  value={formData.inflationRate}
-                  onChange={handleSlider}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
-                />
-                <div className="flex justify-between text-xs text-slate-400 mt-1">
-                  <span>0%</span>
-                  <span className="font-bold text-orange-600">
-                    {formData.inflationRate}% p.a.
-                  </span>
-                  <span>10%</span>
-                </div>
-                <p className="text-xs text-slate-500 mt-1">
-                  Typical Indian inflation: 4–6%.
-                </p>
-              </div>
               <Field
-                label="Annual Expenses (₹)"
+                label="Current Annual Expenses (₹)"
                 name="expenses"
                 value={formData.expenses}
                 onChange={handleChange}
                 hint="Your total yearly spend — this is your FIRE foundation"
               />
               <Field
-                label="Annual Income (₹)"
+                label="Expected Annual Income (₹) at Retirement"
                 name="annualIncome"
                 value={formData.annualIncome}
                 onChange={handleChange}
                 hint="Your gross annual income (used for savings rate)"
               />
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Age, Savings, Annual Savings */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Field
-                label="Current Savings / Portfolio (₹)"
+                label="Current Age"
+                name="currentAge"
+                value={formData.currentAge}
+                onChange={handleChange}
+                min={10}
+                max={80}
+                hint="Your age today"
+              />
+              <Field
+                label="Current Portfolio / Savings (₹)"
                 name="currentSavings"
                 value={formData.currentSavings}
                 onChange={handleChange}
                 hint="Total invested assets today"
               />
               <Field
-                label="Annual Savings / Investment (₹)"
+                label="Annual Savings / Investments (₹) going forward"
                 name="annualSavings"
                 value={formData.annualSavings}
                 onChange={handleChange}
                 hint="How much you invest each year"
               />
             </div>
-
-            <Field
-              label="Current Age"
-              name="currentAge"
-              value={formData.currentAge}
-              onChange={handleChange}
-              min={10}
-              max={80}
-              hint="Your age today"
-            />
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Assumptions: SWR, Return, Inflation */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
                   Safe Withdrawal Rate (SWR)
@@ -353,8 +322,32 @@ export default function FIRECalculator() {
                   Indian equity long-term avg: ~12–14%. Debt: ~7%.
                 </p>
               </div>
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Inflation Rate (%)
+                </label>
+                <input
+                  type="range"
+                  name="inflationRate"
+                  min={0}
+                  max={10}
+                  step={0.1}
+                  value={formData.inflationRate}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>0%</span>
+                  <span className="font-bold text-orange-600">
+                    {formData.inflationRate}% p.a.
+                  </span>
+                  <span>10%</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Typical Indian inflation: 4–6%.
+                </p>
+              </div>
             </div>
-
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-bold py-3 sm:py-4 rounded-xl hover:from-orange-600 hover:to-amber-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] text-base sm:text-lg"
@@ -362,7 +355,6 @@ export default function FIRECalculator() {
               Calculate My FIRE Number
             </button>
           </form>
-
           {/* Results */}
           {showResult && (
             <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -401,31 +393,6 @@ export default function FIRECalculator() {
                   </div>
                 </div>
               </div>
-
-              {/* Progress bar */}
-              <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-                <div className="flex justify-between text-sm font-bold text-slate-700 mb-2">
-                  <span>Progress to FIRE</span>
-                  <span className="text-orange-600">{calc.pctOfFire}%</span>
-                </div>
-                <div className="w-full h-5 bg-slate-100 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-orange-500 to-amber-400 rounded-full transition-all duration-700 flex items-center justify-end pr-2"
-                    style={{ width: `${Math.max(calc.pctOfFire, 4)}%` }}
-                  >
-                    {calc.pctOfFire >= 15 && (
-                      <span className="text-white text-[10px] font-black">
-                        {calc.pctOfFire}%
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="flex justify-between text-xs text-slate-400 mt-1">
-                  <span>{fmtL(calc.currentSavings)} saved</span>
-                  <span>{fmtL(calc.fireTarget)} goal</span>
-                </div>
-              </div>
-
               {/* Timeline cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <StatCard
@@ -445,7 +412,7 @@ export default function FIRECalculator() {
                   value={calc.fireAge !== null ? `Age ${calc.fireAge}` : "—"}
                 />
                 <StatCard
-                  icon={<TrendingUp className="w-4 h-4 text-yellow-500" />}
+                  icon={<Shield className="w-4 h-4 text-orange-500" />}
                   label="Savings Rate"
                   value={`${calc.savingsRate.toFixed(1)}%`}
                   sub={
@@ -453,15 +420,12 @@ export default function FIRECalculator() {
                       ? "🔥 Excellent!"
                       : calc.savingsRate >= 30
                         ? "👍 Good"
-                        : "⬆️ Increase this"
+                        : undefined
                   }
                 />
               </div>
-
               {/* Status banner */}
               <FIREStatusBanner calc={calc} />
-
-              {/* FIRE spectrum bar chart */}
               <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
                 <p className="text-sm font-bold text-slate-700 mb-1">
                   Your FIRE Spectrum
@@ -477,7 +441,6 @@ export default function FIRECalculator() {
                         stroke="#f1f5f9"
                         vertical={false}
                       />
-                      <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                       <YAxis
                         tickFormatter={(v) =>
                           v >= 1e7
@@ -511,7 +474,6 @@ export default function FIRECalculator() {
                   </span>
                 </div>
               </div>
-
               {/* SWR Sensitivity toggle */}
               <div>
                 <button
@@ -529,7 +491,6 @@ export default function FIRECalculator() {
                     <ChevronDown className="w-4 h-4" />
                   )}
                 </button>
-
                 {showSensitivity && (
                   <div className="mt-3 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm overflow-x-auto">
                     <p className="text-xs text-slate-400 mb-3">
@@ -580,7 +541,6 @@ export default function FIRECalculator() {
                   </div>
                 )}
               </div>
-
               {/* Growth chart toggle */}
               <div>
                 <button
@@ -598,7 +558,6 @@ export default function FIRECalculator() {
                     <ChevronDown className="w-4 h-4" />
                   )}
                 </button>
-
                 {showChart && (
                   <div className="mt-3 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
                     <div className="h-56">
@@ -682,7 +641,6 @@ export default function FIRECalculator() {
                   </div>
                 )}
               </div>
-
               {/* FIRE principle callout */}
               <div className="p-4 bg-orange-50 border border-orange-200 rounded-xl">
                 <p className="text-sm text-orange-800 leading-relaxed">
@@ -696,7 +654,6 @@ export default function FIRECalculator() {
                   forever, with high probability your money outlives you.
                 </p>
               </div>
-
               <button
                 type="button"
                 onClick={handleReset}
@@ -707,7 +664,6 @@ export default function FIRECalculator() {
               </button>
             </div>
           )}
-
           {/* Info box */}
           <div className="mt-8 bg-slate-50 border border-slate-200 px-4 sm:px-5 py-3 sm:py-4 rounded-xl">
             <div className="flex items-start gap-3">
@@ -730,7 +686,6 @@ export default function FIRECalculator() {
               </div>
             </div>
           </div>
-
           <footer className="mt-6 text-center space-y-1">
             <p className="text-xs font-bold text-slate-500">
               Part of Viluva Tools Suite

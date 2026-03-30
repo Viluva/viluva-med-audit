@@ -203,43 +203,18 @@ export default function CoastFIRECalculator() {
 
         {/* Card */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
-          <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
+          <form onSubmit={handleCalculate} className="space-y-6">
+            {/* Expenses at Retirement & Current Savings */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Inflation rate slider */}
-              <div>
-                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                  Inflation Rate (%)
-                </label>
-                <input
-                  type="range"
-                  name="inflationRate"
-                  min={0}
-                  max={10}
-                  step={0.1}
-                  value={formData.inflationRate}
-                  onChange={handleSlider}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600"
-                />
-                <div className="flex justify-between text-xs text-slate-400 mt-1">
-                  <span>0%</span>
-                  <span className="font-bold text-teal-600">
-                    {formData.inflationRate}% p.a.
-                  </span>
-                  <span>10%</span>
-                </div>
-                <p className="text-xs text-slate-500 mt-1">
-                  Typical Indian inflation: 4–6%.
-                </p>
-              </div>
               <Field
-                label="Annual Expenses at Retirement (₹)"
+                label="Expected Annual Expenses at Retirement (₹)"
                 name="expenses"
                 value={formData.expenses}
                 onChange={handleChange}
                 hint="Your estimated yearly spend in retirement (today's ₹)"
               />
               <Field
-                label="Current Savings / Portfolio (₹)"
+                label="Current Portfolio / Savings (₹)"
                 name="currentSavings"
                 value={formData.currentSavings}
                 onChange={handleChange}
@@ -247,6 +222,7 @@ export default function CoastFIRECalculator() {
               />
             </div>
 
+            {/* Current Age & Target Retirement Age */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Field
                 label="Current Age"
@@ -268,16 +244,17 @@ export default function CoastFIRECalculator() {
               />
             </div>
 
+            {/* Annual Savings */}
             <Field
-              label="Annual Savings / Investment (₹)"
+              label="Annual Savings / Investments (₹) until Coast FIRE"
               name="annualSavings"
               value={formData.annualSavings}
               onChange={handleChange}
               hint="How much you invest each year while accumulating"
             />
 
-            {/* Sliders */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Assumptions: SWR, Return, Inflation */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <SliderField
                 label="Safe Withdrawal Rate (SWR)"
                 name="swr"
@@ -305,6 +282,31 @@ export default function CoastFIRECalculator() {
                 accentClass="accent-cyan-600"
                 hint="Indian equity long-term avg: ~12–14%"
               />
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Inflation Rate (%)
+                </label>
+                <input
+                  type="range"
+                  name="inflationRate"
+                  min={0}
+                  max={10}
+                  step={0.1}
+                  value={formData.inflationRate}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>0%</span>
+                  <span className="font-bold text-teal-600">
+                    {formData.inflationRate}% p.a.
+                  </span>
+                  <span>10%</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Typical Indian inflation: 4–6%.
+                </p>
+              </div>
             </div>
 
             <button

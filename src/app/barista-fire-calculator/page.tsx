@@ -226,53 +226,27 @@ export default function BaristaFIRECalculator() {
 
         {/* ── Form card ─────────────────────────────────────────────────── */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
-          <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
-            {/* Always-visible fields */}
+          <form onSubmit={handleCalculate} className="space-y-6">
+            {/* Expenses & Barista Income */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Field
-                label="Annual Expenses (₹)"
+                label="Current Annual Expenses (₹)"
                 name="expenses"
                 value={formData.expenses}
                 onChange={handleChange}
-                hint="Total yearly spend including rent, food, lifestyle"
+                hint="Your total yearly spending today (rent, food, lifestyle, etc.) before Barista FIRE."
               />
               <Field
-                label="Annual Part-Time Income (₹)"
+                label="Expected Annual Part-Time Income (₹) after Barista FIRE"
                 name="baristaIncome"
                 value={formData.baristaIncome}
                 onChange={handleChange}
-                hint="What you'd earn from your Barista / part-time work"
+                hint="What you expect to earn per year from part-time or Barista work after leaving your main job."
               />
             </div>
 
-            {/* SWR slider */}
-            <div>
-              <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                Safe Withdrawal Rate (SWR)
-              </label>
-              <input
-                type="range"
-                name="swr"
-                min="2"
-                max="6"
-                step="0.1"
-                value={formData.swr}
-                onChange={handleSlider}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-              />
-              <div className="flex justify-between text-xs text-slate-400 mt-1">
-                <span>2% (very conservative)</span>
-                <span className="font-bold text-blue-600">{formData.swr}%</span>
-                <span>6% (aggressive)</span>
-              </div>
-              <p className="text-xs text-slate-500 mt-1">
-                The classic &quot;4% rule&quot; is a common starting point.
-                Lower = safer, higher = smaller corpus needed but more risk.
-              </p>
-            </div>
-
-            {/* Advanced fields (now always visible) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-200">
+            {/* Age, Savings, Annual Savings */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Field
                 label="Current Age"
                 name="currentAge"
@@ -280,23 +254,52 @@ export default function BaristaFIRECalculator() {
                 onChange={handleChange}
                 min={10}
                 max={80}
-                hint="Your age today"
+                hint="Your age today."
               />
               <Field
                 label="Current Portfolio / Savings (₹)"
                 name="currentSavings"
                 value={formData.currentSavings}
                 onChange={handleChange}
-                hint="Total invested savings you have right now"
+                hint="Total invested savings you have right now (before Barista FIRE)."
               />
               <Field
-                label="Annual Savings / Investment (₹)"
+                label="Annual Savings / Investments (₹) going forward"
                 name="annualSavings"
                 value={formData.annualSavings}
                 onChange={handleChange}
-                hint="How much you invest each year going forward"
+                hint="How much you plan to invest each year from now on."
               />
-              {/* Return rate slider */}
+            </div>
+
+            {/* Assumptions: SWR, Return, Inflation */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Safe Withdrawal Rate (SWR)
+                </label>
+                <input
+                  type="range"
+                  name="swr"
+                  min="2"
+                  max="6"
+                  step="0.1"
+                  value={formData.swr}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>2% (very conservative)</span>
+                  <span className="font-bold text-blue-600">
+                    {formData.swr}%
+                  </span>
+                  <span>6% (aggressive)</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  The classic &quot;4% rule&quot; is a common starting point.
+                  Lower = safer, higher = smaller corpus needed but more risk.
+                </p>
+              </div>
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
                   Expected Annual Return (%)
@@ -322,7 +325,6 @@ export default function BaristaFIRECalculator() {
                   Indian equity long-term avg: ~12–14%. Debt: ~7%.
                 </p>
               </div>
-              {/* Inflation rate slider */}
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
                   Inflation Rate (%)
