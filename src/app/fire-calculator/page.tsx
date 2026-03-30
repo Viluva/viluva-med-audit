@@ -52,6 +52,7 @@ interface FormData {
   annualIncome: string;
   annualSavings: string;
   returnRate: number;
+  inflationRate: number;
 }
 
 interface CalcResult {
@@ -84,6 +85,7 @@ export default function FIRECalculator() {
     annualIncome: "1200000",
     annualSavings: "400000",
     returnRate: 12,
+    inflationRate: 5,
   });
   const [showResult, setShowResult] = useState(false);
   const [showChart, setShowChart] = useState(false);
@@ -97,6 +99,8 @@ export default function FIRECalculator() {
     const annualIncome = Math.max(0, Number(formData.annualIncome));
     const annualSavings = Math.max(0, Number(formData.annualSavings));
     const returnRate = Number(formData.returnRate) / 100;
+    const inflationRate = Number(formData.inflationRate) / 100;
+    const realReturn = returnRate - inflationRate;
 
     const fireTarget = fireNumber(expenses, swr);
     const leanFireTarget = fireNumber(expenses * 0.7, swr);
@@ -106,7 +110,7 @@ export default function FIRECalculator() {
       currentSavings,
       fireTarget,
       annualSavings,
-      returnRate,
+      realReturn,
     );
     const fireAge = yearsToFire === Infinity ? null : currentAge + yearsToFire;
 
@@ -134,7 +138,7 @@ export default function FIRECalculator() {
     const growthSeries = buildGrowthSeries(
       currentSavings,
       annualSavings,
-      returnRate,
+      realReturn,
       chartYears,
       currentAge,
     );
@@ -182,6 +186,7 @@ export default function FIRECalculator() {
       annualIncome: "1200000",
       annualSavings: "400000",
       returnRate: 12,
+      inflationRate: 5,
     });
     setShowResult(false);
     setShowChart(false);
@@ -227,6 +232,32 @@ export default function FIRECalculator() {
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
           <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Inflation rate slider */}
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Inflation Rate (%)
+                </label>
+                <input
+                  type="range"
+                  name="inflationRate"
+                  min={0}
+                  max={10}
+                  step={0.1}
+                  value={formData.inflationRate}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>0%</span>
+                  <span className="font-bold text-orange-600">
+                    {formData.inflationRate}% p.a.
+                  </span>
+                  <span>10%</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Typical Indian inflation: 4–6%.
+                </p>
+              </div>
               <Field
                 label="Annual Expenses (₹)"
                 name="expenses"
@@ -657,7 +688,8 @@ export default function FIRECalculator() {
                 <p className="text-sm text-orange-800 leading-relaxed">
                   <strong>🔥 The FIRE Formula:</strong> Save{" "}
                   <strong>{fmt(calc.annualSavings)}/yr</strong> at{" "}
-                  <strong>{formData.returnRate}%</strong> returns. Your
+                  <strong>{formData.returnRate}%</strong> returns (real return:{" "}
+                  {formData.returnRate - formData.inflationRate}%). Your
                   portfolio hits <strong>{fmtL(calc.fireTarget)}</strong>
                   {calc.fireAge ? ` at age ${calc.fireAge}` : ""}. Then withdraw{" "}
                   <strong>{formData.swr}%</strong> — covering all your expenses
@@ -689,8 +721,11 @@ export default function FIRECalculator() {
                   withdrawals with high success rates.
                 </p>
                 <p>
-                  Timeline uses compound growth:{" "}
-                  <em>FV = PV × (1+r)ⁿ + PMT × ((1+r)ⁿ − 1) / r</em>
+                  Timeline uses compound growth (inflation-adjusted):{" "}
+                  <em>
+                    FV = PV × (1+r)ⁿ + PMT × ((1+r)ⁿ − 1) / r, where r = real
+                    return (after inflation)
+                  </em>
                 </p>
               </div>
             </div>

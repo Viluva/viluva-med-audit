@@ -43,6 +43,7 @@ interface FormData {
   currentSavings: string;
   annualSavings: string;
   returnRate: number;
+  inflationRate: number;
 }
 
 interface CalcResult {
@@ -76,6 +77,7 @@ export default function CoastFIRECalculator() {
     currentSavings: "500000",
     annualSavings: "240000",
     returnRate: 12,
+    inflationRate: 5,
   });
   const [showResult, setShowResult] = useState(false);
   const [showChart, setShowChart] = useState(false);
@@ -91,19 +93,21 @@ export default function CoastFIRECalculator() {
     const currentSavings = Math.max(0, Number(formData.currentSavings));
     const annualSavings = Math.max(0, Number(formData.annualSavings));
     const returnRate = Number(formData.returnRate) / 100;
+    const inflationRate = Number(formData.inflationRate) / 100;
+    const realReturn = returnRate - inflationRate;
 
     const fullFireTarget = fireNumber(expenses, swr);
     const yearsToRetirement = retirementAge - currentAge;
     const coastTarget = coastNumber(
       fullFireTarget,
       yearsToRetirement,
-      returnRate,
+      realReturn,
     );
 
     const alreadyCoasting = currentSavings >= coastTarget;
     const yearsToCoastRaw = alreadyCoasting
       ? 0
-      : yearsToTarget(currentSavings, coastTarget, annualSavings, returnRate);
+      : yearsToTarget(currentSavings, coastTarget, annualSavings, realReturn);
     const yearsToCoast =
       yearsToCoastRaw === Infinity ? Infinity : Math.ceil(yearsToCoastRaw);
     const coastAge =
@@ -117,7 +121,7 @@ export default function CoastFIRECalculator() {
     const growthSeries = buildCoastSeries(
       currentSavings,
       annualSavings,
-      returnRate,
+      realReturn,
       coastTarget,
       fullFireTarget,
       currentAge,
@@ -163,6 +167,7 @@ export default function CoastFIRECalculator() {
       currentSavings: "500000",
       annualSavings: "240000",
       returnRate: 12,
+      inflationRate: 5,
     });
     setShowResult(false);
     setShowChart(false);
@@ -200,6 +205,32 @@ export default function CoastFIRECalculator() {
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
           <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Inflation rate slider */}
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Inflation Rate (%)
+                </label>
+                <input
+                  type="range"
+                  name="inflationRate"
+                  min={0}
+                  max={10}
+                  step={0.1}
+                  value={formData.inflationRate}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>0%</span>
+                  <span className="font-bold text-teal-600">
+                    {formData.inflationRate}% p.a.
+                  </span>
+                  <span>10%</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Typical Indian inflation: 4–6%.
+                </p>
+              </div>
               <Field
                 label="Annual Expenses at Retirement (₹)"
                 name="expenses"
@@ -395,7 +426,7 @@ export default function CoastFIRECalculator() {
                 {showChart && (
                   <div className="mt-3 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
                     <p className="text-sm font-bold text-slate-700 mb-1">
-                      Accumulation → Coast phase
+                      Accumulation → Coast phase (Inflation-adjusted)
                     </p>
                     <p className="text-xs text-slate-400 mb-4">
                       Blue = saving aggressively · Teal = coasting (no new
@@ -509,6 +540,13 @@ export default function CoastFIRECalculator() {
                   Once you hit this number, compound interest alone grows your
                   portfolio to your full retirement goal — no new investments
                   needed.
+                </p>
+                <p>
+                  Timeline uses compound growth (inflation-adjusted):{" "}
+                  <em>
+                    FV = PV × (1+r)ⁿ + PMT × ((1+r)ⁿ − 1) / r, where r = real
+                    return (after inflation)
+                  </em>
                 </p>
               </div>
             </div>

@@ -88,6 +88,7 @@ interface FormData {
   currentSavings: string;
   annualSavings: string;
   returnRate: number;
+  inflationRate: number;
 }
 
 interface CalcResult {
@@ -119,6 +120,7 @@ export default function FatFIRECalculator() {
     currentSavings: "2000000",
     annualSavings: "600000",
     returnRate: 12,
+    inflationRate: 5,
   });
   const [showResult, setShowResult] = useState(false);
   const [showChart, setShowChart] = useState(false);
@@ -132,6 +134,8 @@ export default function FatFIRECalculator() {
     const currentSavings = Math.max(0, Number(formData.currentSavings));
     const annualSavings = Math.max(0, Number(formData.annualSavings));
     const returnRate = Number(formData.returnRate) / 100;
+    const inflationRate = Number(formData.inflationRate) / 100;
+    const realReturn = returnRate - inflationRate;
 
     const fatExpenses = baseExpenses * luxuryMultiplier;
     const fatFireTarget = fireNumber(fatExpenses, swr);
@@ -142,7 +146,7 @@ export default function FatFIRECalculator() {
       currentSavings,
       fatFireTarget,
       annualSavings,
-      returnRate,
+      realReturn,
     );
     const fatFireAge =
       yearsToFatFire === Infinity ? null : currentAge + yearsToFatFire;
@@ -151,7 +155,7 @@ export default function FatFIRECalculator() {
       currentSavings,
       standardFireTarget,
       annualSavings,
-      returnRate,
+      realReturn,
     );
     const standardFireAge =
       yearsToStandardFire === Infinity
@@ -178,7 +182,7 @@ export default function FatFIRECalculator() {
     const growthSeries = buildGrowthSeries(
       currentSavings,
       annualSavings,
-      returnRate,
+      realReturn,
       chartYears,
       currentAge,
     );
@@ -225,6 +229,7 @@ export default function FatFIRECalculator() {
       currentSavings: "2000000",
       annualSavings: "600000",
       returnRate: 12,
+      inflationRate: 5,
     });
     setShowResult(false);
     setShowChart(false);
@@ -270,6 +275,32 @@ export default function FatFIRECalculator() {
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
           <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Inflation rate slider */}
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Inflation Rate (%)
+                </label>
+                <input
+                  type="range"
+                  name="inflationRate"
+                  min={0}
+                  max={10}
+                  step={0.1}
+                  value={formData.inflationRate}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-violet-600"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>0%</span>
+                  <span className="font-bold text-violet-600">
+                    {formData.inflationRate}% p.a.
+                  </span>
+                  <span>10%</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Typical Indian inflation: 4–6%.
+                </p>
+              </div>
               <Field
                 label="Current Annual Expenses (₹)"
                 name="baseExpenses"
@@ -658,6 +689,13 @@ export default function FatFIRECalculator() {
                   lifestyle — typically 2–3× normal expenses. The lower SWR
                   (3–3.5%) provides extra safety for a longer, more expensive
                   retirement.
+                </p>
+                <p>
+                  Timeline uses compound growth (inflation-adjusted):{" "}
+                  <em>
+                    FV = PV × (1+r)ⁿ + PMT × ((1+r)ⁿ − 1) / r, where r = real
+                    return (after inflation)
+                  </em>
                 </p>
               </div>
             </div>
