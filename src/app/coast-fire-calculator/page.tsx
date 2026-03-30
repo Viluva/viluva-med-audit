@@ -204,47 +204,39 @@ export default function CoastFIRECalculator() {
         {/* Card */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
           <form onSubmit={handleCalculate} className="space-y-6">
-            {/* Expenses at Retirement & Current Savings */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field
-                label="Expected Annual Expenses at Retirement (₹)"
-                name="expenses"
-                value={formData.expenses}
-                onChange={handleChange}
-                hint="Your estimated yearly spend in retirement (today's ₹)"
-              />
-              <Field
-                label="Current Portfolio / Savings (₹)"
-                name="currentSavings"
-                value={formData.currentSavings}
-                onChange={handleChange}
-                hint="Total invested assets you have right now"
-              />
-            </div>
-
-            {/* Current Age & Target Retirement Age */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field
-                label="Current Age"
-                name="currentAge"
-                value={formData.currentAge}
-                onChange={handleChange}
-                min={10}
-                max={80}
-                hint="Your age today"
-              />
-              <Field
-                label="Target Retirement Age"
-                name="retirementAge"
-                value={formData.retirementAge}
-                onChange={handleChange}
-                min={20}
-                max={90}
-                hint="Age you want to fully stop working"
-              />
-            </div>
-
-            {/* Annual Savings */}
+            {/* All input fields stacked vertically */}
+            <Field
+              label="Expected Annual Expenses at Retirement (₹)"
+              name="expenses"
+              value={formData.expenses}
+              onChange={handleChange}
+              hint="Your estimated yearly spend in retirement (today's ₹)"
+            />
+            <Field
+              label="Current Portfolio / Savings (₹)"
+              name="currentSavings"
+              value={formData.currentSavings}
+              onChange={handleChange}
+              hint="Total invested assets you have right now"
+            />
+            <Field
+              label="Current Age"
+              name="currentAge"
+              value={formData.currentAge}
+              onChange={handleChange}
+              min={10}
+              max={80}
+              hint="Your age today"
+            />
+            <Field
+              label="Target Retirement Age"
+              name="retirementAge"
+              value={formData.retirementAge}
+              onChange={handleChange}
+              min={20}
+              max={90}
+              hint="Age you want to fully stop working"
+            />
             <Field
               label="Annual Savings / Investments (₹) until Coast FIRE"
               name="annualSavings"

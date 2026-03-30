@@ -276,25 +276,41 @@ export default function FatFIRECalculator() {
         {/* Card */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
           <form onSubmit={handleCalculate} className="space-y-6">
-            {/* Row 1: Expenses & Current Savings */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field
-                label="Current Annual Expenses (₹)"
-                name="baseExpenses"
-                value={formData.baseExpenses}
-                onChange={handleChange}
-                hint="Your actual current yearly spend"
-                accentColor="violet"
-              />
-              <Field
-                label="Current Portfolio / Savings (₹)"
-                name="currentSavings"
-                value={formData.currentSavings}
-                onChange={handleChange}
-                hint="Total invested assets right now"
-                accentColor="violet"
-              />
-            </div>
+            {/* All input fields stacked vertically */}
+            <Field
+              label="Current Annual Expenses (₹)"
+              name="baseExpenses"
+              value={formData.baseExpenses}
+              onChange={handleChange}
+              hint="Your actual current yearly spend"
+              accentColor="violet"
+            />
+            <Field
+              label="Current Portfolio / Savings (₹)"
+              name="currentSavings"
+              value={formData.currentSavings}
+              onChange={handleChange}
+              hint="Total invested assets right now"
+              accentColor="violet"
+            />
+            <Field
+              label="Current Age"
+              name="currentAge"
+              value={formData.currentAge}
+              onChange={handleChange}
+              min={10}
+              max={80}
+              hint="Your age today"
+              accentColor="violet"
+            />
+            <Field
+              label="Annual Savings / Investments (₹) going forward"
+              name="annualSavings"
+              value={formData.annualSavings}
+              onChange={handleChange}
+              hint="How much you invest each year"
+              accentColor="violet"
+            />
 
             {/* Row 4: Assumptions - SWR, Return, Inflation */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

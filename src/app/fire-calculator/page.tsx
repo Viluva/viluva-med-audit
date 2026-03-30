@@ -226,49 +226,44 @@ export default function FIRECalculator() {
         {/* Card */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
           <form onSubmit={handleCalculate} className="space-y-6">
-            {/* Row 1: Expenses & Income */}
-            <div className="flex flex-col gap-6">
-              <Field
-                label="Current Annual Expenses (₹)"
-                name="expenses"
-                value={formData.expenses}
-                onChange={handleChange}
-                hint="Your total yearly spend — this is your FIRE foundation"
-              />
-              <Field
-                label="Expected Annual Income (₹) at Retirement"
-                name="annualIncome"
-                value={formData.annualIncome}
-                onChange={handleChange}
-                hint="Your gross annual income (used for savings rate)"
-              />
-            </div>
-            {/* Age, Savings, Annual Savings */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Field
-                label="Current Age"
-                name="currentAge"
-                value={formData.currentAge}
-                onChange={handleChange}
-                min={10}
-                max={80}
-                hint="Your age today"
-              />
-              <Field
-                label="Current Portfolio / Savings (₹)"
-                name="currentSavings"
-                value={formData.currentSavings}
-                onChange={handleChange}
-                hint="Total invested assets today"
-              />
-              <Field
-                label="Annual Savings / Investments (₹) going forward"
-                name="annualSavings"
-                value={formData.annualSavings}
-                onChange={handleChange}
-                hint="How much you invest each year"
-              />
-            </div>
+            {/* All input fields stacked vertically */}
+            <Field
+              label="Current Annual Expenses (₹)"
+              name="expenses"
+              value={formData.expenses}
+              onChange={handleChange}
+              hint="Your total yearly spend — this is your FIRE foundation"
+            />
+            <Field
+              label="Expected Annual Income (₹) at Retirement"
+              name="annualIncome"
+              value={formData.annualIncome}
+              onChange={handleChange}
+              hint="Your gross annual income (used for savings rate)"
+            />
+            <Field
+              label="Current Age"
+              name="currentAge"
+              value={formData.currentAge}
+              onChange={handleChange}
+              min={10}
+              max={80}
+              hint="Your age today"
+            />
+            <Field
+              label="Current Portfolio / Savings (₹)"
+              name="currentSavings"
+              value={formData.currentSavings}
+              onChange={handleChange}
+              hint="Total invested assets today"
+            />
+            <Field
+              label="Annual Savings / Investments (₹) going forward"
+              name="annualSavings"
+              value={formData.annualSavings}
+              onChange={handleChange}
+              hint="How much you invest each year"
+            />
             {/* Assumptions: SWR, Return, Inflation */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
