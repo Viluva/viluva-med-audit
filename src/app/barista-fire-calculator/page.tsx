@@ -15,7 +15,6 @@ import {
 } from "recharts";
 import {
   Coffee,
-  Umbrella,
   Zap,
   Info,
   TrendingUp,
@@ -45,6 +44,7 @@ interface FormData {
   currentAge: string;
   annualSavings: string;
   returnRate: number;
+  inflationRate: number;
 }
 
 interface CalcResult {
@@ -69,7 +69,6 @@ interface CalcResult {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function BaristaFIRECalculator() {
-  const [advanced, setAdvanced] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     expenses: "600000",
     baristaIncome: "250000",
@@ -78,6 +77,7 @@ export default function BaristaFIRECalculator() {
     currentAge: "30",
     annualSavings: "300000",
     returnRate: 10,
+    inflationRate: 5,
   });
   const [showResult, setShowResult] = useState(false);
   const [showChart, setShowChart] = useState(false);
@@ -92,7 +92,9 @@ export default function BaristaFIRECalculator() {
     const currentAge = Math.max(18, Number(formData.currentAge));
     const annualSavings = Math.max(0, Number(formData.annualSavings));
     const returnRate = Number(formData.returnRate) / 100;
+    const inflationRate = Number(formData.inflationRate) / 100;
 
+    const realReturn = returnRate - inflationRate;
     const gap = Math.max(0, expenses - baristaIncome);
     const baristaTarget = baristaFireNumber(expenses, baristaIncome, swr);
     const fullFireTarget = fireNumber(expenses, swr);
@@ -101,13 +103,13 @@ export default function BaristaFIRECalculator() {
       currentSavings,
       baristaTarget,
       annualSavings,
-      returnRate,
+      realReturn,
     );
     const fullFireYears = yearsToTarget(
       currentSavings,
       fullFireTarget,
       annualSavings,
-      returnRate,
+      realReturn,
     );
     const baristaAge =
       baristaYears === Infinity ? null : currentAge + baristaYears;
@@ -123,15 +125,13 @@ export default function BaristaFIRECalculator() {
       60,
       (fullFireYears === Infinity ? 40 : fullFireYears) + 5,
     );
-    const growthSeries = advanced
-      ? buildGrowthSeries(
-          currentSavings,
-          annualSavings,
-          returnRate,
-          chartYears,
-          currentAge,
-        )
-      : [];
+    const growthSeries = buildGrowthSeries(
+      currentSavings,
+      annualSavings,
+      realReturn,
+      chartYears,
+      currentAge,
+    );
     return {
       expenses,
       baristaIncome,
@@ -150,7 +150,7 @@ export default function BaristaFIRECalculator() {
       pctFaster,
       growthSeries,
     };
-  }, [formData, advanced]);
+  }, [formData]);
 
   // ── Handlers ──────────────────────────────────────────────────────────────
 
@@ -167,7 +167,6 @@ export default function BaristaFIRECalculator() {
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
     setShowResult(true);
-    setShowChart(false);
   };
 
   const handleReset = () => {
@@ -179,9 +178,9 @@ export default function BaristaFIRECalculator() {
       currentAge: "30",
       annualSavings: "300000",
       returnRate: 10,
+      inflationRate: 5,
     });
     setShowResult(false);
-    setShowChart(false);
   };
 
   // ── Pie data ──────────────────────────────────────────────────────────────
@@ -208,10 +207,10 @@ export default function BaristaFIRECalculator() {
         {/* ── Header ────────────────────────────────────────────────────── */}
         <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
           <br />
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+          <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
             Barista FIRE Calculator
           </h1>
-          <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-2xl px-4">
+          <p className="text-slate-600 font-semibold text-base mt-1 max-w-2xl px-4">
             Barista FIRE is when you step away from your full-time career early,
             but not completely retire—you take a simpler, low-stress job to
             cover your daily expenses. Meanwhile, your savings stay invested and
@@ -223,127 +222,130 @@ export default function BaristaFIRECalculator() {
               Barista FIRE = Work Less. Live More.
             </span>
           </div>
-          <div className="mt-4 flex items-center gap-2">
-            <input
-              id="advanced-toggle"
-              type="checkbox"
-              checked={advanced}
-              onChange={() => {
-                setAdvanced((v) => !v);
-                setShowResult(false);
-              }}
-              className="accent-cyan-600 w-4 h-4"
-            />
-            <label
-              htmlFor="advanced-toggle"
-              className="text-xs sm:text-sm font-semibold text-slate-700 cursor-pointer"
-            >
-              Advanced Mode (timeline &amp; growth chart)
-            </label>
-          </div>
         </header>
 
         {/* ── Form card ─────────────────────────────────────────────────── */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
-          <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
-            {/* Always-visible fields */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <form onSubmit={handleCalculate} className="space-y-6">
+            {/* All input fields stacked vertically */}
+            <div className="flex flex-col gap-6">
               <Field
-                label="Annual Expenses (₹)"
+                label="Current Annual Expenses (₹)"
                 name="expenses"
                 value={formData.expenses}
                 onChange={handleChange}
-                hint="Total yearly spend including rent, food, lifestyle"
+                hint="Your total yearly spending today (rent, food, lifestyle, etc.) before Barista FIRE."
               />
               <Field
-                label="Annual Part-Time Income (₹)"
+                label="Expected Annual Part-Time Income (₹) after Barista FIRE"
                 name="baristaIncome"
                 value={formData.baristaIncome}
                 onChange={handleChange}
-                hint="What you'd earn from your Barista / part-time work"
+                hint="What you expect to earn per year from part-time or Barista work after leaving your main job."
+              />
+              <Field
+                label="Current Portfolio / Savings (₹)"
+                name="currentSavings"
+                value={formData.currentSavings}
+                onChange={handleChange}
+                hint="Total invested savings you have right now (before Barista FIRE)."
+              />
+              <Field
+                label="Annual Savings / Investments (₹) going forward"
+                name="annualSavings"
+                value={formData.annualSavings}
+                onChange={handleChange}
+                hint="How much you plan to invest each year from now on."
+              />
+              <Field
+                label="Current Age"
+                name="currentAge"
+                value={formData.currentAge}
+                onChange={handleChange}
+                min={10}
+                max={80}
+                hint="Your age today."
               />
             </div>
-
-            {/* SWR slider */}
-            <div>
-              <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                Safe Withdrawal Rate (SWR)
-              </label>
-              <input
-                type="range"
-                name="swr"
-                min="2"
-                max="6"
-                step="0.1"
-                value={formData.swr}
-                onChange={handleSlider}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-              />
-              <div className="flex justify-between text-xs text-slate-400 mt-1">
-                <span>2% (very conservative)</span>
-                <span className="font-bold text-blue-600">{formData.swr}%</span>
-                <span>6% (aggressive)</span>
-              </div>
-              <p className="text-xs text-slate-500 mt-1">
-                The classic &quot;4% rule&quot; is a common starting point.
-                Lower = safer, higher = smaller corpus needed but more risk.
-              </p>
-            </div>
-
-            {/* Advanced fields */}
-            {advanced && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-200">
-                <Field
-                  label="Current Age"
-                  name="currentAge"
-                  value={formData.currentAge}
-                  onChange={handleChange}
-                  min={10}
-                  max={80}
-                  hint="Your age today"
+            {/* Sliders section visually separated */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-50 border border-slate-200 rounded-lg p-4 mt-2">
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Safe Withdrawal Rate (SWR)
+                </label>
+                <input
+                  type="range"
+                  name="swr"
+                  min="2"
+                  max="6"
+                  step="0.1"
+                  value={formData.swr}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
-                <Field
-                  label="Current Portfolio / Savings (₹)"
-                  name="currentSavings"
-                  value={formData.currentSavings}
-                  onChange={handleChange}
-                  hint="Total invested savings you have right now"
-                />
-                <Field
-                  label="Annual Savings / Investment (₹)"
-                  name="annualSavings"
-                  value={formData.annualSavings}
-                  onChange={handleChange}
-                  hint="How much you invest each year going forward"
-                />
-                {/* Return rate slider */}
-                <div>
-                  <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                    Expected Annual Return (%)
-                  </label>
-                  <input
-                    type="range"
-                    name="returnRate"
-                    min="4"
-                    max="18"
-                    step="0.5"
-                    value={formData.returnRate}
-                    onChange={handleSlider}
-                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-500"
-                  />
-                  <div className="flex justify-between text-xs text-slate-400 mt-1">
-                    <span>4%</span>
-                    <span className="font-bold text-emerald-600">
-                      {formData.returnRate}% p.a.
-                    </span>
-                    <span>18%</span>
-                  </div>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Indian equity long-term avg: ~12–14%. Debt: ~7%.
-                  </p>
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>2% (very conservative)</span>
+                  <span className="font-bold text-blue-600">
+                    {formData.swr}%
+                  </span>
+                  <span>6% (aggressive)</span>
                 </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  The classic &quot;4% rule&quot; is a common starting point.
+                  Lower = safer, higher = smaller corpus needed but more risk.
+                </p>
               </div>
-            )}
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Expected Annual Return (%)
+                </label>
+                <input
+                  type="range"
+                  name="returnRate"
+                  min="4"
+                  max="18"
+                  step="0.5"
+                  value={formData.returnRate}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>4%</span>
+                  <span className="font-bold text-emerald-600">
+                    {formData.returnRate}% p.a.
+                  </span>
+                  <span>18%</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Indian equity long-term avg: ~12–14%. Debt: ~7%.
+                </p>
+              </div>
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Inflation Rate (%)
+                </label>
+                <input
+                  type="range"
+                  name="inflationRate"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  value={formData.inflationRate}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>0%</span>
+                  <span className="font-bold text-cyan-600">
+                    {formData.inflationRate}% p.a.
+                  </span>
+                  <span>10%</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Typical Indian inflation: 4–6%.
+                </p>
+              </div>
+            </div>
 
             <button
               type="submit"
@@ -356,21 +358,14 @@ export default function BaristaFIRECalculator() {
           {/* ── Results ──────────────────────────────────────────────────── */}
           {showResult && (
             <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              {/* ── Row 1: headline numbers ─────────────────────────────── */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* ── Row 1: headline number ─────────────────────────────── */}
+              <div className="grid grid-cols-1 gap-4">
                 <NumberCard
                   label="Barista FIRE Target"
                   value={fmt(calc.baristaTarget)}
                   sub={`${calc.pctFaster}% less than Full FIRE`}
                   color="blue"
                   icon={<Coffee className="w-5 h-5" />}
-                />
-                <NumberCard
-                  label="Full FIRE Target"
-                  value={fmt(calc.fullFireTarget)}
-                  sub="No work ever needed"
-                  color="indigo"
-                  icon={<Umbrella className="w-5 h-5" />}
                 />
               </div>
 
@@ -430,185 +425,112 @@ export default function BaristaFIRECalculator() {
                     value={`${calc.pctFaster}% less`}
                     sub={`Save ${fmt(calc.fullFireTarget - calc.baristaTarget)} less`}
                   />
-                  {advanced && (
-                    <InsightRow
-                      icon={<TrendingUp className="w-4 h-4 text-emerald-500" />}
-                      label="Annual savings rate"
-                      value={`${calc.savingsRate.toFixed(1)}%`}
-                      sub="of your annual expenses"
-                    />
-                  )}
+                  <InsightRow
+                    icon={<TrendingUp className="w-4 h-4 text-emerald-500" />}
+                    label="Annual savings rate"
+                    value={`${calc.savingsRate.toFixed(1)}%`}
+                    sub="of your annual expenses"
+                  />
                 </div>
               </div>
 
-              {/* ── Row 3 (Advanced): timeline cards ────────────────────── */}
-              {advanced && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <TimelineCard
-                    label="Barista FIRE"
-                    years={calc.baristaYears}
-                    age={calc.baristaAge}
-                    color="cyan"
-                    icon={<Coffee className="w-5 h-5" />}
-                  />
-                  <TimelineCard
-                    label="Full FIRE"
-                    years={calc.fullFireYears}
-                    age={calc.fullFireAge}
-                    color="purple"
-                    icon={<Umbrella className="w-5 h-5" />}
-                  />
+              {/* ── Row 3: Barista FIRE timeline and phase duration ─ */}
+              <div className="grid grid-cols-1 gap-4">
+                <TimelineCard
+                  label="Barista FIRE"
+                  years={calc.baristaYears}
+                  age={calc.baristaAge}
+                  color="cyan"
+                  icon={<Coffee className="w-5 h-5" />}
+                />
+                <BaristaPhaseCard
+                  baristaYears={calc.baristaYears}
+                  fullFireYears={calc.fullFireYears}
+                />
+              </div>
+
+              {/* ── Row 4: status banner ─────────────────────── */}
+              {calc.baristaAge !== null && <StatusBanner calc={calc} />}
+
+              {/* ── Row 5: growth chart (always visible) ───────────────── */}
+              <div className="mt-3 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+                <p className="text-sm font-bold text-slate-700 mb-4">
+                  Portfolio Growth Over Time (Inflation-adjusted)
+                </p>
+                <div className="h-56">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={calc.growthSeries}>
+                      <defs>
+                        <linearGradient
+                          id="portGrad"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="#3b82f6"
+                            stopOpacity={0.25}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="#3b82f6"
+                            stopOpacity={0}
+                          />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                      <XAxis
+                        dataKey="age"
+                        tick={{ fontSize: 11 }}
+                        label={{
+                          value: "Age",
+                          position: "insideBottomRight",
+                          offset: -5,
+                          fontSize: 11,
+                        }}
+                      />
+                      <YAxis
+                        tickFormatter={(v) =>
+                          v >= 1e7
+                            ? `₹${(v / 1e7).toFixed(1)}Cr`
+                            : `₹${(v / 1e5).toFixed(0)}L`
+                        }
+                        tick={{ fontSize: 10 }}
+                        width={60}
+                      />
+                      <Tooltip content={<GrowthTooltip />} />
+                      <Area
+                        type="monotone"
+                        dataKey="portfolio"
+                        stroke="#3b82f6"
+                        strokeWidth={2.5}
+                        fill="url(#portGrad)"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
                 </div>
-              )}
-
-              {/* ── Row 4 (Advanced): status banner ─────────────────────── */}
-              {advanced && calc.baristaAge !== null && (
-                <StatusBanner calc={calc} />
-              )}
-
-              {/* ── Row 5 (Advanced): growth chart toggle ───────────────── */}
-              {advanced && (
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => setShowChart((v) => !v)}
-                    className="w-full flex items-center justify-between px-5 py-3 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-sm font-bold text-slate-700 transition-all"
-                  >
-                    <span className="flex items-center gap-2">
-                      <TrendingUp className="w-4 h-4 text-blue-500" />
-                      View Portfolio Growth Chart
+                {/* Milestones legend */}
+                <div className="flex gap-4 mt-3 flex-wrap">
+                  {calc.baristaAge && (
+                    <span className="text-xs flex items-center gap-1.5 text-cyan-700 font-medium">
+                      <div className="w-2.5 h-2.5 rounded-full bg-cyan-500" />
+                      Barista FIRE @ age {calc.baristaAge} —{" "}
+                      {fmt(calc.baristaTarget)}
                     </span>
-                    {showChart ? (
-                      <ChevronUp className="w-4 h-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4" />
-                    )}
-                  </button>
-
-                  {showChart && (
-                    <div className="mt-3 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                      <p className="text-sm font-bold text-slate-700 mb-4">
-                        Portfolio Growth Over Time
-                      </p>
-                      <div className="h-56">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <AreaChart data={calc.growthSeries}>
-                            <defs>
-                              <linearGradient
-                                id="portGrad"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                              >
-                                <stop
-                                  offset="5%"
-                                  stopColor="#3b82f6"
-                                  stopOpacity={0.25}
-                                />
-                                <stop
-                                  offset="95%"
-                                  stopColor="#3b82f6"
-                                  stopOpacity={0}
-                                />
-                              </linearGradient>
-                            </defs>
-                            <CartesianGrid
-                              strokeDasharray="3 3"
-                              stroke="#f1f5f9"
-                            />
-                            <XAxis
-                              dataKey="age"
-                              tick={{ fontSize: 11 }}
-                              label={{
-                                value: "Age",
-                                position: "insideBottomRight",
-                                offset: -5,
-                                fontSize: 11,
-                              }}
-                            />
-                            <YAxis
-                              tickFormatter={(v) =>
-                                v >= 1e7
-                                  ? `₹${(v / 1e7).toFixed(1)}Cr`
-                                  : `₹${(v / 1e5).toFixed(0)}L`
-                              }
-                              tick={{ fontSize: 10 }}
-                              width={60}
-                            />
-                            <Tooltip content={<GrowthTooltip />} />
-                            {/* Barista FIRE reference line */}
-                            {calc.baristaAge !== null && (
-                              <Area
-                                type="monotone"
-                                dataKey="portfolio"
-                                stroke="#3b82f6"
-                                strokeWidth={2.5}
-                                fill="url(#portGrad)"
-                              />
-                            )}
-                          </AreaChart>
-                        </ResponsiveContainer>
-                      </div>
-                      {/* Milestones legend */}
-                      <div className="flex gap-4 mt-3 flex-wrap">
-                        {calc.baristaAge && (
-                          <span className="text-xs flex items-center gap-1.5 text-cyan-700 font-medium">
-                            <div className="w-2.5 h-2.5 rounded-full bg-cyan-500" />
-                            Barista FIRE @ age {calc.baristaAge} —{" "}
-                            {fmt(calc.baristaTarget)}
-                          </span>
-                        )}
-                        {calc.fullFireAge && (
-                          <span className="text-xs flex items-center gap-1.5 text-purple-700 font-medium">
-                            <div className="w-2.5 h-2.5 rounded-full bg-purple-500" />
-                            Full FIRE @ age {calc.fullFireAge} —{" "}
-                            {fmt(calc.fullFireTarget)}
-                          </span>
-                        )}
-                      </div>
-                    </div>
+                  )}
+                  {calc.fullFireAge && (
+                    <span className="text-xs flex items-center gap-1.5 text-purple-700 font-medium">
+                      <div className="w-2.5 h-2.5 rounded-full bg-purple-500" />
+                      Full FIRE @ age {calc.fullFireAge} —{" "}
+                      {fmt(calc.fullFireTarget)}
+                    </span>
                   )}
                 </div>
-              )}
+              </div>
 
               {/* ── Output Transparency & Assumptions ─────────────── */}
-              <div className="mt-6 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-4">
-                <p>
-                  <strong>Assumptions:</strong>
-                </p>
-                <ul className="list-disc ml-5">
-                  <li>Withdrawal rate: {formData.swr}%</li>
-                  <li>
-                    Return rate: {formData.returnRate}% (nominal, pre-tax)
-                  </li>
-                  <li>All savings invested at return rate</li>
-                  <li>No taxes or fees considered</li>
-                  <li>
-                    Inflation is not included; for real returns, subtract
-                    expected inflation from return rate
-                  </li>
-                  <li>All calculations are in today&apos;s rupees (₹)</li>
-                </ul>
-                <p className="mt-2">
-                  Barista FIRE number = (annual expenses − part-time income) /
-                  withdrawal rate
-                </p>
-                <p className="mt-1">
-                  Full FIRE number = annual expenses / withdrawal rate
-                </p>
-                <p className="mt-1">
-                  Timeline uses compound growth:{" "}
-                  <em>
-                    FV = PV × (1+r)<sup>n</sup> + PMT × ((1+r)<sup>n</sup> − 1)
-                    / r
-                  </em>
-                </p>
-                <p className="mt-1 text-amber-700">
-                  <strong>Tip:</strong> For a more conservative estimate, use a
-                  lower return rate (real, after inflation) and a lower SWR.
-                </p>
-              </div>
 
               {/* ── Early Exit highlight ─────────────────────────────────── */}
               <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
@@ -900,6 +822,52 @@ function StatusBanner({ calc }: { calc: CalcResult }): React.ReactElement {
       <p className="text-sm text-red-800 font-bold">
         ⚠️ Your current savings rate may not be enough. Consider increasing
         annual savings, reducing expenses, or adjusting your return rate.
+      </p>
+    </div>
+  );
+}
+
+// Shows how long user will need to work part-time after Barista FIRE before reaching Full FIRE
+function BaristaPhaseCard({
+  baristaYears,
+  fullFireYears,
+}: {
+  baristaYears: number;
+  fullFireYears: number;
+}) {
+  if (baristaYears === Infinity || fullFireYears === Infinity) {
+    return (
+      <div className="p-5 bg-slate-50 border border-slate-200 rounded-2xl">
+        <p className="text-sm text-slate-500">
+          Unable to calculate Barista FIRE phase duration with current inputs.
+        </p>
+      </div>
+    );
+  }
+  if (baristaYears >= fullFireYears) {
+    return (
+      <div className="p-5 bg-slate-50 border border-slate-200 rounded-2xl">
+        <p className="text-sm text-slate-500">
+          You will reach Full FIRE before or at the same time as Barista FIRE.
+        </p>
+      </div>
+    );
+  }
+  const phaseYears = fullFireYears - baristaYears;
+  return (
+    <div className="p-5 bg-cyan-50 border border-cyan-200 rounded-2xl">
+      <p className="text-sm text-cyan-800 font-bold mb-1">
+        Barista FIRE Phase Duration
+      </p>
+      <p className="text-sm text-cyan-700">
+        After you reach Barista FIRE in <strong>{baristaYears} years</strong>,
+        you will need to work part-time for{" "}
+        <strong>{phaseYears} more years</strong> before you can fully retire
+        (Full FIRE).
+      </p>
+      <p className="text-xs text-cyan-600 mt-2">
+        During this phase, your investments keep growing in the background while
+        your part-time work covers the rest of your expenses.
       </p>
     </div>
   );

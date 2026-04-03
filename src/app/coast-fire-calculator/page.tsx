@@ -43,6 +43,7 @@ interface FormData {
   currentSavings: string;
   annualSavings: string;
   returnRate: number;
+  inflationRate: number;
 }
 
 interface CalcResult {
@@ -76,6 +77,7 @@ export default function CoastFIRECalculator() {
     currentSavings: "500000",
     annualSavings: "240000",
     returnRate: 12,
+    inflationRate: 5,
   });
   const [showResult, setShowResult] = useState(false);
   const [showChart, setShowChart] = useState(false);
@@ -91,19 +93,21 @@ export default function CoastFIRECalculator() {
     const currentSavings = Math.max(0, Number(formData.currentSavings));
     const annualSavings = Math.max(0, Number(formData.annualSavings));
     const returnRate = Number(formData.returnRate) / 100;
+    const inflationRate = Number(formData.inflationRate) / 100;
+    const realReturn = returnRate - inflationRate;
 
     const fullFireTarget = fireNumber(expenses, swr);
     const yearsToRetirement = retirementAge - currentAge;
     const coastTarget = coastNumber(
       fullFireTarget,
       yearsToRetirement,
-      returnRate,
+      realReturn,
     );
 
     const alreadyCoasting = currentSavings >= coastTarget;
     const yearsToCoastRaw = alreadyCoasting
       ? 0
-      : yearsToTarget(currentSavings, coastTarget, annualSavings, returnRate);
+      : yearsToTarget(currentSavings, coastTarget, annualSavings, realReturn);
     const yearsToCoast =
       yearsToCoastRaw === Infinity ? Infinity : Math.ceil(yearsToCoastRaw);
     const coastAge =
@@ -117,7 +121,7 @@ export default function CoastFIRECalculator() {
     const growthSeries = buildCoastSeries(
       currentSavings,
       annualSavings,
-      returnRate,
+      realReturn,
       coastTarget,
       fullFireTarget,
       currentAge,
@@ -163,6 +167,7 @@ export default function CoastFIRECalculator() {
       currentSavings: "500000",
       annualSavings: "240000",
       returnRate: 12,
+      inflationRate: 5,
     });
     setShowResult(false);
     setShowChart(false);
@@ -181,10 +186,10 @@ export default function CoastFIRECalculator() {
         {/* Header */}
         <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
           <br />
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent mb-3">
+          <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent mb-3">
             Coast FIRE Calculator
           </h1>
-          <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-2xl px-4">
+          <p className="text-slate-600 font-semibold text-base mt-1 max-w-2xl px-4">
             Find the number you need to save today — then stop, and let compound
             interest carry you to retirement.
           </p>
@@ -198,55 +203,50 @@ export default function CoastFIRECalculator() {
 
         {/* Card */}
         <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
-          <form onSubmit={handleCalculate} className="space-y-5 sm:space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field
-                label="Annual Expenses at Retirement (₹)"
-                name="expenses"
-                value={formData.expenses}
-                onChange={handleChange}
-                hint="Your estimated yearly spend in retirement (today's ₹)"
-              />
-              <Field
-                label="Current Savings / Portfolio (₹)"
-                name="currentSavings"
-                value={formData.currentSavings}
-                onChange={handleChange}
-                hint="Total invested assets you have right now"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field
-                label="Current Age"
-                name="currentAge"
-                value={formData.currentAge}
-                onChange={handleChange}
-                min={10}
-                max={80}
-                hint="Your age today"
-              />
-              <Field
-                label="Target Retirement Age"
-                name="retirementAge"
-                value={formData.retirementAge}
-                onChange={handleChange}
-                min={20}
-                max={90}
-                hint="Age you want to fully stop working"
-              />
-            </div>
-
+          <form onSubmit={handleCalculate} className="space-y-6">
+            {/* All input fields stacked vertically */}
             <Field
-              label="Annual Savings / Investment (₹)"
+              label="Expected Annual Expenses at Retirement (₹)"
+              name="expenses"
+              value={formData.expenses}
+              onChange={handleChange}
+              hint="Your estimated yearly spend in retirement (today's ₹)"
+            />
+            <Field
+              label="Current Portfolio / Savings (₹)"
+              name="currentSavings"
+              value={formData.currentSavings}
+              onChange={handleChange}
+              hint="Total invested assets you have right now"
+            />
+            <Field
+              label="Current Age"
+              name="currentAge"
+              value={formData.currentAge}
+              onChange={handleChange}
+              min={10}
+              max={80}
+              hint="Your age today"
+            />
+            <Field
+              label="Target Retirement Age"
+              name="retirementAge"
+              value={formData.retirementAge}
+              onChange={handleChange}
+              min={20}
+              max={90}
+              hint="Age you want to fully stop working"
+            />
+            <Field
+              label="Annual Savings / Investments (₹) until Coast FIRE"
               name="annualSavings"
               value={formData.annualSavings}
               onChange={handleChange}
               hint="How much you invest each year while accumulating"
             />
 
-            {/* Sliders */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Assumptions: SWR, Return, Inflation */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <SliderField
                 label="Safe Withdrawal Rate (SWR)"
                 name="swr"
@@ -274,6 +274,31 @@ export default function CoastFIRECalculator() {
                 accentClass="accent-cyan-600"
                 hint="Indian equity long-term avg: ~12–14%"
               />
+              <div>
+                <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
+                  Inflation Rate (%)
+                </label>
+                <input
+                  type="range"
+                  name="inflationRate"
+                  min={0}
+                  max={10}
+                  step={0.1}
+                  value={formData.inflationRate}
+                  onChange={handleSlider}
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600"
+                />
+                <div className="flex justify-between text-xs text-slate-400 mt-1">
+                  <span>0%</span>
+                  <span className="font-bold text-teal-600">
+                    {formData.inflationRate}% p.a.
+                  </span>
+                  <span>10%</span>
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  Typical Indian inflation: 4–6%.
+                </p>
+              </div>
             </div>
 
             <button
@@ -395,7 +420,7 @@ export default function CoastFIRECalculator() {
                 {showChart && (
                   <div className="mt-3 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
                     <p className="text-sm font-bold text-slate-700 mb-1">
-                      Accumulation → Coast phase
+                      Accumulation → Coast phase (Inflation-adjusted)
                     </p>
                     <p className="text-xs text-slate-400 mb-4">
                       Blue = saving aggressively · Teal = coasting (no new
@@ -499,20 +524,6 @@ export default function CoastFIRECalculator() {
           )}
 
           {/* Info box */}
-          <div className="mt-8 bg-slate-50 border border-slate-200 px-4 sm:px-5 py-3 sm:py-4 rounded-xl">
-            <div className="flex items-start gap-3">
-              <Info className="w-4 h-4 text-teal-600 flex-shrink-0 mt-0.5" />
-              <div className="text-xs text-slate-600 leading-relaxed space-y-1">
-                <p className="font-bold text-slate-800">How Coast FIRE works</p>
-                <p>
-                  Coast FIRE = Full FIRE Number ÷ (1 + r)^years_to_retirement.
-                  Once you hit this number, compound interest alone grows your
-                  portfolio to your full retirement goal — no new investments
-                  needed.
-                </p>
-              </div>
-            </div>
-          </div>
 
           <footer className="mt-6 text-center space-y-1">
             <p className="text-xs font-bold text-slate-500">
