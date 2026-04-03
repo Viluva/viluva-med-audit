@@ -209,10 +209,10 @@ export default function FIRECalculator() {
         {/* Header */}
         <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
           <br />
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-orange-600 via-amber-500 to-yellow-500 bg-clip-text text-transparent mb-3">
+          <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-orange-600 via-amber-500 to-yellow-500 bg-clip-text text-transparent mb-3">
             FIRE Calculator
           </h1>
-          <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-2xl px-4">
+          <p className="text-slate-600 font-semibold text-base mt-1 max-w-2xl px-4">
             Financial Independence, Retire Early — your complete number,
             timeline, and SWR sensitivity analysis.
           </p>
@@ -660,27 +660,6 @@ export default function FIRECalculator() {
             </div>
           )}
           {/* Info box */}
-          <div className="mt-8 bg-slate-50 border border-slate-200 px-4 sm:px-5 py-3 sm:py-4 rounded-xl">
-            <div className="flex items-start gap-3">
-              <Info className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
-              <div className="text-xs text-slate-600 leading-relaxed space-y-1">
-                <p className="font-bold text-slate-800">How FIRE works</p>
-                <p>
-                  FIRE Number = Annual Expenses ÷ SWR. The famous &quot;4%
-                  rule&quot; means 25× your expenses. At that corpus, a
-                  diversified portfolio has historically supported 30+ year
-                  withdrawals with high success rates.
-                </p>
-                <p>
-                  Timeline uses compound growth (inflation-adjusted):{" "}
-                  <em>
-                    FV = PV × (1+r)ⁿ + PMT × ((1+r)ⁿ − 1) / r, where r = real
-                    return (after inflation)
-                  </em>
-                </p>
-              </div>
-            </div>
-          </div>
           <footer className="mt-6 text-center space-y-1">
             <p className="text-xs font-bold text-slate-500">
               Part of Viluva Tools Suite

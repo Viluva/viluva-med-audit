@@ -207,10 +207,10 @@ export default function BaristaFIRECalculator() {
         {/* ── Header ────────────────────────────────────────────────────── */}
         <header className="flex flex-col items-center text-center mb-6 sm:mb-8">
           <br />
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+          <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
             Barista FIRE Calculator
           </h1>
-          <p className="text-slate-600 font-semibold text-base sm:text-lg mt-1 max-w-2xl px-4">
+          <p className="text-slate-600 font-semibold text-base mt-1 max-w-2xl px-4">
             Barista FIRE is when you step away from your full-time career early,
             but not completely retire—you take a simpler, low-stress job to
             cover your daily expenses. Meanwhile, your savings stay invested and
@@ -531,45 +531,6 @@ export default function BaristaFIRECalculator() {
               </div>
 
               {/* ── Output Transparency & Assumptions ─────────────── */}
-              <div className="mt-6 text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-4">
-                <p>
-                  <strong>Assumptions:</strong>
-                </p>
-                <ul className="list-disc ml-5">
-                  <li>Withdrawal rate: {formData.swr}%</li>
-                  <li>
-                    Return rate: {formData.returnRate}% (nominal, pre-tax)
-                  </li>
-                  <li>
-                    Inflation rate: {formData.inflationRate}% (used for real
-                    returns)
-                  </li>
-                  <li>
-                    All savings invested at real (inflation-adjusted) return
-                    rate
-                  </li>
-                  <li>No taxes or fees considered</li>
-                  <li>All calculations are in today&apos;s rupees (₹)</li>
-                </ul>
-                <p className="mt-2">
-                  Barista FIRE number = (annual expenses − part-time income) /
-                  withdrawal rate
-                </p>
-                <p className="mt-1">
-                  Full FIRE number = annual expenses / withdrawal rate
-                </p>
-                <p className="mt-1">
-                  Timeline uses compound growth (inflation-adjusted):{" "}
-                  <em>
-                    FV = PV × (1+r)<sup>n</sup> + PMT × ((1+r)<sup>n</sup> − 1)
-                    / r, where r = real return (after inflation)
-                  </em>
-                </p>
-                <p className="mt-1 text-amber-700">
-                  <strong>Tip:</strong> For a more conservative estimate, use a
-                  lower return rate and a higher inflation rate.
-                </p>
-              </div>
 
               {/* ── Early Exit highlight ─────────────────────────────────── */}
               <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
