@@ -1,6 +1,7 @@
 "use client";
 
 import HomePageNavigation from "@/components/HomePageNavigation";
+import ToolsFooter from "@/components/ToolsFooter";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -227,63 +228,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Current Tools CTA */}
-        <div className="glass p-8 rounded-2xl text-center">
-          <h3 className="text-2xl font-bold text-slate-800 mb-4">
-            Try Our Available Tools
-          </h3>
-          <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-            While we build the complete suite, explore our existing tools to
-            start your financial journey
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/cghs-billcheck"
-              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 text-white font-bold px-6 py-3 rounded-xl hover:from-cyan-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                />
-              </svg>
-              CGHS BillCheck
-            </Link>
-            <Link
-              href="/time-converter"
-              className="inline-flex items-center justify-center gap-2 bg-white text-slate-700 font-bold px-6 py-3 rounded-xl hover:bg-slate-50 transition-all border-2 border-slate-200 hover:border-cyan-500"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              True Cost Calculator
-            </Link>
-          </div>
-        </div>
 
-        {/* Footer */}
-        <footer className="mt-16 text-center space-y-2">
-          <p className="text-sm text-slate-500 font-medium">
-            © 2026 Viluva. Building tools for smarter financial decisions.
-          </p>
-        </footer>
+        {/* Footer is now included in <ToolsFooter /> */}
       </div>
     </main>
   );

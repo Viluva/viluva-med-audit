@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import HomePageNavigation from "@/components/HomePageNavigation";
 import { calculateTimeCost, type ConversionResult } from "@/lib/timeconvertor";
+import ToolsFooter from "@/components/ToolsFooter";
 
 export default function TimeConverter() {
   const [formData, setFormData] = useState({
@@ -425,15 +426,7 @@ export default function TimeConverter() {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="mt-6 sm:mt-8 text-center space-y-2">
-          <div className="flex justify-center items-center gap-2 text-xs text-slate-500">
-            <span className="font-bold">Part of Viluva Tools Suite</span>
-          </div>
-          <p className="text-xs text-slate-400 font-medium">
-            © 2026 Viluva. Built for financial awareness.
-          </p>
-        </footer>
+        
       </div>
     </main>
   );

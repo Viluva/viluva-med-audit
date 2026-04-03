@@ -11,6 +11,7 @@ import ProcedureSearch from "@/components/ProcedureSearch";
 import Verdict from "@/components/Verdict";
 import { Hospital, Price } from "@/lib/data/types";
 import hospitalsData from "@/lib/data/hospitals.json";
+import ToolsFooter from "@/components/ToolsFooter";
 
 export default function Home() {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
@@ -421,16 +422,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-
-        <footer className="mt-6 sm:mt-8 text-center space-y-2">
-          <div className="flex justify-center items-center gap-2 text-xs text-slate-500">
-            <span className="font-bold">Data Source:</span>
-            <span>MoHFW OM 03.10.2025 • CGHS Empanelment 2026</span>
-          </div>
-          <p className="text-xs text-slate-400 font-medium">
-            © 2026 Viluva BillCheck. Built for healthcare transparency.
-          </p>
-        </footer>
+        
       </div>
     </main>
   );

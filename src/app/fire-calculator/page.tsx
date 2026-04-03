@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import HomePageNavigation from "@/components/HomePageNavigation";
 import { fireNumber, yearsToTarget, buildGrowthSeries } from "@/lib/fireMath";
+import ToolsFooter from "@/components/ToolsFooter";
 
 const fmt = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
 const fmtL = (n: number) => {
@@ -659,16 +660,6 @@ export default function FIRECalculator() {
               </button>
             </div>
           )}
-          {/* Info box */}
-          <footer className="mt-6 text-center space-y-1">
-            <p className="text-xs font-bold text-slate-500">
-              Part of Viluva Tools Suite
-            </p>
-            <p className="text-xs text-slate-400">
-              © 2026 Viluva. For educational purposes only. Not financial
-              advice.
-            </p>
-          </footer>
         </div>
       </div>
     </main>

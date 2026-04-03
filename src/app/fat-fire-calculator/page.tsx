@@ -23,6 +23,7 @@ import {
   Gem,
 } from "lucide-react";
 import HomePageNavigation from "@/components/HomePageNavigation";
+import ToolsFooter from "@/components/ToolsFooter";
 import { fireNumber, yearsToTarget, buildGrowthSeries } from "@/lib/fireMath";
 
 // Format large numbers for display (Cr, Lakh, etc)
@@ -290,7 +291,7 @@ export default function FatFIRECalculator() {
               name="currentSavings"
               value={formData.currentSavings}
               onChange={handleChange}
-              hint="Total invested assets right now"
+              hint="Total invested assets you have right now"
               accentColor="violet"
             />
             <Field
@@ -631,18 +632,6 @@ export default function FatFIRECalculator() {
               </button>
             </div>
           )}
-
-          {/* Info box */}
-
-          <footer className="mt-6 text-center space-y-1">
-            <p className="text-xs font-bold text-slate-500">
-              Part of Viluva Tools Suite
-            </p>
-            <p className="text-xs text-slate-400">
-              © 2026 Viluva. For educational purposes only. Not financial
-              advice.
-            </p>
-          </footer>
         </div>
       </div>
     </main>
