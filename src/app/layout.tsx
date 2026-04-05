@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 import ToolsFooter from "@/components/ToolsFooter";
@@ -112,23 +113,27 @@ export default function RootLayout({
           name="twitter:description"
           content="Viluva is your proactive financial co-pilot helping you make smart decisions for the future."
         />
-        <meta name="twitter:image" content="https://www.viluva.app/Viluva.png" />
+        <meta
+          name="twitter:image"
+          content="https://www.viluva.app/Viluva.png"
+        />
         {/* Robots and Sitemap */}
         <meta
           name="robots"
           content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
         />
-        <link rel="sitemap" type="application/xml" href="https://www.viluva.app/sitemap.xml" />
-        {/* Preload Fonts for Performance */}
         <link
-          rel="preload"
-          href="/fonts/geist.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
+          rel="sitemap"
+          type="application/xml"
+          href="https://www.viluva.app/sitemap.xml"
         />
+      </head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {/* JSON-LD Structured Data */}
-        <script
+        <Script
+          id="json-ld-script"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -153,20 +158,16 @@ export default function RootLayout({
             }),
           }}
         />
-        <script
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1902822890921555"
           crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
         <GoogleAnalytics />
         {children}
-
+        <ToolsFooter />
       </body>
-      <ToolsFooter />
     </html>
   );
 }

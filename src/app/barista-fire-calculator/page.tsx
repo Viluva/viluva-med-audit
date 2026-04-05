@@ -20,12 +20,9 @@ import {
   TrendingUp,
   Target,
   Clock,
-  ChevronDown,
-  ChevronUp,
   RotateCcw,
 } from "lucide-react";
 import HomePageNavigation from "@/components/HomePageNavigation";
-import ToolsFooter from "@/components/ToolsFooter";
 import {
   fireNumber,
   baristaFireNumber,

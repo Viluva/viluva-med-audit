@@ -37,7 +37,7 @@ export default function Home() {
         setStatus("error");
         setMessage(data.error || "Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setMessage("Something went wrong. Please try again.");
     }
@@ -227,7 +227,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-
 
         {/* Footer is now included in <ToolsFooter /> */}
       </div>
