@@ -13,15 +13,7 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
-import {
-  Coffee,
-  Zap,
-  Info,
-  TrendingUp,
-  Target,
-  Clock,
-  RotateCcw,
-} from "lucide-react";
+import { Coffee, Zap, Info, TrendingUp, Target, RotateCcw } from "lucide-react";
 import HomePageNavigation from "@/components/HomePageNavigation";
 import {
   fireNumber,
@@ -40,6 +32,7 @@ interface FormData {
   swr: number;
   currentSavings: string;
   currentAge: string;
+  desiredBaristaAge: string;
   annualSavings: string;
   returnRate: number;
   inflationRate: number;
@@ -58,9 +51,13 @@ interface CalcResult {
   fullFireAge: number | null;
   currentSavings: number;
   currentAge: number;
+  desiredBaristaAge: number;
   portfolioCovers: number;
   jobCovers: number;
   pctFaster: number;
+  canReachByDesiredAge: boolean;
+  requiredMonthlySavings: number | null;
+  actualAchievableAge: number | null;
   growthSeries: { age: number; portfolio: number }[];
 }
 
@@ -73,12 +70,12 @@ export default function BaristaFIRECalculator() {
     swr: 4,
     currentSavings: "1000000",
     currentAge: "30",
+    desiredBaristaAge: "45",
     annualSavings: "300000",
     returnRate: 10,
     inflationRate: 5,
   });
   const [showResult, setShowResult] = useState(false);
-  const [showChart, setShowChart] = useState(false);
 
   // ── Derived numbers ───────────────────────────────────────────────────────
 
@@ -88,6 +85,10 @@ export default function BaristaFIRECalculator() {
     const swr = Number(formData.swr);
     const currentSavings = Math.max(0, Number(formData.currentSavings));
     const currentAge = Math.max(18, Number(formData.currentAge));
+    const desiredBaristaAge = Math.max(
+      currentAge + 1,
+      Number(formData.desiredBaristaAge),
+    );
     const annualSavings = Math.max(0, Number(formData.annualSavings));
     const returnRate = Number(formData.returnRate) / 100;
     const inflationRate = Number(formData.inflationRate) / 100;
@@ -97,6 +98,8 @@ export default function BaristaFIRECalculator() {
     const baristaTarget = baristaFireNumber(expenses, baristaIncome, swr);
     const fullFireTarget = fireNumber(expenses, swr);
     const savingsRate = expenses > 0 ? (annualSavings / expenses) * 100 : 0;
+
+    // Calculate years and age with current savings rate
     const baristaYears = yearsToTarget(
       currentSavings,
       baristaTarget,
@@ -113,6 +116,45 @@ export default function BaristaFIRECalculator() {
       baristaYears === Infinity ? null : currentAge + baristaYears;
     const fullFireAge =
       fullFireYears === Infinity ? null : currentAge + fullFireYears;
+
+    // New logic: Check if can reach by desired age
+    const yearsToDesiredAge = desiredBaristaAge - currentAge;
+    let canReachByDesiredAge = false;
+    let requiredMonthlySavings: number | null = null;
+    let actualAchievableAge: number | null = null;
+
+    if (baristaAge !== null && baristaAge <= desiredBaristaAge) {
+      // Can reach earlier than or by desired age
+      canReachByDesiredAge = true;
+      actualAchievableAge = baristaAge;
+    } else {
+      // Need to calculate required monthly savings to reach by desired age
+      // Using FV = PV * (1+r)^n + PMT * ((1+r)^n - 1) / r
+      // Solving for PMT: PMT = (FV - PV*(1+r)^n) * r / ((1+r)^n - 1)
+      const fv = baristaTarget;
+      const pv = currentSavings;
+      const n = yearsToDesiredAge;
+      const r = realReturn;
+
+      if (n > 0 && r !== 0) {
+        const futureValue = pv * Math.pow(1 + r, n);
+        const denominator = (Math.pow(1 + r, n) - 1) / r;
+
+        if (futureValue >= fv) {
+          // Already have enough, will reach even earlier
+          canReachByDesiredAge = true;
+          actualAchievableAge = baristaAge;
+        } else if (denominator > 0) {
+          const requiredAnnual = (fv - futureValue) / denominator;
+          requiredMonthlySavings = requiredAnnual / 12;
+
+          if (requiredMonthlySavings < 0) {
+            requiredMonthlySavings = 0;
+          }
+        }
+      }
+    }
+
     const portfolioCovers = gap;
     const jobCovers = baristaIncome;
     const pctFaster =
@@ -143,9 +185,13 @@ export default function BaristaFIRECalculator() {
       fullFireAge,
       currentSavings,
       currentAge,
+      desiredBaristaAge,
       portfolioCovers,
       jobCovers,
       pctFaster,
+      canReachByDesiredAge,
+      requiredMonthlySavings,
+      actualAchievableAge,
       growthSeries,
     };
   }, [formData]);
@@ -174,6 +220,7 @@ export default function BaristaFIRECalculator() {
       swr: 4,
       currentSavings: "1000000",
       currentAge: "30",
+      desiredBaristaAge: "45",
       annualSavings: "300000",
       returnRate: 10,
       inflationRate: 5,
@@ -263,6 +310,15 @@ export default function BaristaFIRECalculator() {
                 min={10}
                 max={80}
                 hint="Your age today."
+              />
+              <Field
+                label="Desired Barista FIRE Age"
+                name="desiredBaristaAge"
+                value={formData.desiredBaristaAge}
+                onChange={handleChange}
+                min={Number(formData.currentAge) + 1}
+                max={100}
+                hint="At what age do you want to reach Barista FIRE?"
               />
             </div>
             {/* Sliders section visually separated */}
@@ -432,23 +488,136 @@ export default function BaristaFIRECalculator() {
                 </div>
               </div>
 
-              {/* ── Row 3: Barista FIRE timeline and phase duration ─ */}
+              {/* ── Row 3: Barista FIRE Goal Status ─ */}
               <div className="grid grid-cols-1 gap-4">
-                <TimelineCard
-                  label="Barista FIRE"
-                  years={calc.baristaYears}
-                  age={calc.baristaAge}
-                  color="cyan"
-                  icon={<Coffee className="w-5 h-5" />}
-                />
-                <BaristaPhaseCard
-                  baristaYears={calc.baristaYears}
-                  fullFireYears={calc.fullFireYears}
-                />
+                {calc.canReachByDesiredAge &&
+                calc.actualAchievableAge !== null ? (
+                  <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-300 rounded-2xl p-6 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-emerald-500 rounded-full">
+                        <Coffee className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-emerald-900 mb-2">
+                          🎉 Great News! You Can Reach Barista FIRE Earlier!
+                        </h3>
+                        <p className="text-slate-700 mb-3">
+                          With your current savings plan, you can reach Barista
+                          FIRE by age{" "}
+                          <span className="font-bold text-emerald-700">
+                            {Math.round(calc.actualAchievableAge)}
+                          </span>
+                          {calc.actualAchievableAge <
+                            calc.desiredBaristaAge && (
+                            <>
+                              {" "}
+                              — that&apos;s{" "}
+                              <span className="font-bold text-emerald-700">
+                                {Math.round(
+                                  calc.desiredBaristaAge -
+                                    calc.actualAchievableAge,
+                                )}{" "}
+                                years earlier
+                              </span>{" "}
+                              than your desired age of {calc.desiredBaristaAge}!
+                            </>
+                          )}
+                        </p>
+                        <div className="bg-white/70 rounded-lg p-3 space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-slate-600">
+                              Years until Barista FIRE:
+                            </span>
+                            <span className="font-bold text-emerald-700">
+                              {calc.baristaYears.toFixed(1)} years
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-slate-600">
+                              Barista Phase Duration:
+                            </span>
+                            <span className="font-bold text-slate-700">
+                              {calc.fullFireYears < Infinity
+                                ? `${(calc.fullFireYears - calc.baristaYears).toFixed(1)} years`
+                                : "Until Full FIRE"}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : calc.requiredMonthlySavings !== null ? (
+                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-300 rounded-2xl p-6 shadow-md">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-amber-500 rounded-full">
+                        <Target className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-lg font-bold text-amber-900 mb-2">
+                          📈 Increase Your Savings to Reach Your Goal!
+                        </h3>
+                        <p className="text-slate-700 mb-3">
+                          To reach Barista FIRE by your desired age of{" "}
+                          <span className="font-bold text-amber-700">
+                            {calc.desiredBaristaAge}
+                          </span>
+                          , you need to save more each month.
+                        </p>
+                        <div className="bg-white/70 rounded-lg p-4 space-y-3">
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-600">
+                              Required Monthly Savings:
+                            </span>
+                            <span className="text-2xl font-bold text-amber-700">
+                              {fmt(calc.requiredMonthlySavings)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-slate-600">
+                              Current Monthly Savings:
+                            </span>
+                            <span className="font-bold text-slate-700">
+                              {fmt(Number(formData.annualSavings) / 12)}
+                            </span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-slate-600">
+                              Additional Monthly Savings Needed:
+                            </span>
+                            <span className="font-bold text-orange-600">
+                              {fmt(
+                                Math.max(
+                                  0,
+                                  calc.requiredMonthlySavings -
+                                    Number(formData.annualSavings) / 12,
+                                ),
+                              )}
+                            </span>
+                          </div>
+                          <div className="mt-3 pt-3 border-t border-amber-200">
+                            <p className="text-xs text-slate-600">
+                              💡 <strong>Tip:</strong> Consider increasing your
+                              income, reducing expenses, or adjusting your
+                              desired age to make your goal more achievable.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+                    <p className="text-slate-600">
+                      Unable to calculate timeline. Please check your inputs.
+                    </p>
+                  </div>
+                )}
               </div>
 
-              {/* ── Row 4: status banner ─────────────────────── */}
-              {calc.baristaAge !== null && <StatusBanner calc={calc} />}
+              {/* ── Row 4: status banner (only show if reaching Barista FIRE) ─────────────────────── */}
+              {calc.canReachByDesiredAge && calc.baristaAge !== null && (
+                <StatusBanner calc={calc} />
+              )}
 
               {/* ── Row 5: growth chart (always visible) ───────────────── */}
               <div className="mt-3 bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
@@ -715,56 +884,6 @@ function InsightRow({
   );
 }
 
-function TimelineCard({
-  label,
-  years,
-  age,
-  color,
-  icon,
-}: {
-  label: string;
-  years: number;
-  age: number | null;
-  color: "cyan" | "purple";
-  icon: React.ReactNode;
-}) {
-  const border = color === "cyan" ? "border-cyan-200" : "border-purple-200";
-  const bg = color === "cyan" ? "bg-cyan-50" : "bg-purple-50";
-  const text = color === "cyan" ? "text-cyan-700" : "text-purple-700";
-  const badge =
-    color === "cyan"
-      ? "bg-cyan-100 text-cyan-800"
-      : "bg-purple-100 text-purple-800";
-
-  return (
-    <div className={`${bg} border ${border} rounded-2xl p-5`}>
-      <div className={`flex items-center gap-2 ${text} font-bold text-sm mb-3`}>
-        {icon}
-        {label}
-      </div>
-      {age === null || years === Infinity ? (
-        <p className="text-sm text-slate-500">
-          Not achievable with current savings rate. Increase your annual
-          savings.
-        </p>
-      ) : (
-        <>
-          <p className={`text-3xl font-black ${text}`}>
-            {years === 0 ? "Already there!" : `${years} yrs`}
-          </p>
-          <p className="text-xs text-slate-500 mt-1">from now</p>
-          <span
-            className={`inline-block mt-3 px-3 py-1 ${badge} text-xs font-bold rounded-full`}
-          >
-            <Clock className="inline w-3 h-3 mr-1" />
-            Age {age}
-          </span>
-        </>
-      )}
-    </div>
-  );
-}
-
 function StatusBanner({ calc }: { calc: CalcResult }): React.ReactElement {
   const alreadyBaristaFIRE = calc.currentSavings >= calc.baristaTarget;
   const fullFireBeforeBarista =
@@ -809,52 +928,6 @@ function StatusBanner({ calc }: { calc: CalcResult }): React.ReactElement {
       <p className="text-sm text-red-800 font-bold">
         ⚠️ Your current savings rate may not be enough. Consider increasing
         annual savings, reducing expenses, or adjusting your return rate.
-      </p>
-    </div>
-  );
-}
-
-// Shows how long user will need to work part-time after Barista FIRE before reaching Full FIRE
-function BaristaPhaseCard({
-  baristaYears,
-  fullFireYears,
-}: {
-  baristaYears: number;
-  fullFireYears: number;
-}) {
-  if (baristaYears === Infinity || fullFireYears === Infinity) {
-    return (
-      <div className="p-5 bg-slate-50 border border-slate-200 rounded-2xl">
-        <p className="text-sm text-slate-500">
-          Unable to calculate Barista FIRE phase duration with current inputs.
-        </p>
-      </div>
-    );
-  }
-  if (baristaYears >= fullFireYears) {
-    return (
-      <div className="p-5 bg-slate-50 border border-slate-200 rounded-2xl">
-        <p className="text-sm text-slate-500">
-          You will reach Full FIRE before or at the same time as Barista FIRE.
-        </p>
-      </div>
-    );
-  }
-  const phaseYears = fullFireYears - baristaYears;
-  return (
-    <div className="p-5 bg-cyan-50 border border-cyan-200 rounded-2xl">
-      <p className="text-sm text-cyan-800 font-bold mb-1">
-        Barista FIRE Phase Duration
-      </p>
-      <p className="text-sm text-cyan-700">
-        After you reach Barista FIRE in <strong>{baristaYears} years</strong>,
-        you will need to work part-time for{" "}
-        <strong>{phaseYears} more years</strong> before you can fully retire
-        (Full FIRE).
-      </p>
-      <p className="text-xs text-cyan-600 mt-2">
-        During this phase, your investments keep growing in the background while
-        your part-time work covers the rest of your expenses.
       </p>
     </div>
   );
