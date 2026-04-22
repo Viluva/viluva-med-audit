@@ -1,0 +1,357 @@
+"use client";
+
+import React, { useMemo, useState } from "react";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import {
+  AlertTriangle,
+  ChevronDown,
+  ChevronUp,
+  CircleCheckBig,
+  Coins,
+  RotateCcw,
+  TrendingUp,
+  Wallet,
+} from "lucide-react";
+import {
+  Field,
+  formatCompactCurrency,
+  formatCurrency,
+  InvestmentPageShell,
+  SliderField,
+  StatCard,
+} from "@/components/investment/InvestmentCalculatorUI";
+import {
+  calculateRequiredCorpusForSwp,
+  calculateSwpPlan,
+} from "@/lib/investmentMath";
+
+interface FormData {
+  initialCorpus: string;
+  monthlyWithdrawal: string;
+  years: string;
+  annualReturn: number;
+}
+
+function formatDurationFromMonths(months: number | null): string {
+  if (months === null) {
+    return "Full horizon";
+  }
+
+  return `${(months / 12).toFixed(1)} years`;
+}
+
+function SwpTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: Array<{
+    value: number;
+    payload: { totalWithdrawn: number };
+  }>;
+  label?: number;
+}) {
+  if (!active || !payload?.length) {
+    return null;
+  }
+
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-lg text-xs">
+      <p className="font-bold text-slate-800">Year {label}</p>
+      <p className="text-slate-600">
+        Balance: {formatCurrency(payload[0].value)}
+      </p>
+      <p className="text-rose-600">
+        Withdrawn: {formatCurrency(payload[0].payload.totalWithdrawn)}
+      </p>
+    </div>
+  );
+}
+
+export default function SwpCalculatorPage() {
+  const [formData, setFormData] = useState<FormData>({
+    initialCorpus: "2000000",
+    monthlyWithdrawal: "15000",
+    years: "20",
+    annualReturn: 8,
+  });
+  const [showResult, setShowResult] = useState(false);
+  const [showChart, setShowChart] = useState(false);
+
+  const calculation = useMemo(() => {
+    const initialCorpus = Math.max(0, Number(formData.initialCorpus));
+    const monthlyWithdrawal = Math.max(0, Number(formData.monthlyWithdrawal));
+    const years = Math.max(1, Number(formData.years));
+    const annualReturn = formData.annualReturn / 100;
+    const plan = calculateSwpPlan(
+      initialCorpus,
+      monthlyWithdrawal,
+      annualReturn,
+      years,
+    );
+    const requiredCorpus = calculateRequiredCorpusForSwp(
+      monthlyWithdrawal,
+      annualReturn,
+      years,
+    );
+
+    return {
+      initialCorpus,
+      monthlyWithdrawal,
+      years,
+      annualReturn,
+      requiredCorpus,
+      ...plan,
+      coverageRatio:
+        requiredCorpus > 0
+          ? ((initialCorpus / requiredCorpus) * 100).toFixed(0)
+          : "0",
+    };
+  }, [formData]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+    setShowResult(false);
+  };
+
+  const handleSlider = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: Number(event.target.value),
+    });
+    setShowResult(false);
+  };
+
+  const handleCalculate = (event: React.FormEvent) => {
+    event.preventDefault();
+    setShowResult(true);
+    setShowChart(false);
+  };
+
+  const handleReset = () => {
+    setFormData({
+      initialCorpus: "2000000",
+      monthlyWithdrawal: "15000",
+      years: "20",
+      annualReturn: 8,
+    });
+    setShowResult(false);
+    setShowChart(false);
+  };
+
+  const portfolioLastsFullHorizon = calculation.depletionMonth === null;
+
+  return (
+    <InvestmentPageShell
+      title="SWP Calculator"
+      description="Estimate whether your corpus can support monthly withdrawals across your chosen horizon and how much capital remains at the end."
+      badgeText="Retirement cash flow. Withdrawal sustainability."
+      badgeIcon={Wallet}
+      titleGradientClass="bg-gradient-to-r from-rose-600 via-orange-500 to-amber-500"
+      badgeBackgroundClass="bg-rose-50"
+      badgeBorderClass="border-rose-200"
+      badgeTextClass="text-rose-700"
+      backgroundBlobClasses={["bg-rose-400/20", "bg-orange-400/20"]}
+      assumptions={[
+        "Each month applies return first and then withdrawal is deducted.",
+        "Annual return is converted to a monthly rate as annualRate / 12.",
+        "If balance reaches zero, depletion is reported and future withdrawals stop.",
+      ]}
+    >
+      <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
+        <form onSubmit={handleCalculate} className="space-y-6">
+          <Field
+            label="Starting Corpus (₹)"
+            name="initialCorpus"
+            value={formData.initialCorpus}
+            onChange={handleChange}
+            hint="The invested amount from which withdrawals begin."
+          />
+          <Field
+            label="Monthly Withdrawal (₹)"
+            name="monthlyWithdrawal"
+            value={formData.monthlyWithdrawal}
+            onChange={handleChange}
+            hint="The fixed monthly amount you plan to withdraw."
+          />
+          <Field
+            label="Withdrawal Horizon (Years)"
+            name="years"
+            value={formData.years}
+            onChange={handleChange}
+            hint="How long the withdrawals need to continue."
+            min={1}
+            max={40}
+          />
+          <SliderField
+            label="Expected Annual Return"
+            name="annualReturn"
+            value={formData.annualReturn}
+            onChange={handleSlider}
+            min={0}
+            max={15}
+            step={0.5}
+            leftLabel="0%"
+            rightLabel="15%"
+            accentClass="accent-rose-500"
+            hint="Assumes returns compound monthly before each month's withdrawal."
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold py-3 sm:py-4 rounded-xl hover:from-rose-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Plan My SWP
+            </button>
+            <button
+              type="button"
+              onClick={handleReset}
+              className="w-full border border-slate-200 bg-white text-slate-700 font-bold py-3 sm:py-4 rounded-xl hover:bg-slate-50 transition-all inline-flex items-center justify-center gap-2"
+            >
+              <RotateCcw className="w-4 h-4" />
+              Reset inputs
+            </button>
+          </div>
+        </form>
+
+        {showResult && (
+          <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="bg-gradient-to-br from-rose-500 to-orange-500 text-white rounded-2xl shadow-lg p-6">
+              <div className="flex items-center gap-2 text-white/80 text-sm font-semibold mb-2">
+                <Wallet className="w-5 h-5" />
+                SWP Outcome
+              </div>
+              <p className="text-4xl sm:text-5xl font-black tracking-tight">
+                {portfolioLastsFullHorizon
+                  ? formatCompactCurrency(calculation.endingBalance)
+                  : formatDurationFromMonths(calculation.depletionMonth)}
+              </p>
+              <p className="text-sm text-white/80 mt-2">
+                {portfolioLastsFullHorizon
+                  ? `Estimated ending balance after ${calculation.years} years.`
+                  : `Corpus runs out after about ${formatDurationFromMonths(calculation.depletionMonth)}.`}
+              </p>
+            </div>
+
+            <div
+              className={`rounded-2xl border p-5 ${portfolioLastsFullHorizon ? "bg-emerald-50 border-emerald-200" : "bg-amber-50 border-amber-200"}`}
+            >
+              <div className="flex items-start gap-3">
+                {portfolioLastsFullHorizon ? (
+                  <CircleCheckBig className="w-5 h-5 text-emerald-600 mt-0.5" />
+                ) : (
+                  <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5" />
+                )}
+                <div>
+                  <p className="font-bold text-slate-900">
+                    {portfolioLastsFullHorizon
+                      ? "Your corpus supports the full withdrawal horizon."
+                      : "Your current corpus does not fully support the withdrawal horizon."}
+                  </p>
+                  <p className="text-sm text-slate-600 mt-1">
+                    Required corpus for this plan is about{" "}
+                    {formatCompactCurrency(calculation.requiredCorpus)}.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <StatCard
+                label="Total Withdrawn"
+                value={formatCompactCurrency(calculation.totalWithdrawn)}
+                icon={<Coins className="w-4 h-4 text-rose-500" />}
+              />
+              <StatCard
+                label="Ending Balance"
+                value={formatCompactCurrency(calculation.endingBalance)}
+                icon={<TrendingUp className="w-4 h-4 text-orange-500" />}
+              />
+              <StatCard
+                label="Coverage Ratio"
+                value={`${calculation.coverageRatio}%`}
+                icon={<Wallet className="w-4 h-4 text-rose-500" />}
+                subtext="Starting corpus as a percentage of the estimated required corpus."
+              />
+            </div>
+
+            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+              <button
+                type="button"
+                onClick={() => setShowChart((currentValue) => !currentValue)}
+                className="w-full flex items-center justify-between text-sm font-bold text-slate-700"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-rose-500" />
+                  View yearly balance projection
+                </span>
+                {showChart ? (
+                  <ChevronUp className="w-4 h-4" />
+                ) : (
+                  <ChevronDown className="w-4 h-4" />
+                )}
+              </button>
+
+              {showChart ? (
+                <div className="mt-4 h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={calculation.series}>
+                      <defs>
+                        <linearGradient
+                          id="swpChartGradient"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="#f43f5e"
+                            stopOpacity={0.35}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="#f43f5e"
+                            stopOpacity={0}
+                          />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                      <XAxis dataKey="year" tick={{ fontSize: 11 }} />
+                      <YAxis
+                        tick={{ fontSize: 10 }}
+                        width={60}
+                        tickFormatter={(value) =>
+                          value >= 1e7
+                            ? `₹${(value / 1e7).toFixed(1)}Cr`
+                            : `₹${(value / 1e5).toFixed(0)}L`
+                        }
+                      />
+                      <Tooltip content={<SwpTooltip />} />
+                      <Area
+                        type="monotone"
+                        dataKey="balance"
+                        stroke="#f43f5e"
+                        fill="url(#swpChartGradient)"
+                        strokeWidth={3}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        )}
+      </div>
+    </InvestmentPageShell>
+  );
+}

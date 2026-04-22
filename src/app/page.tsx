@@ -5,6 +5,12 @@ import ToolsFooter from "@/components/ToolsFooter";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  investmentCalculatorHub,
+  investmentCalculators,
+  retirementCalculators,
+  utilityTools,
+} from "@/lib/siteLinks";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -106,6 +112,33 @@ export default function Home() {
       description:
         "See the real, anonymized experiences and decisions of others, giving you the social proof you need to feel certain about your choice.",
       color: "from-green-500 to-emerald-500",
+    },
+  ];
+
+  const calculatorSections = [
+    {
+      title: "Retirement Calculators",
+      href: retirementCalculators[0]?.href || "/fire-calculator",
+      description:
+        "Model FIRE timelines, semi-retirement scenarios, and target retirement corpus options.",
+      links: retirementCalculators,
+      gradient: "from-orange-500 to-amber-500",
+    },
+    {
+      title: investmentCalculatorHub.name,
+      href: investmentCalculatorHub.href,
+      description:
+        "Plan SIPs, one-time investments, blended strategies, and retirement withdrawals.",
+      links: investmentCalculators,
+      gradient: "from-emerald-500 to-cyan-500",
+    },
+    {
+      title: "Utility Tools",
+      href: utilityTools[0]?.href || "/cghs-billcheck",
+      description:
+        "Use focused tools for medical bill audits and the opportunity cost of spending decisions.",
+      links: utilityTools,
+      gradient: "from-cyan-500 to-blue-500",
     },
   ];
 
@@ -223,6 +256,69 @@ export default function Home() {
                 <p className="text-slate-600 text-sm leading-relaxed">
                   {feature.description}
                 </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mb-12">
+          <h2 className="text-3xl sm:text-4xl font-black text-center mb-4 bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+            Explore Calculators
+          </h2>
+          <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
+            Browse retirement, investment, and decision tools built to turn
+            abstract money choices into concrete numbers.
+          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {calculatorSections.map((section) => (
+              <div
+                key={section.title}
+                className="glass p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300"
+              >
+                <div
+                  className={`inline-flex px-3 py-1.5 rounded-full text-white text-xs font-bold bg-gradient-to-r ${section.gradient} mb-4`}
+                >
+                  {section.title}
+                </div>
+                <p className="text-slate-600 text-sm leading-relaxed mb-5">
+                  {section.description}
+                </p>
+                <div className="space-y-3 mb-5">
+                  {section.links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block bg-white rounded-2xl border border-slate-100 p-4 hover:border-cyan-200 hover:bg-cyan-50/50 transition-all"
+                    >
+                      <p className="font-bold text-slate-800 text-sm">
+                        {link.name}
+                      </p>
+                      <p className="text-xs text-slate-500 mt-1">
+                        {link.description}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+                <Link
+                  href={section.href}
+                  className="inline-flex items-center gap-2 text-sm font-bold text-cyan-700 hover:text-cyan-800 transition-colors"
+                >
+                  Explore {section.title}
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Link>
               </div>
             ))}
           </div>

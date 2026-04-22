@@ -2,6 +2,11 @@
 
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
+import {
+  investmentCalculators,
+  retirementCalculators,
+  utilityTools,
+} from "@/lib/siteLinks";
 
 /**
  * Footer link item interface
@@ -73,20 +78,25 @@ export default function ToolsFooter({
   // Default sections
   const defaultSections: FooterSection[] = [
     {
-      title: "Calculators",
-      links: [
-        { label: "FIRE Calculator", href: "/fire-calculator" },
-        { label: "Barista FIRE", href: "/barista-fire-calculator" },
-        { label: "Coast FIRE", href: "/coast-fire-calculator" },
-        { label: "Fat FIRE", href: "/fat-fire-calculator" },
-      ],
+      title: "Retirement",
+      links: retirementCalculators.map((link) => ({
+        label: link.name,
+        href: link.href,
+      })),
+    },
+    {
+      title: "Investments",
+      links: investmentCalculators.map((link) => ({
+        label: link.name,
+        href: link.href,
+      })),
     },
     {
       title: "Tools",
-      links: [
-        { label: "CGHS BillCheck", href: "/cghs-billcheck" },
-        { label: "True Cost Calculator", href: "/time-converter" },
-      ],
+      links: utilityTools.map((link) => ({
+        label: link.name,
+        href: link.href,
+      })),
     },
     {
       title: "Company",

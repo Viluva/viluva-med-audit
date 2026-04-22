@@ -1,3 +1,3 @@
-export default function Image(props) {
+export default function Image({ priority, ...props }) {
   return <img {...props} />;
 }

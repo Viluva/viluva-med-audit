@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.viluva.app"),
   title: {
     template: "%s | Viluva - AI Financial Tools & Calculators",
     default:
