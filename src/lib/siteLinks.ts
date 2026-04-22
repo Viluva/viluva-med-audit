@@ -74,8 +74,15 @@ export const investmentCalculatorHub: SiteLink = {
   description: "SIP, lumpsum, combined investing, and SWP tools",
 };
 
+export const retirementCalculatorHub: SiteLink = {
+  name: "Retirement Calculators",
+  href: "/retirement-calculators",
+  description: "FIRE, Barista FIRE, Coast FIRE, and Fat FIRE tools",
+};
+
 export const sitemapLinks: SitemapLink[] = [
   { href: "/", priority: 1 },
+  { href: retirementCalculatorHub.href, priority: 0.95 },
   { href: investmentCalculatorHub.href, priority: 0.95 },
   ...retirementCalculators.map((link) => ({ href: link.href, priority: 0.9 })),
   ...investmentCalculators.map((link) => ({ href: link.href, priority: 0.9 })),

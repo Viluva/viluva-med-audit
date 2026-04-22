@@ -7,6 +7,7 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import {
   investmentCalculatorHub,
   investmentCalculators,
+  retirementCalculatorHub,
   retirementCalculators,
   utilityTools,
 } from "@/lib/siteLinks";
@@ -80,6 +81,17 @@ export default function HomePageNavigation() {
                     className="absolute top-full left-0 mt-0 pt-2 w-56 animate-in fade-in slide-in-from-top-2 duration-200"
                   >
                     <div className="bg-white rounded-xl shadow-lg border border-slate-200 py-2">
+                      <Link
+                        href={retirementCalculatorHub.href}
+                        className="block px-4 py-2.5 text-sm text-cyan-700 hover:bg-cyan-50 transition-colors border-b border-slate-100"
+                      >
+                        <div className="font-semibold">
+                          All Retirement Calculators
+                        </div>
+                        <div className="text-xs text-slate-500">
+                          Overview of every FIRE and retirement planning tool
+                        </div>
+                      </Link>
                       {retirementCalculators.map((calc) => (
                         <Link
                           key={calc.href}
@@ -222,8 +234,17 @@ export default function HomePageNavigation() {
               <div className="space-y-6">
                 {/* Calculators Section */}
                 <div className="space-y-3">
-                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Retirement Calculators
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      Retirement Calculators
+                    </div>
+                    <Link
+                      href={retirementCalculatorHub.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-[11px] font-bold text-cyan-700"
+                    >
+                      View all
+                    </Link>
                   </div>
                   {retirementCalculators.map((calc) => (
                     <Link

@@ -8,6 +8,7 @@ import Link from "next/link";
 import {
   investmentCalculatorHub,
   investmentCalculators,
+  retirementCalculatorHub,
   retirementCalculators,
   utilityTools,
 } from "@/lib/siteLinks";
@@ -118,7 +119,7 @@ export default function Home() {
   const calculatorSections = [
     {
       title: "Retirement Calculators",
-      href: retirementCalculators[0]?.href || "/fire-calculator",
+      href: retirementCalculatorHub.href,
       description:
         "Model FIRE timelines, semi-retirement scenarios, and target retirement corpus options.",
       links: retirementCalculators,
