@@ -27,13 +27,7 @@ import {
 import HomePageNavigation from "@/components/HomePageNavigation";
 import { fireNumber, yearsToTarget, buildGrowthSeries } from "@/lib/fireMath";
 import ToolsFooter from "@/components/ToolsFooter";
-
-const fmt = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
-const fmtL = (n: number) => {
-  if (n >= 1e7) return `₹${(n / 1e7).toFixed(2)} Cr`;
-  if (n >= 1e5) return `₹${(n / 1e5).toFixed(1)} L`;
-  return fmt(n);
-};
+import { formatCurrency as fmt, formatCompactCurrency as fmtL, formatCompactAxis } from "@/lib/currency";
 const buildSWRSensitivity = (expenses: number, swrRates: number[]) =>
   swrRates.map((r) => ({
     swr: `${r}%`,
@@ -229,14 +223,14 @@ export default function FIRECalculator() {
           <form onSubmit={handleCalculate} className="space-y-6">
             {/* All input fields stacked vertically */}
             <Field
-              label="Current Annual Expenses (₹)"
+              label="Current Annual Expenses"
               name="expenses"
               value={formData.expenses}
               onChange={handleChange}
               hint="Your total yearly spend — this is your FIRE foundation"
             />
             <Field
-              label="Expected Annual Income (₹) at Retirement"
+              label="Expected Annual Income at Retirement"
               name="annualIncome"
               value={formData.annualIncome}
               onChange={handleChange}
@@ -252,14 +246,14 @@ export default function FIRECalculator() {
               hint="Your age today"
             />
             <Field
-              label="Current Portfolio / Savings (₹)"
+              label="Current Portfolio / Savings"
               name="currentSavings"
               value={formData.currentSavings}
               onChange={handleChange}
               hint="Total invested assets today"
             />
             <Field
-              label="Annual Savings / Investments (₹) going forward"
+              label="Annual Savings / Investments"
               name="annualSavings"
               value={formData.annualSavings}
               onChange={handleChange}
@@ -315,7 +309,7 @@ export default function FIRECalculator() {
                   <span className="text-slate-400">18%</span>
                 </div>
                 <p className="text-xs text-slate-500 mt-1">
-                  Indian equity long-term avg: ~12–14%. Debt: ~7%.
+                  Global equity long-term avg: ~7–12%. Bonds: ~3–5%.
                 </p>
               </div>
               <div>
@@ -340,7 +334,7 @@ export default function FIRECalculator() {
                   <span>10%</span>
                 </div>
                 <p className="text-xs text-slate-500 mt-1">
-                  Typical Indian inflation: 4–6%.
+                  Typical inflation: 2–6% depending on your country.
                 </p>
               </div>
             </div>
@@ -594,11 +588,7 @@ export default function FIRECalculator() {
                             }}
                           />
                           <YAxis
-                            tickFormatter={(v) =>
-                              v >= 1e7
-                                ? `₹${(v / 1e7).toFixed(1)}Cr`
-                                : `₹${(v / 1e5).toFixed(0)}L`
-                            }
+                            tickFormatter={(v) => formatCompactAxis(v)}
                             tick={{ fontSize: 10 }}
                             width={62}
                           />

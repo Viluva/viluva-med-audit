@@ -21,8 +21,7 @@ import {
   yearsToTarget,
   buildGrowthSeries,
 } from "@/lib/fireMath";
-
-const fmt = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
+import { formatCurrency as fmt, formatCompactCurrency as fmtL, formatCompactAxis } from "@/lib/currency";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -275,28 +274,28 @@ export default function BaristaFIRECalculator() {
             {/* All input fields stacked vertically */}
             <div className="flex flex-col gap-6">
               <Field
-                label="Current Annual Expenses (₹)"
+                label="Current Annual Expenses"
                 name="expenses"
                 value={formData.expenses}
                 onChange={handleChange}
                 hint="Your total yearly spending today (rent, food, lifestyle, etc.) before Barista FIRE."
               />
               <Field
-                label="Expected Annual Part-Time Income (₹) after Barista FIRE"
+                label="Expected Annual Part-Time Income after Barista FIRE"
                 name="baristaIncome"
                 value={formData.baristaIncome}
                 onChange={handleChange}
                 hint="What you expect to earn per year from part-time or Barista work after leaving your main job."
               />
               <Field
-                label="Current Portfolio / Savings (₹)"
+                label="Current Portfolio / Savings"
                 name="currentSavings"
                 value={formData.currentSavings}
                 onChange={handleChange}
                 hint="Total invested savings you have right now (before Barista FIRE)."
               />
               <Field
-                label="Annual Savings / Investments (₹) going forward"
+                label="Annual Savings / Investments"
                 name="annualSavings"
                 value={formData.annualSavings}
                 onChange={handleChange}
@@ -371,7 +370,7 @@ export default function BaristaFIRECalculator() {
                   <span>18%</span>
                 </div>
                 <p className="text-xs text-slate-500 mt-1">
-                  Indian equity long-term avg: ~12–14%. Debt: ~7%.
+                  Global equity long-term avg: ~7–12%. Bonds: ~3–5%.
                 </p>
               </div>
               <div>
@@ -396,7 +395,7 @@ export default function BaristaFIRECalculator() {
                   <span>10%</span>
                 </div>
                 <p className="text-xs text-slate-500 mt-1">
-                  Typical Indian inflation: 4–6%.
+                  Typical inflation: 2–6% depending on your country.
                 </p>
               </div>
             </div>
@@ -659,11 +658,7 @@ export default function BaristaFIRECalculator() {
                         }}
                       />
                       <YAxis
-                        tickFormatter={(v) =>
-                          v >= 1e7
-                            ? `₹${(v / 1e7).toFixed(1)}Cr`
-                            : `₹${(v / 1e5).toFixed(0)}L`
-                        }
+                        tickFormatter={(v) => formatCompactAxis(v)}
                         tick={{ fontSize: 10 }}
                         width={60}
                       />

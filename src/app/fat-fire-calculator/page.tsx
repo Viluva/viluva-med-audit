@@ -25,13 +25,7 @@ import {
 import HomePageNavigation from "@/components/HomePageNavigation";
 import ToolsFooter from "@/components/ToolsFooter";
 import { fireNumber, yearsToTarget, buildGrowthSeries } from "@/lib/fireMath";
-
-// Format large numbers for display (Cr, Lakh, etc)
-function fmtL(n: number): string {
-  if (n >= 1e7) return `₹${(n / 1e7).toFixed(2)} Cr`;
-  if (n >= 1e5) return `₹${(n / 1e5).toFixed(1)} L`;
-  return fmt(n);
-}
+import { formatCurrency as fmt, formatCompactCurrency as fmtL, formatCompactAxis } from "@/lib/currency";
 
 // Fat FIRE lifestyle buckets breakdown
 type LifestyleBucket = {
@@ -88,11 +82,6 @@ function buildLifestyleBuckets(totalExpenses: number): LifestyleBucket[] {
 }
 
 // ─── Types ───────────────────────────────────────────────────────────────────
-
-// Rupee formatting helper
-function fmt(n: number): string {
-  return "₹" + Math.round(n).toLocaleString("en-IN");
-}
 
 interface CalcResult {
   baseExpenses: number;
@@ -279,7 +268,7 @@ export default function FatFIRECalculator() {
           <form onSubmit={handleCalculate} className="space-y-6">
             {/* All input fields stacked vertically */}
             <Field
-              label="Current Annual Expenses (₹)"
+              label="Current Annual Expenses"
               name="baseExpenses"
               value={formData.baseExpenses}
               onChange={handleChange}
@@ -287,7 +276,7 @@ export default function FatFIRECalculator() {
               accentColor="violet"
             />
             <Field
-              label="Current Portfolio / Savings (₹)"
+              label="Current Portfolio / Savings"
               name="currentSavings"
               value={formData.currentSavings}
               onChange={handleChange}
@@ -305,7 +294,7 @@ export default function FatFIRECalculator() {
               accentColor="violet"
             />
             <Field
-              label="Annual Savings / Investments (₹) going forward"
+              label="Annual Savings / Investments"
               name="annualSavings"
               value={formData.annualSavings}
               onChange={handleChange}
@@ -339,7 +328,7 @@ export default function FatFIRECalculator() {
                 display={`${formData.returnRate}% p.a.`}
                 leftLabel="4%"
                 rightLabel="18%"
-                hint="Indian equity long-term avg: ~12–14%"
+                hint="Global equity long-term avg: ~7–12%"
               />
               <SliderField
                 label="Inflation Rate"
@@ -352,7 +341,7 @@ export default function FatFIRECalculator() {
                 display={`${formData.inflationRate}%`}
                 leftLabel="0%"
                 rightLabel="10%"
-                hint="Long-term India avg: 5–6%"
+                hint="Typical inflation: 2–6% depending on your country"
               />
             </div>
 
@@ -571,11 +560,7 @@ export default function FatFIRECalculator() {
                             }}
                           />
                           <YAxis
-                            tickFormatter={(v) =>
-                              v >= 1e7
-                                ? `₹${(v / 1e7).toFixed(1)}Cr`
-                                : `₹${(v / 1e5).toFixed(0)}L`
-                            }
+                            tickFormatter={(v) => formatCompactAxis(v)}
                             tick={{ fontSize: 10 }}
                             width={62}
                           />

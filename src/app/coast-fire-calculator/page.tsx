@@ -31,8 +31,7 @@ import {
   buildCoastSeries,
 } from "@/lib/fireMath";
 import ToolsFooter from "@/components/ToolsFooter";
-
-const fmt = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
+import { formatCurrency as fmt, formatCompactCurrency as fmtL, formatCompactAxis } from "@/lib/currency";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -207,14 +206,14 @@ export default function CoastFIRECalculator() {
           <form onSubmit={handleCalculate} className="space-y-6">
             {/* All input fields stacked vertically */}
             <Field
-              label="Expected Annual Expenses at Retirement (₹)"
+              label="Expected Annual Expenses at Retirement"
               name="expenses"
               value={formData.expenses}
               onChange={handleChange}
-              hint="Your estimated yearly spend in retirement (today's ₹)"
+              hint="Your estimated yearly spend in retirement (today's money)"
             />
             <Field
-              label="Current Portfolio / Savings (₹)"
+              label="Current Portfolio / Savings"
               name="currentSavings"
               value={formData.currentSavings}
               onChange={handleChange}
@@ -239,7 +238,7 @@ export default function CoastFIRECalculator() {
               hint="Age you want to fully stop working"
             />
             <Field
-              label="Annual Savings / Investments (₹) until Coast FIRE"
+              label="Annual Savings / Investments until Coast FIRE"
               name="annualSavings"
               value={formData.annualSavings}
               onChange={handleChange}
@@ -273,7 +272,7 @@ export default function CoastFIRECalculator() {
                 leftLabel="4%"
                 rightLabel="18%"
                 accentClass="accent-cyan-600"
-                hint="Indian equity long-term avg: ~12–14%"
+                hint="Global equity long-term avg: ~7–12%"
               />
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
@@ -297,7 +296,7 @@ export default function CoastFIRECalculator() {
                   <span>10%</span>
                 </div>
                 <p className="text-xs text-slate-500 mt-1">
-                  Typical Indian inflation: 4–6%.
+                  Typical inflation: 2–6% depending on your country.
                 </p>
               </div>
             </div>
@@ -465,11 +464,7 @@ export default function CoastFIRECalculator() {
                             }}
                           />
                           <YAxis
-                            tickFormatter={(v) =>
-                              v >= 1e7
-                                ? `₹${(v / 1e7).toFixed(1)}Cr`
-                                : `₹${(v / 1e5).toFixed(0)}L`
-                            }
+                            tickFormatter={(v) => formatCompactAxis(v)}
                             tick={{ fontSize: 10 }}
                             width={62}
                           />

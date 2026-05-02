@@ -51,23 +51,7 @@ interface StatCardProps {
   subtext?: string;
 }
 
-export function formatCurrency(value: number): string {
-  return `₹${Math.round(value).toLocaleString("en-IN")}`;
-}
-
-export function formatCompactCurrency(value: number): string {
-  const absoluteValue = Math.abs(value);
-
-  if (absoluteValue >= 1e7) {
-    return `₹${(value / 1e7).toFixed(2)} Cr`;
-  }
-
-  if (absoluteValue >= 1e5) {
-    return `₹${(value / 1e5).toFixed(1)} L`;
-  }
-
-  return formatCurrency(value);
-}
+export { formatCurrency, formatCompactCurrency } from "@/lib/currency";
 
 export function InvestmentPageShell({
   title,

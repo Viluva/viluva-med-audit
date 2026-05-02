@@ -28,6 +28,7 @@ import {
   SliderField,
   StatCard,
 } from "@/components/investment/InvestmentCalculatorUI";
+import { formatCompactAxis } from "@/lib/currency";
 import {
   calculateRequiredCorpusForSwp,
   calculateSwpPlan,
@@ -170,14 +171,14 @@ export default function SwpCalculatorPage() {
       <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
         <form onSubmit={handleCalculate} className="space-y-6">
           <Field
-            label="Starting Corpus (₹)"
+            label="Starting Corpus"
             name="initialCorpus"
             value={formData.initialCorpus}
             onChange={handleChange}
             hint="The invested amount from which withdrawals begin."
           />
           <Field
-            label="Monthly Withdrawal (₹)"
+            label="Monthly Withdrawal"
             name="monthlyWithdrawal"
             value={formData.monthlyWithdrawal}
             onChange={handleChange}
@@ -330,11 +331,7 @@ export default function SwpCalculatorPage() {
                       <YAxis
                         tick={{ fontSize: 10 }}
                         width={60}
-                        tickFormatter={(value) =>
-                          value >= 1e7
-                            ? `₹${(value / 1e7).toFixed(1)}Cr`
-                            : `₹${(value / 1e5).toFixed(0)}L`
-                        }
+                        tickFormatter={(value) => formatCompactAxis(value)}
                       />
                       <Tooltip content={<SwpTooltip />} />
                       <Area

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Investment Calculators | Viluva",
     description:
-      "Explore SIP, lumpsum, SIP plus lumpsum, and SWP calculators built for Indian investors.",
+      "Explore SIP, lumpsum, SIP plus lumpsum, and SWP calculators for smart long-term investing.",
     type: "website",
     url: "https://www.viluva.app/investment-calculators",
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Investment Calculators | Viluva",
     description:
-      "Explore SIP, lumpsum, SIP plus lumpsum, and SWP calculators built for Indian investors.",
+      "Explore SIP, lumpsum, SIP plus lumpsum, and SWP calculators for smart long-term investing.",
   },
 };
 

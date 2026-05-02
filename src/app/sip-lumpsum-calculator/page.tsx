@@ -11,7 +11,6 @@ import {
   YAxis,
 } from "recharts";
 import {
-  BadgeIndianRupee,
   ChevronDown,
   ChevronUp,
   Coins,
@@ -27,6 +26,7 @@ import {
   SliderField,
   StatCard,
 } from "@/components/investment/InvestmentCalculatorUI";
+import { formatCompactAxis } from "@/lib/currency";
 import {
   buildInvestmentProjectionSeries,
   calculateCombinedFutureValue,
@@ -161,7 +161,7 @@ export default function SipLumpsumCalculatorPage() {
       title="SIP + Lumpsum Calculator"
       description="Model a blended strategy where you start with an initial investment and keep adding monthly SIP contributions to build a larger corpus."
       badgeText="Start with capital. Keep compounding monthly."
-      badgeIcon={BadgeIndianRupee}
+      badgeIcon={Landmark}
       titleGradientClass="bg-gradient-to-r from-cyan-600 via-sky-600 to-indigo-600"
       badgeBackgroundClass="bg-cyan-50"
       badgeBorderClass="border-cyan-200"
@@ -176,14 +176,14 @@ export default function SipLumpsumCalculatorPage() {
       <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
         <form onSubmit={handleCalculate} className="space-y-6">
           <Field
-            label="One-Time Investment Amount (₹)"
+            label="One-Time Investment Amount"
             name="initialInvestment"
             value={formData.initialInvestment}
             onChange={handleChange}
             hint="The amount you deploy at the start."
           />
           <Field
-            label="Monthly SIP Amount (₹)"
+            label="Monthly SIP Amount"
             name="monthlyInvestment"
             value={formData.monthlyInvestment}
             onChange={handleChange}
@@ -233,7 +233,7 @@ export default function SipLumpsumCalculatorPage() {
           <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="bg-gradient-to-br from-cyan-500 to-indigo-500 text-white rounded-2xl shadow-lg p-6">
               <div className="flex items-center gap-2 text-white/80 text-sm font-semibold mb-2">
-                <BadgeIndianRupee className="w-5 h-5" />
+                <TrendingUp className="w-5 h-5" />
                 Combined Portfolio Value
               </div>
               <p className="text-4xl sm:text-5xl font-black tracking-tight">
@@ -326,11 +326,7 @@ export default function SipLumpsumCalculatorPage() {
                       <YAxis
                         tick={{ fontSize: 10 }}
                         width={60}
-                        tickFormatter={(value) =>
-                          value >= 1e7
-                            ? `₹${(value / 1e7).toFixed(1)}Cr`
-                            : `₹${(value / 1e5).toFixed(0)}L`
-                        }
+                        tickFormatter={(value) => formatCompactAxis(value)}
                       />
                       <Tooltip content={<CombinedTooltip />} />
                       <Area

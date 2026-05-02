@@ -11,7 +11,6 @@ import {
   YAxis,
 } from "recharts";
 import {
-  BadgeIndianRupee,
   ChevronDown,
   ChevronUp,
   Coins,
@@ -27,6 +26,7 @@ import {
   SliderField,
   StatCard,
 } from "@/components/investment/InvestmentCalculatorUI";
+import { formatCompactAxis } from "@/lib/currency";
 import {
   buildInvestmentProjectionSeries,
   calculateLumpsumFutureValue,
@@ -151,7 +151,7 @@ export default function LumpsumCalculatorPage() {
       <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
         <form onSubmit={handleCalculate} className="space-y-6">
           <Field
-            label="One-Time Investment Amount (₹)"
+            label="One-Time Investment Amount"
             name="initialInvestment"
             value={formData.initialInvestment}
             onChange={handleChange}
@@ -228,7 +228,7 @@ export default function LumpsumCalculatorPage() {
               <StatCard
                 label="Money Multiplier"
                 value={`${calculation.multiple}×`}
-                icon={<BadgeIndianRupee className="w-4 h-4 text-blue-500" />}
+                icon={<TrendingUp className="w-4 h-4 text-blue-500" />}
                 subtext="Projected corpus divided by your starting amount."
               />
             </div>
@@ -279,11 +279,7 @@ export default function LumpsumCalculatorPage() {
                       <YAxis
                         tick={{ fontSize: 10 }}
                         width={60}
-                        tickFormatter={(value) =>
-                          value >= 1e7
-                            ? `₹${(value / 1e7).toFixed(1)}Cr`
-                            : `₹${(value / 1e5).toFixed(0)}L`
-                        }
+                        tickFormatter={(value) => formatCompactAxis(value)}
                       />
                       <Tooltip content={<LumpsumTooltip />} />
                       <Area

@@ -27,6 +27,7 @@ import {
   SliderField,
   StatCard,
 } from "@/components/investment/InvestmentCalculatorUI";
+import { formatCompactAxis } from "@/lib/currency";
 import {
   buildInvestmentProjectionSeries,
   calculateSipFutureValue,
@@ -154,7 +155,7 @@ export default function SIPCalculatorPage() {
       <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
         <form onSubmit={handleCalculate} className="space-y-6">
           <Field
-            label="Monthly SIP Amount (₹)"
+            label="Monthly SIP Amount"
             name="monthlyInvestment"
             value={formData.monthlyInvestment}
             onChange={handleChange}
@@ -282,11 +283,7 @@ export default function SIPCalculatorPage() {
                       <YAxis
                         tick={{ fontSize: 10 }}
                         width={60}
-                        tickFormatter={(value) =>
-                          value >= 1e7
-                            ? `₹${(value / 1e7).toFixed(1)}Cr`
-                            : `₹${(value / 1e5).toFixed(0)}L`
-                        }
+                        tickFormatter={(value) => formatCompactAxis(value)}
                       />
                       <Tooltip content={<GrowthTooltip />} />
                       <Area

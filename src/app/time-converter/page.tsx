@@ -6,6 +6,7 @@ import Link from "next/link";
 import HomePageNavigation from "@/components/HomePageNavigation";
 import { calculateTimeCost, type ConversionResult } from "@/lib/timeconvertor";
 import ToolsFooter from "@/components/ToolsFooter";
+import { formatCurrency } from "@/lib/currency";
 
 export default function TimeConverter() {
   const [formData, setFormData] = useState({
@@ -137,7 +138,7 @@ export default function TimeConverter() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                  Price (₹)
+                  Price
                 </label>
                 <input
                   type="number"
@@ -155,7 +156,7 @@ export default function TimeConverter() {
 
               <div>
                 <label className="block text-sm sm:text-base font-bold text-slate-800 mb-2">
-                  Monthly Net Income (₹)
+                  Monthly Net Income
                 </label>
                 <input
                   type="number"
@@ -242,7 +243,7 @@ export default function TimeConverter() {
                     Opportunity Cost
                   </h3>
                   <p className="text-4xl sm:text-5xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
-                    ₹{result.futureWealth.futureValue.toLocaleString("en-IN")}
+                    {formatCurrency(result.futureWealth.futureValue)}
                   </p>
                   <p className="text-sm text-slate-600">
                     Could grow to{" "}
@@ -251,10 +252,8 @@ export default function TimeConverter() {
                   </p>
                   <p className="text-xs text-slate-500 mt-2 max-w-md mx-auto">
                     If invested today at {result.futureWealth.returnRate * 100}%
-                    returns, this ₹
-                    {Number(formData.price).toLocaleString("en-IN")} could be
-                    worth ₹
-                    {result.futureWealth.futureValue.toLocaleString("en-IN")} in{" "}
+                    returns, this {formatCurrency(Number(formData.price))} could
+                    be worth {formatCurrency(result.futureWealth.futureValue)} in{" "}
                     {result.futureWealth.years} years
                   </p>
                 </div>
@@ -273,7 +272,7 @@ export default function TimeConverter() {
                       }}
                     >
                       <span className="px-2">
-                        ₹{Number(formData.price).toLocaleString("en-IN")}
+                        {formatCurrency(Number(formData.price))}
                       </span>
                     </div>
                     <div

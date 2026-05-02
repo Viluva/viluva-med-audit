@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "SIP Calculator",
   description:
-    "Calculate the future value of your SIP with monthly contributions, expected returns, and total wealth gain. Built for Indian investors planning long-term goals.",
+    "Calculate the future value of your SIP with monthly contributions, expected returns, and total wealth gain. Plan long-term financial goals with precision.",
   keywords: [
     "sip calculator",
     "systematic investment plan calculator",

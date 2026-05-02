@@ -1,15 +1,15 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BadgeIndianRupee,
   Landmark,
   PiggyBank,
+  TrendingUp,
   Wallet,
 } from "lucide-react";
 import HomePageNavigation from "@/components/HomePageNavigation";
 import { investmentCalculators } from "@/lib/siteLinks";
 
-const icons = [PiggyBank, Landmark, BadgeIndianRupee, Wallet];
+const icons = [PiggyBank, Landmark, TrendingUp, Wallet];
 const gradients = [
   "from-emerald-500 to-teal-500",
   "from-blue-500 to-indigo-500",
