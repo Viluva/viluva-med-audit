@@ -98,13 +98,13 @@ export default function ToolsFooter({
         href: link.href,
       })),
     },
-    {
-      title: "Company",
-      links: [
-        { label: "About", href: "/#about" },
-        { label: "Contact", href: "/#contact" },
-      ],
-    },
+    // {
+    //   title: "Company",
+    //   links: [
+    //     { label: "About", href: "/#about" },
+    //     { label: "Contact", href: "/#contact" },
+    //   ],
+    // },
     // {
     //   title: "Legal",
     //   links: [
