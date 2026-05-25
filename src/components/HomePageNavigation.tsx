@@ -173,7 +173,7 @@ export default function HomePageNavigation() {
                     className="absolute top-full left-0 mt-0 pt-2 w-64 animate-in fade-in slide-in-from-top-2 duration-200"
                   >
                     <div className="bg-white rounded-xl shadow-lg border border-slate-200 py-2">
-                      {decisionTools.map((tool) => (
+                      {[...decisionTools, ...utilityTools].map((tool) => (
                         <Link
                           key={tool.href}
                           href={tool.href}
@@ -187,17 +187,6 @@ export default function HomePageNavigation() {
                   </div>
                 )}
               </div>
-
-              {/* Other Tools */}
-              {utilityTools.map((tool) => (
-                <Link
-                  key={tool.href}
-                  href={tool.href}
-                  className="text-sm font-medium text-slate-700 hover:text-cyan-600 transition-colors"
-                >
-                  {tool.name}
-                </Link>
-              ))}
 
               {/* CTA Button */}
               <Link
@@ -328,7 +317,7 @@ export default function HomePageNavigation() {
                   <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Decision Tools
                   </div>
-                  {decisionTools.map((tool) => (
+                  {[...decisionTools, ...utilityTools].map((tool) => (
                     <Link
                       key={tool.href}
                       href={tool.href}
@@ -337,26 +326,6 @@ export default function HomePageNavigation() {
                     >
                       <div className="font-semibold">{tool.name}</div>
                       <div className="text-xs text-slate-500 mt-0.5">{tool.description}</div>
-                    </Link>
-                  ))}
-                </div>
-
-                {/* Tools Section */}
-                <div className="space-y-3 pt-3 border-t border-slate-200">
-                  <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                    Utilities
-                  </div>
-                  {utilityTools.map((tool) => (
-                    <Link
-                      key={tool.href}
-                      href={tool.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-cyan-600 rounded-lg transition-colors border border-slate-100"
-                    >
-                      <div className="font-semibold">{tool.name}</div>
-                      <div className="text-xs text-slate-500 mt-0.5">
-                        {tool.description}
-                      </div>
                     </Link>
                   ))}
                 </div>

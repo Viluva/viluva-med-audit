@@ -363,16 +363,13 @@ export default function SmartScorePage() {
                     <label className="block text-sm font-bold text-slate-700 mb-1.5">
                       Monthly take-home income
                     </label>
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
-                      <input
-                        type="number"
-                        placeholder="e.g. 80000"
-                        value={finances.monthlyIncome}
-                        onChange={(e) => setFinances((f) => ({ ...f, monthlyIncome: e.target.value }))}
-                        className="w-full pl-8 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
-                      />
-                    </div>
+                    <input
+                      type="number"
+                      placeholder="e.g. 80000"
+                      value={finances.monthlyIncome}
+                      onChange={(e) => setFinances((f) => ({ ...f, monthlyIncome: e.target.value }))}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
+                    />
                     <p className="text-xs text-slate-400 mt-1">After tax / in-hand.</p>
                   </div>
 
@@ -380,16 +377,13 @@ export default function SmartScorePage() {
                     <label className="block text-sm font-bold text-slate-700 mb-1.5">
                       Monthly fixed costs — rent, EMIs, bills
                     </label>
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
-                      <input
-                        type="number"
-                        placeholder="e.g. 35000"
-                        value={finances.monthlyFixedCosts}
-                        onChange={(e) => setFinances((f) => ({ ...f, monthlyFixedCosts: e.target.value }))}
-                        className="w-full pl-8 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
-                      />
-                    </div>
+                    <input
+                      type="number"
+                      placeholder="e.g. 35000"
+                      value={finances.monthlyFixedCosts}
+                      onChange={(e) => setFinances((f) => ({ ...f, monthlyFixedCosts: e.target.value }))}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
+                    />
                     <p className="text-xs text-slate-400 mt-1">Committed outflows every month.</p>
                   </div>
 
@@ -420,16 +414,13 @@ export default function SmartScorePage() {
                     <label className="block text-sm font-bold text-slate-700 mb-1.5">
                       Monthly savings toward any goal
                     </label>
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
-                      <input
-                        type="number"
-                        placeholder="e.g. 10000"
-                        value={finances.monthlySavings}
-                        onChange={(e) => setFinances((f) => ({ ...f, monthlySavings: e.target.value }))}
-                        className="w-full pl-8 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
-                      />
-                    </div>
+                    <input
+                      type="number"
+                      placeholder="e.g. 10000"
+                      value={finances.monthlySavings}
+                      onChange={(e) => setFinances((f) => ({ ...f, monthlySavings: e.target.value }))}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
+                    />
                     <p className="text-xs text-slate-400 mt-1">Can be 0 if you&apos;re not saving toward a specific goal right now.</p>
                   </div>
                 </div>
@@ -478,16 +469,13 @@ export default function SmartScorePage() {
 
                   <div>
                     <label className="block text-sm font-bold text-slate-700 mb-1.5">Purchase price</label>
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
-                      <input
-                        type="number"
-                        placeholder="e.g. 129900"
-                        value={purchase.purchasePrice}
-                        onChange={(e) => setPurchase((p) => ({ ...p, purchasePrice: e.target.value }))}
-                        className="w-full pl-8 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
-                      />
-                    </div>
+                    <input
+                      type="number"
+                      placeholder="e.g. 129900"
+                      value={purchase.purchasePrice}
+                      onChange={(e) => setPurchase((p) => ({ ...p, purchasePrice: e.target.value }))}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
+                    />
                   </div>
 
                   <div>
@@ -605,16 +593,13 @@ export default function SmartScorePage() {
                           <label className="block text-sm font-bold text-slate-700 mb-1.5">
                             Goal amount
                           </label>
-                          <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
-                            <input
-                              type="number"
-                              placeholder="e.g. 500000"
-                              value={goal.goalAmount}
-                              onChange={(e) => setGoal((g) => ({ ...g, goalAmount: e.target.value }))}
-                              className="w-full pl-8 pr-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
-                            />
-                          </div>
+                          <input
+                            type="number"
+                            placeholder="e.g. 500000"
+                            value={goal.goalAmount}
+                            onChange={(e) => setGoal((g) => ({ ...g, goalAmount: e.target.value }))}
+                            className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100 outline-none transition-all"
+                          />
                           <p className="text-xs text-slate-400 mt-1">e.g. down payment, emergency fund target, travel fund</p>
                         </div>
 
