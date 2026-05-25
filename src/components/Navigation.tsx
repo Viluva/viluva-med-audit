@@ -8,7 +8,6 @@ export default function Navigation() {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "CGHS BillCheck", path: "/cghs-billcheck" },
     { name: "True Cost Calculator", path: "/time-converter" },
   ];
 

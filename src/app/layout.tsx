@@ -23,20 +23,18 @@ export const metadata: Metadata = {
       "Viluva | AI Financial Tools, Calculators & Bill Audit for Smarter Decisions",
   },
   description:
-    "Viluva is your AI-powered financial co-pilot. Instantly audit CGHS bills, calculate true costs, and benchmark your decisions with advanced tools for wealth building, medical bill validation, and personal finance confidence.",
+    "Viluva is your AI-powered financial co-pilot. Calculate true costs, plan your FIRE journey, and benchmark your decisions with advanced tools for wealth building and personal finance confidence.",
   keywords: [
     "personal finance",
     "wealth building",
     "opportunity cost calculator",
-    "CGHS bill check",
-    "medical bill audit",
+    "FIRE calculator",
+    "SIP calculator",
     "AI financial tools",
     "financial calculators",
     "cost calculator",
-    "bill audit",
     "financial planning",
     "money management",
-    "healthcare compliance",
     "financial decision making",
     "compare expenses",
     "save money",
@@ -44,8 +42,9 @@ export const metadata: Metadata = {
     "budgeting",
     "investment planning",
     "cost of living calculator",
-    "peer benchmarking",
-    "social proof finance",
+    "retirement planning",
+    "SWP calculator",
+    "coast FIRE",
   ],
   authors: [{ name: "Viluva" }],
   icons: {
@@ -55,7 +54,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Viluva | AI Financial Tools & Calculators for Smarter Decisions",
     description:
-      "Viluva is your AI-powered financial co-pilot. Instantly audit CGHS bills, calculate true costs, and benchmark your decisions with advanced tools for wealth building, medical bill validation, and personal finance confidence.",
+      "Viluva is your AI-powered financial co-pilot. Calculate true costs, plan your FIRE journey, and benchmark your decisions with advanced tools for wealth building and personal finance confidence.",
     siteName: "Viluva",
     type: "website",
     url: "https://www.viluva.app/",
@@ -72,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Viluva | AI Financial Tools & Calculators for Smarter Decisions",
     description:
-      "Viluva is your AI-powered financial co-pilot. Instantly audit CGHS bills, calculate true costs, and benchmark your decisions with advanced tools for wealth building, medical bill validation, and personal finance confidence.",
+      "Viluva is your AI-powered financial co-pilot. Calculate true costs, plan your FIRE journey, and benchmark your decisions with advanced tools for wealth building and personal finance confidence.",
     images: ["https://www.viluva.app/Viluva.png"],
     site: "@viluva",
   },
@@ -98,7 +97,7 @@ export default function RootLayout({
         />
         <meta
           property="og:description"
-          content="Viluva is your proactive financial co-pilot helping you make smart decisions for the future. Try our True Cost Calculator and CGHS BillCheck."
+          content="Viluva is your proactive financial co-pilot helping you make smart decisions for the future. Try our True Cost Calculator and FIRE planning tools."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.viluva.app/" />
@@ -143,7 +142,7 @@ export default function RootLayout({
               name: "Viluva",
               url: "https://www.viluva.app/",
               description:
-                "Viluva is your proactive financial co-pilot. Make smart decisions for the future with our AI-powered True Cost Calculator and CGHS BillCheck compliance validator.",
+                "Viluva is your proactive financial co-pilot. Make smart decisions for the future with our AI-powered FIRE calculators, investment tools, and True Cost Calculator.",
               publisher: {
                 "@type": "Organization",
                 name: "Viluva",

@@ -40,6 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Claude Code — local settings and temporary worktrees should never be committed
+.claude/settings.local.json
+.claude/worktrees/
+
 # Source data files (keep processed JSON only)
 src/lib/data/**/*.xlsx
 src/lib/data/**/*.pdf
