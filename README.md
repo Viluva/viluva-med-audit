@@ -1,211 +1,91 @@
-# Viluva BillCheck - CGHS Price Cap Compliance Validator
+# Viluva
 
-**Professional medical bill auditing tool** for verifying CGHS compliance, checking for overcharges, and ensuring fair pricing using official 2026 MoHFW guidelines.
+**A one-stop hub for personal finance decisions** — calculators, decision tools, and (growing) guidance for everyday money questions: retirement planning, investing, loans, and smart purchase decisions.
 
-## Who Is This For?
+Live at [viluva.app](https://www.viluva.app).
 
-**🎯 Target Audience: CGHS Beneficiaries Only**
+## What's here today
 
-This tool is exclusively designed for:
+### Retirement (FIRE) calculators
+- **FIRE Calculator** (`/fire-calculator`) — standard FIRE corpus/timeline planning
+- **Barista FIRE** (`/barista-fire-calculator`) — semi-retirement with part-time work
+- **Coast FIRE** (`/coast-fire-calculator`) — invest early, coast to retirement
+- **Fat FIRE** (`/fat-fire-calculator`) — higher-spend retirement planning
 
-✅ **Central Government Employees**
-- Active serving employees with CGHS coverage
-- All grades and pay scales eligible under CGHS
+### Investment calculators
+- **SIP Calculator** (`/sip-calculator`) — monthly investing growth projection
+- **Lumpsum Calculator** (`/lumpsum-calculator`) — one-time investment growth projection
+- **SIP + Lumpsum** (`/sip-lumpsum-calculator`) — combined strategy
+- **SWP Calculator** (`/swp-calculator`) — retirement withdrawal sustainability
 
-✅ **Central Government Pensioners**
-- Retired Central Government employees
-- Family pensioners of deceased employees
+### Decision tools
+- **Smart Purchase Advisor** (`/smart-score`) — 0–100 "Smart Score" on any purchase, weighing affordability, value, and goal impact
+- **EMI True Cost** (`/emi-calculator`) — the real cost of an EMI or "0% EMI" offer
+- **Buy vs Invest** (`/buy-vs-invest`) — opportunity cost of buying vs. compounding
+- **True Cost / Time Converter** (`/time-converter`) — spending translated into hours of work
 
-✅ **Members of Parliament (MPs)**
-- Lok Sabha and Rajya Sabha members
-- Eligible for CGHS facilities
+### Homepage hook
+A 30-second "Financial Velocity Score" quiz (drag/fuel/runway/leak sliders) that gives visitors an instant money-habits score and routes them to a waitlist for deeper insights.
 
-✅ **Eligible Dependents**
-- Spouse
-- Children (up to age limits as per CGHS rules)
-- Parents (where applicable)
-
-✅ **Other CGHS Card Holders**
-- Judiciary members under CGHS
-- Governors and specified constitutional positions
-
-### ❌ Who This Tool is NOT For:
-
-- ❌ State Government employees (different schemes)
-- ❌ Private sector employees
-- ❌ ESIC (Employees' State Insurance) beneficiaries
-- ❌ Private insurance policy holders
-- ❌ General public without CGHS coverage
-- ❌ Out-of-pocket patients at non-empanelled hospitals
-
-**Requirement:** You must hold a valid CGHS card and have received treatment at a CGHS-empanelled hospital for this tool to be applicable.
-
----
-
-## Overview
-
-Viluva BillCheck helps patients and healthcare beneficiaries verify whether their hospital bills comply with CGHS (Central Government Health Scheme) approved rates. The tool uses official government data to calculate the maximum permissible charges for medical procedures across different hospital types, tiers, and ward categories.
-
-## Features
-
-- ✅ **21 CGHS Cities**: Complete hospital empanelment data for all major metros
-- ✅ **53,947+ Procedures**: Comprehensive CGHS rate database
-- ✅ **Intelligent Calculations**: Automatic tier adjustments, NABH multipliers, ward differentials
-- ✅ **Instant Audits**: Real-time compliance checking
-- ✅ **Modern UI**: Professional, mobile-responsive interface
-- ✅ **Privacy First**: No data storage, client-side processing
-- ✅ **Security Hardened**: Rate limiting, input sanitization, security headers
-
-## Data Sources
-
-All data is sourced from official government documents:
-
-### Hospital Empanelment Data
-- **Source**: CGHS 2026 Empanelment Lists
-- **Coverage**: 21 metro cities across India
-- **Location**: `/src/lib/data/hospitals/`
-- **Format**: City-wise Excel files converted to JSON
-
-### Price Data
-- **Source**: MoHFW CGHS Rate Guidelines
-- **Document**: New CGHS rates applicable to empanelled HCOs
-- **Location**: `/src/lib/data/prices.json`
-- **Format**: Structured JSON with procedure codes, NABH/Non-NABH rates, tier classifications
-
-## Security
-
-Viluva BillCheck implements enterprise-grade security features:
-
-- 🔒 **Rate Limiting**: 100 requests/min per IP
-- 🛡️ **Input Sanitization**: XSS prevention on all inputs
-- 🔐 **Security Headers**: HSTS, X-Frame-Options, CSP-ready
-- 🌐 **CORS Configured**: Controlled cross-origin access
-- 🔍 **No Data Collection**: Complete privacy
-
-See [SECURITY.md](SECURITY.md) for detailed security documentation.
+All calculation logic lives in tested, framework-free modules under `src/lib/` (`fireMath.ts`, `investmentMath.ts`, `emiMath.ts`, `smartScore.ts`, `financialVelocity.ts`), including property-based tests via `fast-check` for the FIRE math.
 
 ## Technology Stack
 
-- **Framework**: Next.js 16 (App Router)
+- **Framework**: Next.js 16 (App Router, Turbopack)
 - **Language**: TypeScript 5.9
 - **Styling**: Tailwind CSS 4
-- **UI**: React 19 with optimizations
-- **Build**: Turbopack for fast builds
+- **UI**: React 19
+- **Charts**: Recharts
+- **Animation**: Framer Motion
+- **Backend**: Supabase (waitlist emails only — no user accounts yet)
+- **Testing**: Jest + Testing Library + fast-check
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Building for Production
+Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
-npm run build
-npm run start
+npm test          # run the test suite
+npm run build     # production build
+npm run lint      # eslint
 ```
 
 ## Project Structure
 
 ```
 ├── src/
-│   ├── app/                    # Next.js app router
-│   │   ├── api/               # API routes
-│   │   │   └── audit/search/  # Procedure search endpoint
-│   │   ├── page.tsx           # Main application page
-│   │   └── layout.tsx         # Root layout
-│   ├── components/            # React components
-│   │   ├── CitySelect.tsx     # City selection
-│   │   ├── HospitalSelect.tsx # Hospital selection
-│   │   ├── ProcedureSearch.tsx# Procedure search
-│   │   └── Verdict.tsx        # Audit results
+│   ├── app/                        # Next.js app router — one folder per calculator/route
+│   │   ├── api/subscribe/          # Waitlist signup endpoint
+│   │   ├── <calculator>/           # page.tsx + layout.tsx (metadata/SEO) per tool
+│   │   ├── investment-calculators/ # Investment tools hub
+│   │   ├── retirement-calculators/ # Retirement/FIRE tools hub
+│   │   ├── layout.tsx              # Root layout
+│   │   ├── sitemap.ts / robots.ts  # SEO routes, driven by src/lib/siteLinks.ts
+│   │   └── page.tsx                # Homepage (velocity quiz + tool directory)
+│   ├── components/                 # Navigation, footer, shared UI
 │   └── lib/
-│       └── data/              # Data files
-│           ├── hospitals/     # City-wise hospital data
-│           ├── hospitals.json # Compiled hospital data
-│           ├── prices.json    # CGHS rate data
-│           └── types.ts       # TypeScript interfaces
-├── public/                    # Static assets
-├── SECURITY.md               # Security documentation
-└── UI_REDESIGN_SUMMARY.md    # Design documentation
+│       ├── siteLinks.ts            # Single source of truth for nav/footer/sitemap entries
+│       ├── currency.ts             # Shared currency formatting
+│       ├── *Math.ts                # Pure calculation modules (one per tool family)
+│       └── supabase.ts             # Supabase client for the waitlist
+├── public/                         # Static assets (logo, icons)
 ```
 
-## How It Works
+## Adding a new calculator
 
-1. **Select City**: Choose from 21 CGHS-empaneled cities
-2. **Select Hospital**: Pick from verified CGHS hospitals
-3. **Choose Ward Type**: General, Semi-Private, or Private
-4. **Search Procedure**: Find the medical procedure or test
-5. **Enter Bill Amount**: Input what the hospital charged
-6. **Get Verdict**: Instant compliance check with detailed breakdown
+1. Add the pure math to `src/lib/<name>Math.ts` with a matching `.test.ts`.
+2. Add a route under `src/app/<name>/` with `page.tsx` (UI) and `layout.tsx` (metadata).
+3. Register it in `src/lib/siteLinks.ts` — this alone wires it into nav, footer, and the sitemap.
 
-### Calculation Methodology
+## Disclaimer
 
-The tool calculates CGHS-approved rates using:
-- Base rate (NABH/Non-NABH accredited)
-- Super Speciality multiplier (15% for eligible hospitals)
-- City tier adjustment (Tier 1: 100%, Tier 2: 90%, Tier 3: 80%)
-- Ward differential (General: 95%, Semi-Private: 100%, Private: 105%)
-- Special handling for uniform-rate procedures (consultations, investigations)
-
-## Legal Disclaimer
-
-**Viluva BillCheck is an independent tool for informational purposes only.** 
-
-- This tool does **not** constitute legal or medical advice
-- Results should be verified independently
-- Consult qualified professionals before taking action
-- Hospital pricing may vary due to case complexity
-- Not liable for decisions made using this information
-
-See the comprehensive disclaimer in the application footer for full details.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## Contributing
-
-Contributions are welcome! Please ensure:
-- Code follows TypeScript best practices
-- Security considerations are maintained
-- Data sources are verified and cited
-- Tests pass (when implemented)
+Viluva is an independent tool for informational and educational purposes only. It does not constitute financial advice. Consult a qualified professional before making financial decisions.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For questions, issues, or feature requests, please open an issue on the project repository.
-
----
-
-**Built for healthcare transparency** | © 2026 Viluva BillCheck
-
+MIT

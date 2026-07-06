@@ -160,7 +160,7 @@ export default function MyPage() {
     {
       title: "Other Tools",
       links: [
-        { label: "CGHS BillCheck", href: "/cghs-billcheck" },
+        { label: "Smart Purchase Advisor", href: "/smart-score" },
         { label: "True Cost Calculator", href: "/time-converter" },
       ],
     },
@@ -270,7 +270,7 @@ The footer is already integrated across:
 - ✅ Barista FIRE Calculator
 - ✅ Coast FIRE Calculator
 - ✅ Fat FIRE Calculator
-- ✅ CGHS BillCheck
+- ✅ Smart Purchase Advisor
 - ✅ Time Converter
 
 ---

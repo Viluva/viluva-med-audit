@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
 import {
   Area,
@@ -19,13 +20,13 @@ import {
   TrendingUp,
 } from "lucide-react";
 import {
-  Field,
+  NumberField,
   formatCompactCurrency,
   formatCurrency,
-  InvestmentPageShell,
+  CalculatorShell,
   SliderField,
   StatCard,
-} from "@/components/investment/InvestmentCalculatorUI";
+} from "@/components/calculator/CalculatorShell";
 import { formatCompactAxis } from "@/lib/currency";
 import {
   buildInvestmentProjectionSeries,
@@ -157,39 +158,35 @@ export default function SipLumpsumCalculatorPage() {
   };
 
   return (
-    <InvestmentPageShell
+    <CalculatorShell
       title="SIP + Lumpsum Calculator"
       description="Model a blended strategy where you start with an initial investment and keep adding monthly SIP contributions to build a larger corpus."
       badgeText="Start with capital. Keep compounding monthly."
       badgeIcon={Landmark}
-      titleGradientClass="bg-gradient-to-r from-cyan-600 via-sky-600 to-indigo-600"
-      badgeBackgroundClass="bg-cyan-50"
-      badgeBorderClass="border-cyan-200"
-      badgeTextClass="text-cyan-700"
-      backgroundBlobClasses={["bg-cyan-400/20", "bg-indigo-400/20"]}
+      accent="investment"
       assumptions={[
         "Lumpsum portion uses annual compounding: FV = P × (1 + r)^n.",
         "SIP portion uses monthly compounding with start-of-month contributions.",
         "Combined result is the sum of individual lumpsum and SIP maturity values.",
       ]}
     >
-      <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
+      <div className="card p-6 sm:p-10">
         <form onSubmit={handleCalculate} className="space-y-6">
-          <Field
+          <NumberField
             label="One-Time Investment Amount"
             name="initialInvestment"
             value={formData.initialInvestment}
             onChange={handleChange}
             hint="The amount you deploy at the start."
           />
-          <Field
+          <NumberField
             label="Monthly SIP Amount"
             name="monthlyInvestment"
             value={formData.monthlyInvestment}
             onChange={handleChange}
             hint="The monthly amount you keep adding."
           />
-          <Field
+          <NumberField
             label="Investment Duration (Years)"
             name="years"
             value={formData.years}
@@ -208,20 +205,20 @@ export default function SipLumpsumCalculatorPage() {
             step={0.5}
             leftLabel="1%"
             rightLabel="20%"
-            accentClass="accent-cyan-500"
+            accent="investment"
             hint="Assumes annual compounding for lumpsum and monthly SIP contributions at the start of each month."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-cyan-500 to-indigo-500 text-white font-bold py-3 sm:py-4 rounded-xl hover:from-cyan-600 hover:to-indigo-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full btn-primary py-3 sm:py-4"
             >
               Calculate Combined Growth
             </button>
             <button
               type="button"
               onClick={handleReset}
-              className="w-full border border-slate-200 bg-white text-slate-700 font-bold py-3 sm:py-4 rounded-xl hover:bg-slate-50 transition-all inline-flex items-center justify-center gap-2"
+              className="w-full btn-secondary py-3 sm:py-4"
             >
               <RotateCcw className="w-4 h-4" />
               Reset inputs
@@ -230,8 +227,13 @@ export default function SipLumpsumCalculatorPage() {
         </form>
 
         {showResult && (
-          <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-gradient-to-br from-cyan-500 to-indigo-500 text-white rounded-2xl shadow-lg p-6">
+          <motion.div
+            className="mt-8 space-y-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <div className="bg-gradient-to-br from-emerald-600 to-teal-500 text-white rounded-2xl shadow-lg p-6">
               <div className="flex items-center gap-2 text-white/80 text-sm font-semibold mb-2">
                 <TrendingUp className="w-5 h-5" />
                 Combined Portfolio Value
@@ -311,12 +313,12 @@ export default function SipLumpsumCalculatorPage() {
                         >
                           <stop
                             offset="5%"
-                            stopColor="#06b6d4"
+                            stopColor="#059669"
                             stopOpacity={0.35}
                           />
                           <stop
                             offset="95%"
-                            stopColor="#06b6d4"
+                            stopColor="#059669"
                             stopOpacity={0}
                           />
                         </linearGradient>
@@ -332,7 +334,7 @@ export default function SipLumpsumCalculatorPage() {
                       <Area
                         type="monotone"
                         dataKey="value"
-                        stroke="#0891b2"
+                        stroke="#059669"
                         fill="url(#combinedChartGradient)"
                         strokeWidth={3}
                       />
@@ -341,9 +343,9 @@ export default function SipLumpsumCalculatorPage() {
                 </div>
               ) : null}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
-    </InvestmentPageShell>
+    </CalculatorShell>
   );
 }

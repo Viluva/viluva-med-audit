@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Stale git worktrees left over from prior sessions — not part of the deployed app.
+    ".claude/worktrees/**",
   ]),
 ]);
 

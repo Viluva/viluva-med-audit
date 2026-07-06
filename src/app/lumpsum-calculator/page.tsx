@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
 import {
   Area,
@@ -19,13 +20,13 @@ import {
   TrendingUp,
 } from "lucide-react";
 import {
-  Field,
+  NumberField,
   formatCompactCurrency,
   formatCurrency,
-  InvestmentPageShell,
+  CalculatorShell,
   SliderField,
   StatCard,
-} from "@/components/investment/InvestmentCalculatorUI";
+} from "@/components/calculator/CalculatorShell";
 import { formatCompactAxis } from "@/lib/currency";
 import {
   buildInvestmentProjectionSeries,
@@ -132,32 +133,28 @@ export default function LumpsumCalculatorPage() {
   };
 
   return (
-    <InvestmentPageShell
+    <CalculatorShell
       title="Lumpsum Calculator"
       description="See how a one-time investment grows over time and compare your invested capital against the wealth created by compounding."
       badgeText="One capital injection. Long compounding runway."
       badgeIcon={Landmark}
-      titleGradientClass="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600"
-      badgeBackgroundClass="bg-blue-50"
-      badgeBorderClass="border-blue-200"
-      badgeTextClass="text-blue-700"
-      backgroundBlobClasses={["bg-blue-400/20", "bg-violet-400/20"]}
+      accent="investment"
       assumptions={[
         "Growth is calculated using annual compounding: FV = P × (1 + r)^n.",
         "The return entered is treated as annual effective return and applied once per year.",
         "Taxes, charges, and interim cash flows are excluded.",
       ]}
     >
-      <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
+      <div className="card p-6 sm:p-10">
         <form onSubmit={handleCalculate} className="space-y-6">
-          <Field
+          <NumberField
             label="One-Time Investment Amount"
             name="initialInvestment"
             value={formData.initialInvestment}
             onChange={handleChange}
             hint="The amount you want to invest today."
           />
-          <Field
+          <NumberField
             label="Investment Duration (Years)"
             name="years"
             value={formData.years}
@@ -176,20 +173,20 @@ export default function LumpsumCalculatorPage() {
             step={0.5}
             leftLabel="1%"
             rightLabel="20%"
-            accentClass="accent-blue-500"
+            accent="investment"
             hint="Assumes annual compounding on the one-time investment."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-500 to-violet-500 text-white font-bold py-3 sm:py-4 rounded-xl hover:from-blue-600 hover:to-violet-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full btn-primary py-3 sm:py-4"
             >
               Calculate Lumpsum Growth
             </button>
             <button
               type="button"
               onClick={handleReset}
-              className="w-full border border-slate-200 bg-white text-slate-700 font-bold py-3 sm:py-4 rounded-xl hover:bg-slate-50 transition-all inline-flex items-center justify-center gap-2"
+              className="w-full btn-secondary py-3 sm:py-4"
             >
               <RotateCcw className="w-4 h-4" />
               Reset inputs
@@ -198,8 +195,13 @@ export default function LumpsumCalculatorPage() {
         </form>
 
         {showResult && (
-          <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-gradient-to-br from-blue-500 to-violet-500 text-white rounded-2xl shadow-lg p-6">
+          <motion.div
+            className="mt-8 space-y-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <div className="bg-gradient-to-br from-emerald-600 to-teal-500 text-white rounded-2xl shadow-lg p-6">
               <div className="flex items-center gap-2 text-white/80 text-sm font-semibold mb-2">
                 <Landmark className="w-5 h-5" />
                 Projected Maturity Value
@@ -264,12 +266,12 @@ export default function LumpsumCalculatorPage() {
                         >
                           <stop
                             offset="5%"
-                            stopColor="#3b82f6"
+                            stopColor="#059669"
                             stopOpacity={0.35}
                           />
                           <stop
                             offset="95%"
-                            stopColor="#3b82f6"
+                            stopColor="#059669"
                             stopOpacity={0}
                           />
                         </linearGradient>
@@ -285,7 +287,7 @@ export default function LumpsumCalculatorPage() {
                       <Area
                         type="monotone"
                         dataKey="value"
-                        stroke="#4f46e5"
+                        stroke="#059669"
                         fill="url(#lumpsumChartGradient)"
                         strokeWidth={3}
                       />
@@ -294,9 +296,9 @@ export default function LumpsumCalculatorPage() {
                 </div>
               ) : null}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
-    </InvestmentPageShell>
+    </CalculatorShell>
   );
 }

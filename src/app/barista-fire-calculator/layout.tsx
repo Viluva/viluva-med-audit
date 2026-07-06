@@ -13,11 +13,15 @@ export const metadata: Metadata = {
     "personal finance",
     "viluva",
   ],
+  alternates: {
+    canonical: "https://www.viluva.app/barista-fire-calculator",
+  },
   openGraph: {
     title: "Barista FIRE Calculator | Viluva",
     description:
       "Calculate your Barista FIRE number and plan your path to semi-retirement. See how much you need to save to work part-time and achieve financial independence early.",
     type: "website",
+    url: "https://www.viluva.app/barista-fire-calculator",
   },
   twitter: {
     card: "summary_large_image",

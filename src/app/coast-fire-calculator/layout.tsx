@@ -12,11 +12,15 @@ export const metadata: Metadata = {
     "personal finance",
     "viluva",
   ],
+  alternates: {
+    canonical: "https://www.viluva.app/coast-fire-calculator",
+  },
   openGraph: {
     title: "Coast FIRE Calculator | Viluva",
     description:
       "Find your Coast FIRE number and see how much you need to invest now to let compounding do the rest. Achieve financial independence by coasting to retirement.",
     type: "website",
+    url: "https://www.viluva.app/coast-fire-calculator",
   },
   twitter: {
     card: "summary_large_image",

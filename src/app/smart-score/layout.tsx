@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Smart Purchase Advisor — Know Before You Buy",
   description:
-    "Get a 0–100 Smart Score on any purchase. Personalised to your income, goals, and financial health. A preview of Viluva AI's purchase intelligence engine.",
+    "Get a 0–100 Smart Score on any purchase. Personalised to your income, goals, and financial health — a preview of Viluva's purchase intelligence engine.",
   keywords: [
     "should I buy this",
     "smart purchase decision",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Smart Purchase Advisor | Viluva",
     description:
-      "Get a personalised 0–100 Smart Score on any purchase before you buy. Built on Viluva AI's 4-pillar financial intelligence engine.",
+      "Get a personalised 0–100 Smart Score on any purchase before you buy. Built on Viluva's 4-pillar financial intelligence engine.",
     type: "website",
     url: "https://www.viluva.app/smart-score",
   },

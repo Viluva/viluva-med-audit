@@ -59,7 +59,7 @@ export function calculateTimeCost(
   if (remainingHours > 0 || workingDays === 0)
     formattedTime += `${remainingHours} hours`;
 
-  const shareableQuote = `Is ${itemName} really worth ${formattedTime.trim()} of your life? 🤔 Find out your true purchase power with Viluva AI.`;
+  const shareableQuote = `Is ${itemName} really worth ${formattedTime.trim()} of your life? 🤔 Find out your true purchase power with Viluva.`;
 
   // Calculate future wealth
   const futureWealth = calculateFutureWealth(price, returnRate, years);

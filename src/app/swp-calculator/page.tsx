@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
 import {
   Area,
@@ -21,13 +22,13 @@ import {
   Wallet,
 } from "lucide-react";
 import {
-  Field,
+  NumberField,
   formatCompactCurrency,
   formatCurrency,
-  InvestmentPageShell,
+  CalculatorShell,
   SliderField,
   StatCard,
-} from "@/components/investment/InvestmentCalculatorUI";
+} from "@/components/calculator/CalculatorShell";
 import { formatCompactAxis } from "@/lib/currency";
 import {
   calculateRequiredCorpusForSwp,
@@ -152,39 +153,35 @@ export default function SwpCalculatorPage() {
   const portfolioLastsFullHorizon = calculation.depletionMonth === null;
 
   return (
-    <InvestmentPageShell
+    <CalculatorShell
       title="SWP Calculator"
       description="Estimate whether your corpus can support monthly withdrawals across your chosen horizon and how much capital remains at the end."
       badgeText="Retirement cash flow. Withdrawal sustainability."
       badgeIcon={Wallet}
-      titleGradientClass="bg-gradient-to-r from-rose-600 via-orange-500 to-amber-500"
-      badgeBackgroundClass="bg-rose-50"
-      badgeBorderClass="border-rose-200"
-      badgeTextClass="text-rose-700"
-      backgroundBlobClasses={["bg-rose-400/20", "bg-orange-400/20"]}
+      accent="investment"
       assumptions={[
         "Each month applies return first and then withdrawal is deducted.",
         "Annual return is converted to a monthly rate as annualRate / 12.",
         "If balance reaches zero, depletion is reported and future withdrawals stop.",
       ]}
     >
-      <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
+      <div className="card p-6 sm:p-10">
         <form onSubmit={handleCalculate} className="space-y-6">
-          <Field
+          <NumberField
             label="Starting Corpus"
             name="initialCorpus"
             value={formData.initialCorpus}
             onChange={handleChange}
             hint="The invested amount from which withdrawals begin."
           />
-          <Field
+          <NumberField
             label="Monthly Withdrawal"
             name="monthlyWithdrawal"
             value={formData.monthlyWithdrawal}
             onChange={handleChange}
             hint="The fixed monthly amount you plan to withdraw."
           />
-          <Field
+          <NumberField
             label="Withdrawal Horizon (Years)"
             name="years"
             value={formData.years}
@@ -203,20 +200,20 @@ export default function SwpCalculatorPage() {
             step={0.5}
             leftLabel="0%"
             rightLabel="15%"
-            accentClass="accent-rose-500"
+            accent="investment"
             hint="Assumes returns compound monthly before each month's withdrawal."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-rose-500 to-orange-500 text-white font-bold py-3 sm:py-4 rounded-xl hover:from-rose-600 hover:to-orange-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full btn-primary py-3 sm:py-4"
             >
               Plan My SWP
             </button>
             <button
               type="button"
               onClick={handleReset}
-              className="w-full border border-slate-200 bg-white text-slate-700 font-bold py-3 sm:py-4 rounded-xl hover:bg-slate-50 transition-all inline-flex items-center justify-center gap-2"
+              className="w-full btn-secondary py-3 sm:py-4"
             >
               <RotateCcw className="w-4 h-4" />
               Reset inputs
@@ -225,8 +222,13 @@ export default function SwpCalculatorPage() {
         </form>
 
         {showResult && (
-          <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-gradient-to-br from-rose-500 to-orange-500 text-white rounded-2xl shadow-lg p-6">
+          <motion.div
+            className="mt-8 space-y-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <div className="bg-gradient-to-br from-emerald-600 to-teal-500 text-white rounded-2xl shadow-lg p-6">
               <div className="flex items-center gap-2 text-white/80 text-sm font-semibold mb-2">
                 <Wallet className="w-5 h-5" />
                 SWP Outcome
@@ -316,12 +318,12 @@ export default function SwpCalculatorPage() {
                         >
                           <stop
                             offset="5%"
-                            stopColor="#f43f5e"
+                            stopColor="#059669"
                             stopOpacity={0.35}
                           />
                           <stop
                             offset="95%"
-                            stopColor="#f43f5e"
+                            stopColor="#059669"
                             stopOpacity={0}
                           />
                         </linearGradient>
@@ -337,7 +339,7 @@ export default function SwpCalculatorPage() {
                       <Area
                         type="monotone"
                         dataKey="balance"
-                        stroke="#f43f5e"
+                        stroke="#059669"
                         fill="url(#swpChartGradient)"
                         strokeWidth={3}
                       />
@@ -346,9 +348,9 @@ export default function SwpCalculatorPage() {
                 </div>
               ) : null}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
-    </InvestmentPageShell>
+    </CalculatorShell>
   );
 }

@@ -18,19 +18,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.viluva.app"),
   title: {
-    template: "%s | Viluva - AI Financial Tools & Calculators",
-    default:
-      "Viluva | AI Financial Tools, Calculators & Bill Audit for Smarter Decisions",
+    template: "%s | Viluva",
+    default: "Viluva | Know the Real Worth, Before You Decide",
   },
   description:
-    "Viluva is your AI-powered financial co-pilot. Calculate true costs, plan your FIRE journey, and benchmark your decisions with advanced tools for wealth building and personal finance confidence.",
+    "Free calculators for retirement, investing, loans, and everyday spending decisions. Clear math, honest breakdowns, no sign-up — built for India.",
   keywords: [
     "personal finance",
     "wealth building",
     "opportunity cost calculator",
     "FIRE calculator",
     "SIP calculator",
-    "AI financial tools",
     "financial calculators",
     "cost calculator",
     "financial planning",
@@ -51,29 +49,29 @@ export const metadata: Metadata = {
     icon: "/Viluva.png",
     apple: "/Viluva.png",
   },
+  alternates: {
+    canonical: "https://www.viluva.app/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
+  },
   openGraph: {
-    title: "Viluva | AI Financial Tools & Calculators for Smarter Decisions",
+    title: "Viluva | Know the Real Worth, Before You Decide",
     description:
-      "Viluva is your AI-powered financial co-pilot. Calculate true costs, plan your FIRE journey, and benchmark your decisions with advanced tools for wealth building and personal finance confidence.",
+      "Free calculators for retirement, investing, loans, and everyday spending decisions. Clear math, honest breakdowns, no sign-up — built for India.",
     siteName: "Viluva",
     type: "website",
     url: "https://www.viluva.app/",
-    images: [
-      {
-        url: "https://www.viluva.app/Viluva.png",
-        width: 1200,
-        height: 630,
-        alt: "Viluva - AI Financial Tools & Calculators",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Viluva | AI Financial Tools & Calculators for Smarter Decisions",
+    title: "Viluva | Know the Real Worth, Before You Decide",
     description:
-      "Viluva is your AI-powered financial co-pilot. Calculate true costs, plan your FIRE journey, and benchmark your decisions with advanced tools for wealth building and personal finance confidence.",
-    images: ["https://www.viluva.app/Viluva.png"],
-    site: "@viluva",
+      "Free calculators for retirement, investing, loans, and everyday spending decisions. Clear math, honest breakdowns, no sign-up — built for India.",
   },
 };
 
@@ -84,50 +82,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Canonical URL for SEO */}
-        <link rel="canonical" href="https://www.viluva.app/" />
-        {/* Favicon and Apple Touch Icon */}
-        <link rel="icon" href="/Viluva.png" />
-        <link rel="apple-touch-icon" href="/Viluva.png" />
-        {/* Open Graph Meta Tags */}
-        <meta
-          property="og:title"
-          content="Viluva | Smarter Financial Decisions"
-        />
-        <meta
-          property="og:description"
-          content="Viluva is your proactive financial co-pilot helping you make smart decisions for the future. Try our True Cost Calculator and FIRE planning tools."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.viluva.app/" />
-        <meta property="og:site_name" content="Viluva" />
-        <meta property="og:image" content="https://www.viluva.app/Viluva.png" />
-        {/* Twitter Card Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Viluva | Smarter Financial Decisions"
-        />
-        <meta
-          name="twitter:description"
-          content="Viluva is your proactive financial co-pilot helping you make smart decisions for the future."
-        />
-        <meta
-          name="twitter:image"
-          content="https://www.viluva.app/Viluva.png"
-        />
-        {/* Robots and Sitemap */}
-        <meta
-          name="robots"
-          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-        />
-        <link
-          rel="sitemap"
-          type="application/xml"
-          href="https://www.viluva.app/sitemap.xml"
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -142,7 +96,7 @@ export default function RootLayout({
               name: "Viluva",
               url: "https://www.viluva.app/",
               description:
-                "Viluva is your proactive financial co-pilot. Make smart decisions for the future with our AI-powered FIRE calculators, investment tools, and True Cost Calculator.",
+                "Free calculators for retirement, investing, loans, and everyday spending decisions — clear math, honest breakdowns, built for India.",
               publisher: {
                 "@type": "Organization",
                 name: "Viluva",
@@ -151,10 +105,6 @@ export default function RootLayout({
                   url: "https://www.viluva.app/Viluva.png",
                 },
               },
-              sameAs: [
-                "https://twitter.com/viluva",
-                "https://www.linkedin.com/company/viluva",
-              ],
             }),
           }}
         />

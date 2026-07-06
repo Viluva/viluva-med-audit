@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
 import {
   Area,
@@ -20,13 +21,13 @@ import {
   TrendingUp,
 } from "lucide-react";
 import {
-  Field,
+  NumberField,
   formatCompactCurrency,
   formatCurrency,
-  InvestmentPageShell,
+  CalculatorShell,
   SliderField,
   StatCard,
-} from "@/components/investment/InvestmentCalculatorUI";
+} from "@/components/calculator/CalculatorShell";
 import { formatCompactAxis } from "@/lib/currency";
 import {
   buildInvestmentProjectionSeries,
@@ -136,32 +137,28 @@ export default function SIPCalculatorPage() {
   };
 
   return (
-    <InvestmentPageShell
+    <CalculatorShell
       title="SIP Calculator"
       description="Estimate how disciplined monthly investing compounds over time and how much of your final corpus comes from returns versus contributions."
       badgeText="Monthly investing. Long-term compounding."
       badgeIcon={PiggyBank}
-      titleGradientClass="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600"
-      badgeBackgroundClass="bg-emerald-50"
-      badgeBorderClass="border-emerald-200"
-      badgeTextClass="text-emerald-700"
-      backgroundBlobClasses={["bg-emerald-400/20", "bg-cyan-400/20"]}
+      accent="investment"
       assumptions={[
         "SIP contributions are made at the start of each month (annuity-due model).",
         "Annual return is converted to a monthly rate as annualRate / 12.",
         "Rate is assumed constant for the full duration; taxes, exit loads, and fund fees are not modeled.",
       ]}
     >
-      <div className="glass p-6 sm:p-10 rounded-3xl shadow-2xl glow">
+      <div className="card p-6 sm:p-10">
         <form onSubmit={handleCalculate} className="space-y-6">
-          <Field
+          <NumberField
             label="Monthly SIP Amount"
             name="monthlyInvestment"
             value={formData.monthlyInvestment}
             onChange={handleChange}
             hint="Your fixed monthly contribution."
           />
-          <Field
+          <NumberField
             label="Investment Duration (Years)"
             name="years"
             value={formData.years}
@@ -180,20 +177,20 @@ export default function SIPCalculatorPage() {
             step={0.5}
             leftLabel="1%"
             rightLabel="20%"
-            accentClass="accent-emerald-500"
+            accent="investment"
             hint="Assumes monthly compounding and contributions at the start of each month."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold py-3 sm:py-4 rounded-xl hover:from-emerald-600 hover:to-cyan-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full btn-primary py-3 sm:py-4"
             >
               Calculate SIP Returns
             </button>
             <button
               type="button"
               onClick={handleReset}
-              className="w-full border border-slate-200 bg-white text-slate-700 font-bold py-3 sm:py-4 rounded-xl hover:bg-slate-50 transition-all inline-flex items-center justify-center gap-2"
+              className="w-full btn-secondary py-3 sm:py-4"
             >
               <RotateCcw className="w-4 h-4" />
               Reset inputs
@@ -202,8 +199,13 @@ export default function SIPCalculatorPage() {
         </form>
 
         {showResult && (
-          <div className="mt-8 space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-gradient-to-br from-emerald-500 to-cyan-500 text-white rounded-2xl shadow-lg p-6">
+          <motion.div
+            className="mt-8 space-y-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <div className="bg-gradient-to-br from-emerald-600 to-teal-500 text-white rounded-2xl shadow-lg p-6">
               <div className="flex items-center gap-2 text-white/80 text-sm font-semibold mb-2">
                 <PiggyBank className="w-5 h-5" />
                 Projected SIP Value
@@ -298,9 +300,9 @@ export default function SIPCalculatorPage() {
                 </div>
               ) : null}
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
-    </InvestmentPageShell>
+    </CalculatorShell>
   );
 }

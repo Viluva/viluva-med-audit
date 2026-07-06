@@ -79,6 +79,26 @@ export const decisionTools: SiteLink[] = [
     href: "/buy-vs-invest",
     description: "The opportunity cost of buying vs compounding your money",
   },
+  {
+    name: "Income Tax Calculator",
+    href: "/income-tax-calculator",
+    description: "Compare the old and new tax regimes for FY 2025-26",
+  },
+  {
+    name: "Credit Card Payoff",
+    href: "/credit-card-payoff-calculator",
+    description: "See how long payoff takes and what the minimum due really costs",
+  },
+  {
+    name: "Loan Comparison",
+    href: "/loan-comparison-calculator",
+    description: "Compare two loan offers to see which actually costs less",
+  },
+  {
+    name: "Net Worth Calculator",
+    href: "/net-worth-calculator",
+    description: "Add up your assets and liabilities for a real net worth snapshot",
+  },
 ];
 
 export const investmentCalculatorHub: SiteLink = {

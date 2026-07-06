@@ -12,11 +12,15 @@ export const metadata: Metadata = {
     "financial independence",
     "viluva",
   ],
+  alternates: {
+    canonical: "https://www.viluva.app/time-converter",
+  },
   openGraph: {
     title: "True Cost Calculator | Viluva",
     description:
       "Find out the real time cost and opportunity cost of your purchases. Time = Money.",
     type: "website",
+    url: "https://www.viluva.app/time-converter",
   },
   twitter: {
     card: "summary_large_image",
